@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Transformer Ratio Calculator — ElectroCalc</title>
+<meta name="description" content="Free transformer turns ratio calculator. Enter any two of primary/secondary voltage or turns to find the rest instantly.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E14;--surface:#1A1F2B;--surface-hi:#212838;--ink:#E8E6DF;--ink-dim:#8B93A7;--accent:#FF6B35;--trace:#4ADE80;--line:#2A3140;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,var(--bg);background-attachment:fixed;color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  .xfmr-stage{display:flex;justify-content:center;align-items:center;gap:0;padding:20px 10px 44px;}
+  .coil{width:14px;height:80px;border-radius:7px;background:linear-gradient(90deg,#c8862a,#e8b04a,#c8862a);}
+  .core{width:20px;height:100px;background:linear-gradient(90deg,#3a4050,#5a6070,#3a4050);border-radius:2px;margin:0 4px;}
+  .ratio-label{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--trace);font-size:14px;margin:0 16px;text-align:center;}
+
+  .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:8px;}
+  @media(max-width:420px){.form-grid{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;}
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{content:"solved";position:absolute;right:12px;top:34px;font-size:10px;color:var(--trace);font-family:'IBM Plex Mono',monospace;pointer-events:none;}
+
+  .section-label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.08em;margin:20px 0 10px;}
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;margin-top:16px;}
+  .hint b{color:var(--ink);}
+  .reset-btn{display:block;margin:16px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;}
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+    <nav><a href="index.html">← All calculators</a></nav>
+  </header>
+
+  <span class="eyebrow">Transformer Tool · 009</span>
+  <h1>Primary in.<br>Secondary <em>out</em>.</h1>
+  <p class="sub">Enter any two known values across primary and secondary voltage and turns — the rest solve automatically using the turns ratio relationship.</p>
+
+  <div class="panel">
+    <div class="panel-title">Transformer Turns Ratio Calculator</div>
+
+    <div class="xfmr-stage">
+      <div class="coil"></div><div class="core"></div>
+      <div class="ratio-label" id="ratioLabel">1 : 1</div>
+      <div class="core"></div><div class="coil"></div>
+    </div>
+
+    <div class="section-label">Primary</div>
+    <div class="form-grid">
+      <div class="field" id="fieldVp">
+        <label>Voltage <span class="unit">V</span></label>
+        <input type="number" id="inVp" placeholder="—" oninput="onInput('Vp')">
+      </div>
+      <div class="field" id="fieldNp">
+        <label>Turns <span class="unit">N</span></label>
+        <input type="number" id="inNp" placeholder="—" oninput="onInput('Np')">
+      </div>
+    </div>
+
+    <div class="section-label">Secondary</div>
+    <div class="form-grid">
+      <div class="field" id="fieldVs">
+        <label>Voltage <span class="unit">V</span></label>
+        <input type="number" id="inVs" placeholder="—" oninput="onInput('Vs')">
+      </div>
+      <div class="field" id="fieldNs">
+        <label>Turns <span class="unit">N</span></label>
+        <input type="number" id="inNs" placeholder="—" oninput="onInput('Ns')">
+      </div>
+    </div>
+
+    <div class="hint" id="hintText">Enter <b>any two values</b> to solve the rest.</div>
+    <button class="reset-btn" onclick="resetAll()">Reset</button>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid">
+      <a class="tool-card" href="index.html"><div class="tname">Resistor Color Code</div><div class="ttag">Bands ↔ Ohms</div></a>
+      <a class="tool-card" href="ohms-law.html"><div class="tname">Ohm's Law Calculator</div><div class="ttag">V, I, R, P solver</div></a>
+      <a class="tool-card" href="wire-gauge.html"><div class="tname">Wire Gauge / Voltage Drop</div><div class="ttag">AWG sizing tool</div></a>
+      <a class="tool-card" href="capacitor.html"><div class="tname">Capacitor Code Reader</div><div class="ttag">3-digit decoder</div></a>
+      <a class="tool-card" href="power-converter.html"><div class="tname">Power Converter</div><div class="ttag">kW ↔ kVA ↔ HP</div></a>
+      <a class="tool-card" href="series-parallel.html"><div class="tname">Series / Parallel R</div><div class="ttag">Combine resistors</div></a>
+      <a class="tool-card" href="led-resistor.html"><div class="tname">LED Resistor Calculator</div><div class="ttag">Series resistor sizing</div></a>
+      <a class="tool-card" href="battery-life.html"><div class="tname">Battery Life Calculator</div><div class="ttag">Runtime estimator</div></a>
+      <a class="tool-card" href="frequency-wavelength.html"><div class="tname">Frequency / Wavelength</div><div class="ttag">RF converter</div></a>
+    </div>
+  </div>
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <span id="year"></span>
+  </footer>
+</div>
+
+<script>
+const inputs = { Vp: document.getElementById('inVp'), Np: document.getElementById('inNp'), Vs: document.getElementById('inVs'), Ns: document.getElementById('inNs') };
+const fields = { Vp: document.getElementById('fieldVp'), Np: document.getElementById('fieldNp'), Vs: document.getElementById('fieldVs'), Ns: document.getElementById('fieldNs') };
+
+let filledOrder = [];
+
+function onInput(key){
+  const val = inputs[key].value;
+  filledOrder = filledOrder.filter(k=>k!==key);
+  if(val !== '' && !isNaN(parseFloat(val))) filledOrder.push(key);
+  if(filledOrder.length > 2) filledOrder.shift();
+  solve();
+}
+
+function clearSolvedStyles(){
+  Object.values(fields).forEach(f=>f.classList.remove('solved'));
+  Object.values(inputs).forEach(i=>i.disabled=false);
+}
+
+function solve(){
+  clearSolvedStyles();
+  if(filledOrder.length < 2){
+    document.getElementById('hintText').innerHTML = 'Enter <b>any two values</b> to solve the rest.';
+    return;
+  }
+
+  const known = {};
+  filledOrder.forEach(k=> known[k] = parseFloat(inputs[k].value));
+  const has = k => filledOrder.includes(k);
+
+  let Vp=known.Vp, Np=known.Np, Vs=known.Vs, Ns=known.Ns;
+  let ratio = null; // Np/Ns = Vp/Vs
+
+  if(has('Vp') && has('Vs')) ratio = Vp/Vs;
+  else if(has('Np') && has('Ns')) ratio = Np/Ns;
+  else if(has('Vp') && has('Np')) ratio = null; // need a 3rd relation, can't solve fully with just these two alone
+  else if(has('Vp') && has('Ns')) ratio = null;
+  else if(has('Vs') && has('Np')) ratio = null;
+  else if(has('Vs') && has('Ns')) ratio = null;
+
+  // If we have ratio, fill missing pair members proportionally using whichever single value from the other pair is given
+  const solved = {Vp,Np,Vs,Ns};
+
+  if(ratio !== null){
+    if(!has('Vp') && has('Vs')) solved.Vp = Vs * ratio;
+    if(!has('Vs') && has('Vp')) solved.Vs = Vp / ratio;
+    if(!has('Np') && has('Ns')) solved.Np = Ns * ratio;
+    if(!has('Ns') && has('Np')) solved.Ns = Np / ratio;
+    // if neither pair member of the other side given, leave blank (need a 3rd input)
+  } else {
+    // We have one voltage/turns cross pair e.g. Vp & Np only -> can't determine Vs/Ns without ratio info
+    document.getElementById('hintText').innerHTML = 'Need a matching <b>voltage or turns pair</b> to determine ratio — try entering Vp+Vs or Np+Ns instead.';
+    Object.keys(solved).forEach(k=>{ if(!has(k)) inputs[k].value=''; });
+    updateVisual(solved.Vp, solved.Ns ? solved.Np/solved.Ns : null);
+    return;
+  }
+
+  Object.keys(solved).forEach(k=>{
+    if(!has(k) && isFinite(solved[k]) && solved[k] !== undefined){
+      inputs[k].value = Math.round(solved[k]*1000)/1000;
+      inputs[k].disabled = true;
+      fields[k].classList.add('solved');
+    }
+  });
+
+  document.getElementById('hintText').innerHTML = `Solved using turns ratio from <b>${filledOrder.map(k=>({Vp:'Primary V',Np:'Primary N',Vs:'Secondary V',Ns:'Secondary N'}[k])).join(' &amp; ')}</b>.`;
+  updateVisual(ratio);
+}
+
+function updateVisual(ratio){
+  if(ratio && isFinite(ratio)){
+    const r = ratio >= 1 ? `${ratio.toFixed(2)} : 1` : `1 : ${(1/ratio).toFixed(2)}`;
+    document.getElementById('ratioLabel').textContent = r;
+  } else {
+    document.getElementById('ratioLabel').textContent = '? : ?';
+  }
+}
+
+function resetAll(){
+  Object.values(inputs).forEach(i=>{i.value='';i.disabled=false;});
+  filledOrder = [];
+  clearSolvedStyles();
+  document.getElementById('hintText').innerHTML = 'Enter <b>any two values</b> to solve the rest.';
+  document.getElementById('ratioLabel').textContent = '1 : 1';
+}
+
+document.getElementById('year').textContent = '© ' + new Date().getFullYear();
+</script>
+</body>
+</html>
