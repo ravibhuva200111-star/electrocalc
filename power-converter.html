@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Converter — kW, kVA, HP — ElectroCalc</title>
+<meta name="description" content="Free power unit converter. Convert between kilowatts (kW), kilovolt-amps (kVA), and horsepower (HP) instantly.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E14;--surface:#1A1F2B;--surface-hi:#212838;--ink:#E8E6DF;--ink-dim:#8B93A7;--accent:#FF6B35;--trace:#4ADE80;--line:#2A3140;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,var(--bg);background-attachment:fixed;color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  .pf-row{display:flex;align-items:center;gap:16px;margin-bottom:24px;flex-wrap:wrap;}
+  .pf-row label{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;}
+  .pf-row input[type=range]{flex:1;min-width:140px;accent-color:var(--accent);}
+  .pf-val{font-family:'IBM Plex Mono',monospace;font-weight:700;color:var(--accent);min-width:40px;}
+
+  .conv-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px;}
+  @media(max-width:640px){.conv-grid{grid-template-columns:1fr;}}
+  .conv-card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:18px;}
+  .conv-card label{display:block;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:10px;}
+  .conv-card input[type=number]{
+    width:100%;padding:10px 12px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--trace);font-family:'IBM Plex Mono',monospace;font-size:18px;font-weight:700;
+  }
+  .conv-card input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  .conv-card .unit-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);margin-top:8px;}
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);margin-top:20px;line-height:1.7;}
+  .hint b{color:var(--ink);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+    <nav><a href="index.html">← All calculators</a></nav>
+  </header>
+
+  <span class="eyebrow">Power Tool · 005</span>
+  <h1>One unit in.<br>Every unit <em>converted</em>.</h1>
+  <p class="sub">Enter a value in any field — kilowatts, kVA, or horsepower — and the others update instantly. Adjust the power factor slider for kW ↔ kVA accuracy.</p>
+
+  <div class="panel">
+    <div class="panel-title">Power Converter</div>
+
+    <div class="pf-row">
+      <label>Power Factor</label>
+      <input type="range" id="pfSlider" min="0.5" max="1" step="0.01" value="0.9" oninput="onPFChange()">
+      <span class="pf-val" id="pfVal">0.90</span>
+    </div>
+
+    <div class="conv-grid">
+      <div class="conv-card">
+        <label>Kilowatts</label>
+        <input type="number" id="inKW" placeholder="0" value="10" oninput="onInput('kw')">
+        <div class="unit-tag">kW (real power)</div>
+      </div>
+      <div class="conv-card">
+        <label>Kilovolt-Amps</label>
+        <input type="number" id="inKVA" placeholder="0" oninput="onInput('kva')">
+        <div class="unit-tag">kVA (apparent power)</div>
+      </div>
+      <div class="conv-card">
+        <label>Horsepower</label>
+        <input type="number" id="inHP" placeholder="0" oninput="onInput('hp')">
+        <div class="unit-tag">HP (mechanical)</div>
+      </div>
+    </div>
+
+    <div class="hint">
+      <b>Formulas:</b> kVA = kW ÷ power factor · HP = kW × 1.341. Power factor defaults to 0.9, typical for motors — adjust it to match your equipment's nameplate rating for accurate kVA.
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid">
+      <a class="tool-card" href="index.html"><div class="tname">Resistor Color Code</div><div class="ttag">Bands ↔ Ohms</div></a>
+      <a class="tool-card" href="ohms-law.html"><div class="tname">Ohm's Law Calculator</div><div class="ttag">V, I, R, P solver</div></a>
+      <a class="tool-card" href="wire-gauge.html"><div class="tname">Wire Gauge / Voltage Drop</div><div class="ttag">AWG sizing tool</div></a>
+      <a class="tool-card" href="capacitor.html"><div class="tname">Capacitor Code Reader</div><div class="ttag">3-digit decoder</div></a>
+    </div>
+  </div>
+
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <span id="year"></span>
+  </footer>
+</div>
+
+<script>
+const HP_PER_KW = 1.341;
+let lastEdited = 'kw';
+
+function onPFChange(){
+  document.getElementById('pfVal').textContent = parseFloat(document.getElementById('pfSlider').value).toFixed(2);
+  recalc();
+}
+
+function onInput(src){
+  lastEdited = src;
+  recalc();
+}
+
+function recalc(){
+  const pf = parseFloat(document.getElementById('pfSlider').value);
+  const kwEl = document.getElementById('inKW');
+  const kvaEl = document.getElementById('inKVA');
+  const hpEl = document.getElementById('inHP');
+
+  let kw;
+  if(lastEdited === 'kw'){
+    kw = parseFloat(kwEl.value);
+    if(isNaN(kw)){ kvaEl.value=''; hpEl.value=''; return; }
+  } else if(lastEdited === 'kva'){
+    const kva = parseFloat(kvaEl.value);
+    if(isNaN(kva)){ kwEl.value=''; hpEl.value=''; return; }
+    kw = kva * pf;
+    kwEl.value = round(kw);
+  } else if(lastEdited === 'hp'){
+    const hp = parseFloat(hpEl.value);
+    if(isNaN(hp)){ kwEl.value=''; kvaEl.value=''; return; }
+    kw = hp / HP_PER_KW;
+    kwEl.value = round(kw);
+  }
+
+  if(lastEdited !== 'kva') kvaEl.value = round(kw / pf);
+  if(lastEdited !== 'hp') hpEl.value = round(kw * HP_PER_KW);
+}
+
+function round(v){
+  return Math.round(v*100)/100;
+}
+
+document.getElementById('year').textContent = '© ' + new Date().getFullYear();
+recalc();
+</script>
+</body>
+</html>

@@ -145,6 +145,10 @@
   .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
 
   @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
 </style>
 </head>
 <body>
@@ -236,7 +240,31 @@
     <div class="tool-grid">
       <a class="tool-card" href="ohms-law.html"><div class="tname">Ohm's Law Calculator</div><div class="ttag">V, I, R, P solver</div></a>
       <a class="tool-card" href="wire-gauge.html"><div class="tname">Wire Gauge / Voltage Drop</div><div class="ttag">AWG sizing tool</div></a>
-      <a class="tool-card soon" href="#"><div class="tname">Capacitor Code Reader</div><div class="ttag">Coming soon</div></a>
+      <a class="tool-card" href="capacitor.html"><div class="tname">Capacitor Code Reader</div><div class="ttag">3-digit decoder</div></a>
+      <a class="tool-card" href="power-converter.html"><div class="tname">Power Converter</div><div class="ttag">kW ↔ kVA ↔ HP</div></a>
+      <a class="tool-card" href="series-parallel.html"><div class="tname">Series / Parallel R</div><div class="ttag">Combine resistors</div></a>
+    </div>
+  </div>
+
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
     </div>
   </div>
 
