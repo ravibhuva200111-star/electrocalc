@@ -28,6 +28,8 @@
   .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
   .brand a{color:inherit;text-decoration:none;}
+  .rc-stage{padding:16px 0 36px;}
+  .rc-svg{width:100%;height:auto;display:block;}
   @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 <link rel="stylesheet" href="site.css">
@@ -53,6 +55,19 @@
     <div class="mode-toggle">
       <button class="mode-btn active" id="btnCharge" onclick="setMode('charge')">Charging</button>
       <button class="mode-btn" id="btnDischarge" onclick="setMode('discharge')">Discharging</button>
+    </div>
+
+    <div class="rc-stage">
+      <svg class="rc-svg" viewBox="0 0 400 160" xmlns="http://www.w3.org/2000/svg">
+        <line x1="30" y1="10" x2="30" y2="140" stroke="#2A3140" stroke-width="1"/>
+        <line x1="30" y1="140" x2="390" y2="140" stroke="#2A3140" stroke-width="1"/>
+        <line x1="30" y1="20" x2="390" y2="20" stroke="#2A3140" stroke-width="1" stroke-dasharray="2 4"/>
+        <text x="8" y="24" font-family="IBM Plex Mono, monospace" font-size="10" fill="#8B93A7">100%</text>
+        <text x="14" y="144" font-family="IBM Plex Mono, monospace" font-size="10" fill="#8B93A7">0%</text>
+        <path id="rcCurve" d="" fill="none" stroke="#4ADE80" stroke-width="2.5"/>
+        <line id="tauMarker" x1="0" y1="10" x2="0" y2="140" stroke="#FF6B35" stroke-width="1.5" stroke-dasharray="3 3" opacity="0"/>
+        <text id="tauMarkerLabel" x="0" y="155" font-family="IBM Plex Mono, monospace" font-size="10" fill="#FF6B35" text-anchor="middle" opacity="0">1τ</text>
+      </svg>
     </div>
 
     <div class="form-grid">
@@ -145,6 +160,34 @@ function setMode(m){
   calc();
 }
 
+function drawCurve(tau, mode){
+  // Plot over 5 tau, mapped to SVG width 30-390 (360px), height 20-140 (120px, inverted)
+  const points = [];
+  const steps = 60;
+  for(let i=0; i<=steps; i++){
+    const t = (i/steps) * 5; // in units of tau
+    let frac;
+    if(mode === 'charge'){
+      frac = 1 - Math.exp(-t);
+    } else {
+      frac = Math.exp(-t);
+    }
+    const x = 30 + (i/steps) * 360;
+    const y = 140 - frac * 120;
+    points.push(`${i===0?'M':'L'}${x.toFixed(1)},${y.toFixed(1)}`);
+  }
+  document.getElementById('rcCurve').setAttribute('d', points.join(' '));
+
+  // Mark 1 tau position (t=1 out of 5 total range = 1/5 of width)
+  const tauX = 30 + (1/5) * 360;
+  const marker = document.getElementById('tauMarker');
+  const markerLabel = document.getElementById('tauMarkerLabel');
+  marker.setAttribute('x1', tauX); marker.setAttribute('x2', tauX);
+  marker.setAttribute('opacity', 1);
+  markerLabel.setAttribute('x', tauX);
+  markerLabel.setAttribute('opacity', 1);
+}
+
 function calc(){
   const r = parseFloat(document.getElementById('inR').value);
   const c = parseFloat(document.getElementById('inC').value);
@@ -163,6 +206,8 @@ function calc(){
   document.getElementById('resTau').textContent = fmtTime(tau);
   document.getElementById('res1Tau').textContent = fmtTime(tau);
   document.getElementById('res5Tau').textContent = fmtTime(tau*5);
+
+  drawCurve(tau, mode);
 }
 
 

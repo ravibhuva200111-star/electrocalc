@@ -28,7 +28,6 @@
   .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
   .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
   .brand a{color:inherit;text-decoration:none;}
-  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
 </style>
 <link rel="stylesheet" href="site.css">
 <script src="nav.js" defer></script>
@@ -51,13 +50,29 @@
     <div class="panel-title">Voltage Divider Calculator</div>
 
     <div class="div-stage">
-      <div class="div-visual">
-        <div class="div-rail"></div>
-        <div class="div-r" id="r1Box">R1</div>
-        <div class="div-tap"></div>
-        <div class="div-r" id="r2Box">R2</div>
-        <div class="div-rail"></div>
-      </div>
+      <svg class="div-svg" viewBox="0 0 220 280" xmlns="http://www.w3.org/2000/svg">
+        <!-- top rail -->
+        <line x1="110" y1="10" x2="110" y2="40" stroke="#5a6070" stroke-width="2"/>
+        <text x="130" y="25" font-family="IBM Plex Mono, monospace" font-size="13" fill="#8B93A7">Vin</text>
+        <!-- R1 -->
+        <rect id="r1Rect" x="85" y="40" width="50" height="70" rx="6" fill="#3a4050" stroke="#5a6070" stroke-width="1.5"/>
+        <text x="110" y="80" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#E8E6DF">R1</text>
+        <text id="r1Label" x="150" y="80" font-family="IBM Plex Mono, monospace" font-size="11" fill="#8B93A7">—</text>
+        <!-- midpoint tap -->
+        <line x1="110" y1="110" x2="110" y2="140" stroke="#5a6070" stroke-width="2"/>
+        <circle cx="110" cy="140" r="5" fill="#4ADE80"/>
+        <line x1="115" y1="140" x2="180" y2="140" stroke="#4ADE80" stroke-width="2" stroke-dasharray="4 3"/>
+        <text id="voutLabel" class="div-readout" x="185" y="145">Vout: — V</text>
+        <!-- R2 -->
+        <rect id="r2Rect" x="85" y="140" width="50" height="70" rx="6" fill="#3a4050" stroke="#5a6070" stroke-width="1.5"/>
+        <text x="110" y="180" text-anchor="middle" font-family="IBM Plex Mono, monospace" font-size="12" fill="#E8E6DF">R2</text>
+        <text id="r2Label" x="150" y="180" font-family="IBM Plex Mono, monospace" font-size="11" fill="#8B93A7">—</text>
+        <!-- bottom rail / ground -->
+        <line x1="110" y1="210" x2="110" y2="240" stroke="#5a6070" stroke-width="2"/>
+        <line x1="90" y1="240" x2="130" y2="240" stroke="#5a6070" stroke-width="2"/>
+        <line x1="97" y1="248" x2="123" y2="248" stroke="#5a6070" stroke-width="2"/>
+        <line x1="104" y1="256" x2="116" y2="256" stroke="#5a6070" stroke-width="2"/>
+      </svg>
     </div>
 
     <div class="form-grid">
@@ -136,6 +151,7 @@ function calc(){
     document.getElementById('resVout').textContent = '— V';
     document.getElementById('resI').textContent = '— mA';
     document.getElementById('resP').textContent = '— mW';
+    document.getElementById('voutLabel').textContent = 'Vout: — V';
     return;
   }
 
@@ -147,8 +163,27 @@ function calc(){
   document.getElementById('resI').textContent = (current*1000).toFixed(3) + ' mA';
   document.getElementById('resP').textContent = (power*1000).toFixed(2) + ' mW';
 
-  document.getElementById('r1Box').textContent = 'R1: ' + r1 + 'Ω';
-  document.getElementById('r2Box').textContent = 'R2: ' + r2 + 'Ω';
+  // Animate SVG: resistor block heights scale with relative resistance, glow line brightens with vout
+  const total = r1 + r2;
+  const r1Height = Math.max(30, Math.min(110, (r1/total) * 140));
+  const r2Height = Math.max(30, Math.min(110, (r2/total) * 140));
+
+  const r1Rect = document.getElementById('r1Rect');
+  const r2Rect = document.getElementById('r2Rect');
+  r1Rect.setAttribute('height', r1Height);
+  r1Rect.setAttribute('y', 40);
+  r2Rect.setAttribute('height', r2Height);
+  r2Rect.setAttribute('y', 40 + r1Height + 30);
+
+  document.getElementById('r1Label').setAttribute('y', 40 + r1Height/2 + 4);
+  document.getElementById('r1Label').textContent = r1 >= 1000 ? (r1/1000)+'kΩ' : r1+'Ω';
+  document.getElementById('r2Label').setAttribute('y', 40 + r1Height + 30 + r2Height/2 + 4);
+  document.getElementById('r2Label').textContent = r2 >= 1000 ? (r2/1000)+'kΩ' : r2+'Ω';
+
+  document.getElementById('voutLabel').textContent = 'Vout: ' + vout.toFixed(2) + ' V';
+
+  const brightness = Math.min(1, vout / Math.max(vs,0.001));
+  document.querySelector('.div-readout').style.opacity = 0.5 + brightness*0.5;
 }
 
 
