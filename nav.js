@@ -3,32 +3,32 @@
 // Every page's nav menu updates automatically - no need to edit individual HTML files.
 
 const CALCULATORS = [
-  { category: "Basics", items: [
+  { category: "📐 Basics", items: [
     { href: "ohms-law.html", name: "Ohm's Law Calculator" },
     { href: "voltage-divider.html", name: "Voltage Divider" },
   ]},
-  { category: "Component Codes", items: [
+  { category: "🎨 Component Codes", items: [
     { href: "index.html", name: "Resistor Color Code" },
     { href: "capacitor.html", name: "Capacitor Code Reader" },
   ]},
-  { category: "Resistors & Power", items: [
+  { category: "🔋 Resistors & Power", items: [
     { href: "series-parallel.html", name: "Series / Parallel R" },
     { href: "led-resistor.html", name: "LED Resistor Calculator" },
     { href: "power-converter.html", name: "Power Converter" },
   ]},
-  { category: "Wiring & Safety", items: [
+  { category: "⚡ Wiring & Safety", items: [
     { href: "wire-gauge.html", name: "Wire Gauge / Voltage Drop" },
   ]},
-  { category: "AC / Reactive Circuits", items: [
+  { category: "🔁 AC / Reactive Circuits", items: [
     { href: "rc-time-constant.html", name: "RC Time Constant" },
   ]},
-  { category: "RF & Signal", items: [
+  { category: "📡 RF & Signal", items: [
     { href: "frequency-wavelength.html", name: "Frequency / Wavelength" },
   ]},
-  { category: "Transformers & Motors", items: [
+  { category: "🔌 Transformers & Motors", items: [
     { href: "transformer.html", name: "Transformer Ratio" },
   ]},
-  { category: "Batteries & Energy", items: [
+  { category: "🔋 Batteries & Energy", items: [
     { href: "battery-life.html", name: "Battery Life Calculator" },
   ]},
 ];
