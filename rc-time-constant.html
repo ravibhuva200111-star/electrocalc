@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RC Time Constant Calculator — ElectroCalc</title>
+<meta name="description" content="Free RC time constant calculator. Enter resistance and capacitance to find charge/discharge time instantly.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E14;--surface:#1A1F2B;--surface-hi:#212838;--ink:#E8E6DF;--ink-dim:#8B93A7;--accent:#FF6B35;--trace:#4ADE80;--line:#2A3140;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,var(--bg);background-attachment:fixed;color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+    <div class="nav-menu-wrap">
+      <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+      <div class="nav-dropdown" id="navDropdown"></div>
+    </div>
+  </header>
+
+  <span class="eyebrow">AC/Reactive Tool · 012</span>
+  <h1>R times C.<br>One <em>time constant</em>.</h1>
+  <p class="sub">Enter resistance and capacitance to find the RC time constant — how long it takes a capacitor to charge or discharge through a resistor.</p>
+
+  <div class="panel">
+    <div class="panel-title">RC Time Constant Calculator</div>
+
+    <div class="mode-toggle">
+      <button class="mode-btn active" id="btnCharge" onclick="setMode('charge')">Charging</button>
+      <button class="mode-btn" id="btnDischarge" onclick="setMode('discharge')">Discharging</button>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Resistance <span class="unit">Ω</span></label>
+        <input type="number" id="inR" placeholder="e.g. 10000" value="10000" oninput="calc()">
+      </div>
+      <div class="field">
+        <label>Capacitance</label>
+        <input type="number" id="inC" placeholder="e.g. 100" value="100" oninput="calc()">
+      </div>
+      <div class="field">
+        <label>Unit</label>
+        <select id="inCUnit" onchange="calc()">
+          <option value="0.000000000001">pF</option>
+          <option value="0.000000001">nF</option>
+          <option value="0.000001" selected>µF</option>
+          <option value="0.001">mF</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="result-row">
+        <span class="result-label">Time Constant (τ = RC)</span>
+        <span class="result-val" id="resTau">— </span>
+      </div>
+      <div class="result-row">
+        <span class="result-label" id="pctLabel">63.2% charged at</span>
+        <span class="result-val" id="res1Tau">—</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label" id="fullLabel">~99.3% (5τ, considered "full")</span>
+        <span class="result-val" id="res5Tau">—</span>
+      </div>
+    </div>
+
+    <div class="hint"><b>Formula:</b> τ = R × C, in seconds. After 1τ, a charging capacitor reaches ~63.2% of full voltage; after 5τ it's considered fully charged (~99.3%). Discharging follows the same timing, just in reverse — voltage drops to ~36.8% after 1τ.</div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="privacy-policy.html">Privacy Policy</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+
+<script>
+let mode = 'charge';
+
+function fmtTime(s){
+  if(s >= 1) return s.toFixed(4).replace(/\.?0+$/,'') + ' s';
+  if(s >= 0.001) return (s*1000).toFixed(4).replace(/\.?0+$/,'') + ' ms';
+  if(s >= 0.000001) return (s*1000000).toFixed(4).replace(/\.?0+$/,'') + ' µs';
+  return (s*1000000000).toFixed(4).replace(/\.?0+$/,'') + ' ns';
+}
+
+function setMode(m){
+  mode = m;
+  document.getElementById('btnCharge').classList.toggle('active', m==='charge');
+  document.getElementById('btnDischarge').classList.toggle('active', m==='discharge');
+  document.getElementById('pctLabel').textContent = m==='charge' ? '63.2% charged at' : '36.8% remaining at';
+  document.getElementById('fullLabel').textContent = m==='charge' ? '~99.3% charged (5τ)' : '~0.7% remaining (5τ)';
+  calc();
+}
+
+function calc(){
+  const r = parseFloat(document.getElementById('inR').value);
+  const c = parseFloat(document.getElementById('inC').value);
+  const cUnit = parseFloat(document.getElementById('inCUnit').value);
+
+  if(isNaN(r) || isNaN(c) || r<=0 || c<=0){
+    document.getElementById('resTau').textContent = '—';
+    document.getElementById('res1Tau').textContent = '—';
+    document.getElementById('res5Tau').textContent = '—';
+    return;
+  }
+
+  const capF = c * cUnit;
+  const tau = r * capF;
+
+  document.getElementById('resTau').textContent = fmtTime(tau);
+  document.getElementById('res1Tau').textContent = fmtTime(tau);
+  document.getElementById('res5Tau').textContent = fmtTime(tau*5);
+}
+
+
+calc();
+</script>
+</body>
+</html>

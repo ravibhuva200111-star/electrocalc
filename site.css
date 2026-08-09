@@ -1,0 +1,31 @@
+/* ElectroCalc shared site styles: nav menu, tool grid, footer */
+
+.nav-menu-wrap{position:relative;}
+.nav-menu-btn{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);background:transparent;border:1px solid var(--line);border-radius:8px;padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;}
+.nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+.nav-dropdown{display:none;position:absolute;top:calc(100% + 8px);right:0;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:8px;min-width:240px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);max-height:70vh;overflow-y:auto;}
+.nav-dropdown.open{display:block;}
+.nav-dropdown a{display:block;padding:8px 12px;border-radius:6px;color:var(--ink);text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;}
+.nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+.nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+.nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+.nav-dropdown .nav-category{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.06em;padding:10px 12px 4px;}
+
+.more-tools{margin-top:40px;}
+.more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+.tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+.tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+.tool-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.tool-card .tname{font-weight:600;font-size:14px;}
+.tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);margin-top:4px;}
+
+.comments-section{margin-top:40px;}
+.comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+.giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:14px;}
+.footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+.footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+.footer-links a:hover{color:var(--accent);}
+
+@media (prefers-reduced-motion:reduce){*{transition:none!important;}}

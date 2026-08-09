@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Voltage Divider Calculator — ElectroCalc</title>
+<meta name="description" content="Free voltage divider calculator. Enter R1, R2, and input voltage to find output voltage instantly.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0B0E14;--surface:#1A1F2B;--surface-hi:#212838;--ink:#E8E6DF;--ink-dim:#8B93A7;--accent:#FF6B35;--trace:#4ADE80;--line:#2A3140;}
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{background:linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,var(--bg);background-attachment:fixed;color:var(--ink);font-family:'Inter',system-ui,sans-serif;-webkit-font-smoothing:antialiased;min-height:100vh;}
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+    <div class="nav-menu-wrap">
+      <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+      <div class="nav-dropdown" id="navDropdown"></div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Basics Tool · 011</span>
+  <h1>Two resistors in.<br>One <em>output voltage</em>.</h1>
+  <p class="sub">Enter your input voltage and two resistor values to find the output voltage at the midpoint — the classic voltage divider circuit.</p>
+
+  <div class="panel">
+    <div class="panel-title">Voltage Divider Calculator</div>
+
+    <div class="div-stage">
+      <div class="div-visual">
+        <div class="div-rail"></div>
+        <div class="div-r" id="r1Box">R1</div>
+        <div class="div-tap"></div>
+        <div class="div-r" id="r2Box">R2</div>
+        <div class="div-rail"></div>
+      </div>
+    </div>
+
+    <div class="form-grid">
+      <div class="field">
+        <label>Input Voltage <span class="unit">V</span></label>
+        <input type="number" id="inVs" placeholder="e.g. 12" value="12" oninput="calc()">
+      </div>
+      <div class="field">
+        <label>R1 (top) <span class="unit">Ω</span></label>
+        <input type="number" id="inR1" placeholder="e.g. 1000" value="1000" oninput="calc()">
+      </div>
+      <div class="field">
+        <label>R2 (bottom) <span class="unit">Ω</span></label>
+        <input type="number" id="inR2" placeholder="e.g. 2000" value="2000" oninput="calc()">
+      </div>
+    </div>
+
+    <div class="result">
+      <div class="result-row">
+        <span class="result-label">Output Voltage (Vout)</span>
+        <span class="result-val" id="resVout">— V</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label">Current Through Divider</span>
+        <span class="result-val" id="resI">— mA</span>
+      </div>
+      <div class="result-row">
+        <span class="result-label">Power Dissipated</span>
+        <span class="result-val" id="resP">— mW</span>
+      </div>
+    </div>
+
+    <div class="hint"><b>Formula:</b> Vout = Vin × R2 / (R1 + R2). Keep in mind: a voltage divider under load will sag if the load draws significant current relative to the divider current — this calculator assumes no load (open circuit output).</div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="privacy-policy.html">Privacy Policy</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+
+<script>
+function calc(){
+  const vs = parseFloat(document.getElementById('inVs').value);
+  const r1 = parseFloat(document.getElementById('inR1').value);
+  const r2 = parseFloat(document.getElementById('inR2').value);
+
+  if(isNaN(vs) || isNaN(r1) || isNaN(r2) || (r1+r2)<=0){
+    document.getElementById('resVout').textContent = '— V';
+    document.getElementById('resI').textContent = '— mA';
+    document.getElementById('resP').textContent = '— mW';
+    return;
+  }
+
+  const vout = vs * r2 / (r1 + r2);
+  const current = vs / (r1 + r2);
+  const power = vs * current;
+
+  document.getElementById('resVout').textContent = vout.toFixed(3) + ' V';
+  document.getElementById('resI').textContent = (current*1000).toFixed(3) + ' mA';
+  document.getElementById('resP').textContent = (power*1000).toFixed(2) + ' mW';
+
+  document.getElementById('r1Box').textContent = 'R1: ' + r1 + 'Ω';
+  document.getElementById('r2Box').textContent = 'R2: ' + r2 + 'Ω';
+}
+
+
+calc();
+</script>
+</body>
+</html>

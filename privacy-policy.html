@@ -67,6 +67,8 @@
   .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
   .footer-links a:hover{color:var(--accent);}
 </style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
 </head>
 <body>
 <div class="wrap">
@@ -74,21 +76,7 @@
     <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
         <div class="nav-menu-wrap">
       <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
-      <div class="nav-dropdown" id="navDropdown">
-      <a href="index.html">Resistor Color Code</a>
-      <a href="ohms-law.html">Ohm's Law Calculator</a>
-      <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a>
-      <a href="capacitor.html">Capacitor Code Reader</a>
-      <a href="power-converter.html">Power Converter</a>
-      <a href="series-parallel.html">Series / Parallel R</a>
-      <a href="led-resistor.html">LED Resistor Calculator</a>
-      <a href="battery-life.html">Battery Life Calculator</a>
-      <a href="transformer.html">Transformer Ratio</a>
-      <a href="frequency-wavelength.html">Frequency / Wavelength</a>
-        <div class="nav-divider"></div>
-        <a href="about.html">About</a>
-        <a href="privacy-policy.html">Privacy Policy</a>
-      </div>
+      <div class="nav-dropdown" id="navDropdown"></div>
     </div>
   </header>
 
@@ -153,16 +141,7 @@
     <span id="year"></span>
   </footer>
 </div>
-<script>document.getElementById('year').textContent = '© ' + new Date().getFullYear();</script>
+<script></script>
 
-<script>
-document.addEventListener('click', function(e){
-  const wrap = document.querySelector('.nav-menu-wrap');
-  const dropdown = document.getElementById('navDropdown');
-  if(wrap && dropdown && !wrap.contains(e.target)){
-    dropdown.classList.remove('open');
-  }
-});
-</script>
 </body>
 </html>
