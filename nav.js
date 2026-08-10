@@ -51,6 +51,7 @@ function renderNav(){
 
   html += `<div class="nav-divider"></div>`;
   html += `<a href="about.html"${currentPage==='about.html'?' class="nav-current"':''}>About</a>`;
+  html += `<a href="contact.html"${currentPage==='contact.html'?' class="nav-current"':''}>Contact</a>`;
   html += `<a href="privacy-policy.html"${currentPage==='privacy-policy.html'?' class="nav-current"':''}>Privacy Policy</a>`;
 
   dropdown.innerHTML = html;
