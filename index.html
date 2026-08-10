@@ -184,6 +184,34 @@
   .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
   .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
   .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ol,.article ul{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .article table{width:100%;border-collapse:collapse;margin:14px 0 26px;font-size:13.5px;}
+  .article th,.article td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;}
+  .article th{font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;font-size:11px;letter-spacing:.05em;}
+  .article td{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .swatch-sm{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;vertical-align:middle;border:1px solid rgba(255,255,255,.15);}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+
+  /* All-calculators hub */
+  .hub{margin-top:52px;}
+  .hub > h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:20px;}
+  .hub-cat{margin-bottom:24px;}
+  .hub-cat-title{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);margin-bottom:10px;letter-spacing:.03em;}
+  .hub-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px;}
+  .hub-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px 18px;text-decoration:none;color:var(--ink);display:block;transition:.15s;}
+  .hub-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+  .hub-card .hname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .hub-card .hdesc{font-family:'Inter',sans-serif;font-size:12.5px;color:var(--ink-dim);line-height:1.5;}
 </style>
 <link rel="stylesheet" href="site.css">
 <script src="nav.js" defer></script>
@@ -275,11 +303,113 @@
     </div>
   </div>
 
-  <div class="more-tools">
-    <h2>More calculators</h2>
-    <div class="tool-grid" id="toolGrid"></div>
+  <div class="article">
+    <h2>What Is a Resistor Color Code?</h2>
+    <p>Resistors are too small to print numbers on reliably, so manufacturers use colored bands instead — readable from any angle, even on a component a few millimeters long. Each color stands for a digit, and read together the bands spell out the resistance value in ohms, plus how close to that value the part is guaranteed to be.</p>
+
+    <h3>Reading a 4-band resistor</h3>
+    <p>Most resistors in hobby kits and general electronics use four bands:</p>
+    <ol>
+      <li><strong>Band 1</strong> — first significant digit</li>
+      <li><strong>Band 2</strong> — second significant digit</li>
+      <li><strong>Band 3</strong> — multiplier (how many zeros to add)</li>
+      <li><strong>Band 4</strong> — tolerance (± percentage from the stated value)</li>
+    </ol>
+
+    <h3>Reading a 5-band or 6-band resistor</h3>
+    <p>Precision resistors add a third digit band before the multiplier, giving three significant digits instead of two — that's why 5- and 6-band resistors hold tighter tolerances than 4-band ones. When a 6th band is present, it indicates the temperature coefficient: how much the resistance drifts per degree of temperature change, important in precision analog circuits.</p>
+
+    <h3>Color code reference</h3>
+    <table>
+      <thead><tr><th>Color</th><th>Digit</th><th>Multiplier</th><th>Tolerance</th></tr></thead>
+      <tbody id="colorRefTable"></tbody>
+    </table>
+
+    <h3>Common resistor values</h3>
+    <p>Resistors aren't manufactured at every possible number — they follow standard series like E12 (12 values per decade) so that a manageable set of parts can cover any circuit need. The base E12 values are:</p>
+    <p style="font-family:'IBM Plex Mono',monospace;color:var(--ink);font-size:13.5px;">10 · 12 · 15 · 18 · 22 · 27 · 33 · 39 · 47 · 56 · 68 · 82</p>
+    <p>Multiply any of these by 1, 10, 100, 1k, 10k, and so on to get the full range — 220Ω, 4.7kΩ, and 100kΩ are all E12 values.</p>
+
+    <h3>Frequently asked questions</h3>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">What does a gold or silver band mean?</div>
+        <p class="faq-a">Gold and silver almost always appear as the tolerance band, marking ±5% and ±10% respectively. Gold can also serve as a ×0.1 multiplier on some resistors.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Which side do I start reading from?</div>
+        <p class="faq-a">Start from the side furthest from the tolerance band. The tolerance band (usually gold or silver, sometimes brown or red on precision parts) is always last and is often spaced slightly apart from the others.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why do some resistors have no color bands at all?</div>
+        <p class="faq-a">Surface-mount (SMD) resistors use printed numeric codes instead, because they're too small for color bands to be printed or read reliably.</p>
+      </div>
+    </div>
   </div>
 
+  <div class="hub">
+    <h2>All ElectroCalc Tools</h2>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">📐 Basics</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="ohms-law.html"><div class="hname">Ohm's Law Calculator</div><div class="hdesc">Solve voltage, current, resistance or power from any two known values.</div></a>
+        <a class="hub-card" href="voltage-divider.html"><div class="hname">Voltage Divider</div><div class="hdesc">Calculate output voltage across two resistors in series.</div></a>
+      </div>
+    </div>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">🎨 Component Codes</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="capacitor.html"><div class="hname">Capacitor Code Reader</div><div class="hdesc">Convert 3-digit capacitor codes into pF, nF, or µF.</div></a>
+      </div>
+    </div>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">🔋 Resistors &amp; Power</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="series-parallel.html"><div class="hname">Series / Parallel R</div><div class="hdesc">Combine resistor values in series or parallel instantly.</div></a>
+        <a class="hub-card" href="circuit-solver.html"><div class="hname">Resistor Network Solver</div><div class="hdesc">Solve total resistance for complex resistor networks.</div></a>
+        <a class="hub-card" href="led-resistor.html"><div class="hname">LED Resistor Calculator</div><div class="hdesc">Find the right series resistor for any LED and supply voltage.</div></a>
+        <a class="hub-card" href="power-converter.html"><div class="hname">Power Converter</div><div class="hdesc">Convert between kW, kVA, and horsepower.</div></a>
+      </div>
+    </div>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">⚡ Wiring &amp; Safety</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="wire-gauge.html"><div class="hname">Wire Gauge / Voltage Drop</div><div class="hdesc">Size AWG wire and calculate voltage drop over distance.</div></a>
+      </div>
+    </div>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">🔁 AC / Reactive Circuits</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="rc-time-constant.html"><div class="hname">RC Time Constant</div><div class="hdesc">Calculate charge/discharge time constant for RC circuits.</div></a>
+      </div>
+    </div>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">📡 RF &amp; Signal</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="frequency-wavelength.html"><div class="hname">Frequency / Wavelength</div><div class="hdesc">Convert between frequency and wavelength for RF work.</div></a>
+      </div>
+    </div>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">🔌 Transformers &amp; Motors</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="transformer.html"><div class="hname">Transformer Ratio</div><div class="hdesc">Calculate turns ratio and primary/secondary voltage or current.</div></a>
+      </div>
+    </div>
+
+    <div class="hub-cat">
+      <div class="hub-cat-title">🔋 Batteries &amp; Energy</div>
+      <div class="hub-grid">
+        <a class="hub-card" href="battery-life.html"><div class="hname">Battery Life Calculator</div><div class="hdesc">Estimate runtime from battery capacity and load current.</div></a>
+      </div>
+    </div>
+  </div>
 
   <div class="comments-section">
     <h2>Discussion</h2>
@@ -324,6 +454,18 @@ const COLORS = [
   {name:"Gold",   hex:"#D4AF37", digit:null, mult:0.1,      tol:5},
   {name:"Silver", hex:"#c7c9cc", digit:null, mult:0.01,     tol:10},
 ];
+function fillColorRefTable(){
+  const tbody = document.getElementById('colorRefTable');
+  if(!tbody) return;
+  tbody.innerHTML = COLORS.map(c => `<tr>
+    <td><span class="swatch-sm" style="background:${c.hex}"></span>${c.name}</td>
+    <td>${c.digit===null?'—':c.digit}</td>
+    <td>×${c.mult}</td>
+    <td>${c.tol===null?'—':'±'+c.tol+'%'}</td>
+  </tr>`).join('');
+}
+fillColorRefTable();
+
 const digitColors = COLORS.filter(c=>c.digit!==null);
 const multColors  = COLORS; // all can be multiplier
 const tolColors   = COLORS.filter(c=>c.tol!==null);
