@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://electrocalc.in/</loc><priority>1.0</priority></url>
-  <url><loc>https://electrocalc.in/ohms-law.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/wire-gauge.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/capacitor.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/power-converter.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/series-parallel.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/led-resistor.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/battery-life.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/transformer.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/frequency-wavelength.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/circuit-solver.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/rc-time-constant.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/voltage-divider.html</loc><priority>0.8</priority></url>
-  <url><loc>https://electrocalc.in/about.html</loc><priority>0.6</priority></url>
-  <url><loc>https://electrocalc.in/contact.html</loc><priority>0.5</priority></url>
-  <url><loc>https://electrocalc.in/privacy-policy.html</loc><priority>0.5</priority></url>
+  <url><loc>https://www.electrocalc.in/about.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/battery-life.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/capacitor.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/circuit-solver.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/contact.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/frequency-wavelength.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/</loc><priority>1.0</priority></url>
+  <url><loc>https://www.electrocalc.in/led-resistor.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/ohms-law.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/power-converter.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/privacy-policy.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/rc-time-constant.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/series-parallel.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/transformer.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/voltage-divider.html</loc><priority>0.8</priority></url>
+  <url><loc>https://www.electrocalc.in/wire-gauge.html</loc><priority>0.8</priority></url>
 </urlset>
