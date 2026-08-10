@@ -1,0 +1,10 @@
+ElectroCalc AdSense/SEO readiness updates
+
+1. Fixed robots.txt sitemap URL to https://electrocalc.in/sitemap.xml
+2. Rebuilt sitemap using https://electrocalc.in URLs for all public HTML pages.
+3. Added canonical URLs to all HTML pages.
+4. Added explanatory formula/example/usage/FAQ content to RC Time Constant, Voltage Divider, Series & Parallel, and Transformer pages.
+5. Added styling for the new informational sections.
+
+After deployment: verify https://electrocalc.in/robots.txt and https://electrocalc.in/sitemap.xml, then submit the sitemap in Google Search Console if needed.
+Do not remove/re-add the site in AdSense just because it remains in 'Getting ready'.

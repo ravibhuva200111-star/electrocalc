@@ -66,3 +66,7 @@ footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-fa
 .footer-links a:hover{color:var(--accent);}
 
 @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+
+.info-section{max-width:900px;margin:28px auto;padding:22px 24px;line-height:1.7;border-radius:14px;background:rgba(127,127,127,.06)}
+.info-section h2{margin-top:0}.info-section h3{margin-bottom:6px}.info-section p{margin:8px 0 14px}.info-section li{margin:6px 0}
