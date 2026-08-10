@@ -13,6 +13,7 @@ const CALCULATORS = [
   ]},
   { category: "🔋 Resistors & Power", items: [
     { href: "series-parallel.html", name: "Series / Parallel R" },
+    { href: "circuit-solver.html", name: "Resistor Network Solver" },
     { href: "led-resistor.html", name: "LED Resistor Calculator" },
     { href: "power-converter.html", name: "Power Converter" },
   ]},

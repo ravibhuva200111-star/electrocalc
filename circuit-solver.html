@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resistor Network Solver — ElectroCalc</title>
+<meta name="description" content="Free resistor network solver. Handles any topology — series, parallel, bridges, ladders — with multiple voltage sources. Get exact node voltages, currents, and per-resistor results.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+    --bad:#e05d5d;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  /* --- Circuit-solver-specific styles (namespaced so site.css rules win where they overlap) --- */
+  .panel-title-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px;}
+  .panel-title-row .count{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);}
+
+  table.cs-rows{width:100%;border-collapse:collapse;}
+  table.cs-rows th{text-align:left;font-size:10.5px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;text-transform:uppercase;letter-spacing:.06em;padding:4px 6px;}
+  table.cs-rows td{padding:5px 6px;vertical-align:middle;}
+  table.cs-rows input[type=text], table.cs-rows input[type=number]{
+    background:var(--surface-hi);border:1px solid var(--line);border-radius:6px;color:var(--ink);
+    padding:7px 9px;font-family:'IBM Plex Mono',monospace;font-size:13.5px;width:100%;
+  }
+  table.cs-rows input[type=text]{text-align:center;text-transform:uppercase;}
+  table.cs-rows input:focus{outline:2px solid var(--accent);outline-offset:1px;}
+
+  .cs-del-btn{background:transparent;border:none;color:var(--ink-dim);cursor:pointer;font-size:15px;line-height:1;padding:4px;}
+  .cs-del-btn:hover{color:var(--bad);}
+
+  .cs-add-row{width:100%;background:transparent;border:1px dashed var(--line);color:var(--ink-dim);
+    padding:9px;font-size:13px;border-radius:7px;cursor:pointer;margin-top:8px;font-family:'Inter',sans-serif;}
+  .cs-add-row:hover{border-color:var(--accent);color:var(--accent);}
+
+  .cs-note{font-family:'IBM Plex Mono',monospace;font-size:11.5px;color:var(--ink-dim);margin-top:10px;line-height:1.6;}
+
+  #svgPreview{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:10px;}
+  .node-label{fill:var(--ink);font:11px 'IBM Plex Mono',monospace;}
+  .res-label{fill:var(--accent);font:11px 'IBM Plex Mono',monospace;}
+  .wire{stroke:#4a5a6e;stroke-width:2;}
+  .node-dot{fill:var(--ink);}
+
+  .cs-solve-btn{
+    background:var(--accent);color:#0B0E14;border:none;padding:12px 16px;font-size:14px;font-weight:700;
+    width:100%;border-radius:8px;cursor:pointer;margin-top:6px;font-family:'Inter',sans-serif;
+  }
+  .cs-solve-btn:hover{filter:brightness(1.08);}
+
+  .cs-result-panel{background:linear-gradient(155deg, var(--surface) 0%, #142a1e 100%);border:1px solid #2f4a3a;}
+  .cs-result-big{font-family:'IBM Plex Mono',monospace;font-size:clamp(28px,6vw,38px);font-weight:700;color:var(--trace);letter-spacing:-0.01em;}
+  .cs-result-note{color:var(--ink-dim);font-size:13px;margin-top:4px;font-family:'IBM Plex Mono',monospace;}
+  .cs-err{color:var(--bad);font-size:13px;margin-top:10px;display:none;font-family:'IBM Plex Mono',monospace;}
+  .cs-err.show{display:block;}
+
+  table.cs-results{width:100%;border-collapse:collapse;margin-top:16px;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  table.cs-results th{text-align:left;color:var(--ink-dim);font-size:10.5px;text-transform:uppercase;letter-spacing:.06em;padding:8px;border-bottom:1px solid var(--line);}
+  table.cs-results td{padding:8px;border-bottom:1px solid var(--line);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+    <div class="nav-menu-wrap">
+      <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+      <div class="nav-dropdown" id="navDropdown"></div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Circuit Analysis Tool · 011</span>
+  <h1>Any topology.<br>Exact <em>solve</em>.</h1>
+  <p class="sub">Series, parallel, bridges, ladders, meshes — define nodes and resistors, add one or more voltage sources, and get exact node voltages and per-resistor current from real nodal analysis.</p>
+
+  <div class="panel">
+    <div class="panel-title-row">
+      <span class="panel-title" style="margin-bottom:0;">Voltage Sources</span>
+      <span class="count" id="srcCount"></span>
+    </div>
+    <table class="cs-rows">
+      <thead><tr><th>+ Node</th><th>− Node</th><th>Volts</th><th></th></tr></thead>
+      <tbody id="srcBody"></tbody>
+    </table>
+    <button class="cs-add-row" id="addSrcBtn">+ Add voltage source</button>
+    <div class="cs-note">Node "0" is treated as the common ground reference. Use it as the negative terminal for every source unless you specifically need a floating source.</div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title-row">
+      <span class="panel-title" style="margin-bottom:0;">Resistors</span>
+      <span class="count" id="resCount"></span>
+    </div>
+    <table class="cs-rows">
+      <thead><tr><th>From</th><th>To</th><th>Ohms</th><th></th></tr></thead>
+      <tbody id="resBody"></tbody>
+    </table>
+    <button class="cs-add-row" id="addResBtn">+ Add resistor</button>
+  </div>
+
+  <div class="panel">
+    <div class="panel-title">Preview</div>
+    <svg id="svgPreview" viewBox="0 0 860 260"></svg>
+  </div>
+
+  <button class="cs-solve-btn" id="solveBtn">Solve circuit</button>
+
+  <div class="panel cs-result-panel" id="resultPanel" style="margin-top:16px; display:none;">
+    <div class="panel-title">Result</div>
+    <div class="cs-result-big" id="totalR">—</div>
+    <div class="cs-result-note" id="totalNote"></div>
+    <div class="cs-err" id="errMsg"></div>
+    <table class="cs-results" id="sourceResultsTable" style="display:none;">
+      <thead><tr><th>Source</th><th>Volts</th><th>Current drawn</th></tr></thead>
+      <tbody id="sourceResultsBody"></tbody>
+    </table>
+    <table class="cs-results" id="resultsTable" style="display:none;">
+      <thead><tr><th>Resistor</th><th>Ohms</th><th>Voltage</th><th>Current</th></tr></thead>
+      <tbody id="resultsBody"></tbody>
+    </table>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="privacy-policy.html">Privacy Policy</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+
+<script>
+(function () {
+  const resBody = document.getElementById('resBody');
+  const addResBtn = document.getElementById('addResBtn');
+  const resCount = document.getElementById('resCount');
+  const solveBtn = document.getElementById('solveBtn');
+  const svgPreview = document.getElementById('svgPreview');
+  const resultPanel = document.getElementById('resultPanel');
+  const totalR = document.getElementById('totalR');
+  const totalNote = document.getElementById('totalNote');
+  const errMsg = document.getElementById('errMsg');
+  const resultsTable = document.getElementById('resultsTable');
+  const resultsBody = document.getElementById('resultsBody');
+
+  // Default example: Wheatstone-style bridge so users see something non-trivial immediately
+  let resistors = [
+    { id: 1, from: 'A', to: 'B', ohms: 100 },
+    { id: 2, from: 'A', to: 'C', ohms: 100 },
+    { id: 3, from: 'B', to: '0', ohms: 100 },
+    { id: 4, from: 'C', to: '0', ohms: 100 },
+    { id: 5, from: 'B', to: 'C', ohms: 100 },
+  ];
+  let nextId = 6;
+
+  function renderRows() {
+    resBody.innerHTML = '';
+    resistors.forEach((r, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" data-id="${r.id}" data-field="from" value="${r.from}" maxlength="4"></td>
+        <td><input type="text" data-id="${r.id}" data-field="to" value="${r.to}" maxlength="4"></td>
+        <td><input type="number" data-id="${r.id}" data-field="ohms" value="${r.ohms}" step="0.1"></td>
+        <td><button class="cs-del-btn" data-remove="${r.id}" aria-label="Remove resistor ${idx+1}">✕</button></td>
+      `;
+      resBody.appendChild(tr);
+    });
+    resCount.textContent = resistors.length + (resistors.length === 1 ? ' resistor' : ' resistors');
+
+    resBody.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('input', (e) => {
+        const id = Number(e.target.dataset.id);
+        const field = e.target.dataset.field;
+        const r = resistors.find(r => r.id === id);
+        if (!r) return;
+        r[field] = field === 'ohms' ? e.target.value : e.target.value.toUpperCase();
+        drawPreview();
+      });
+    });
+    resBody.querySelectorAll('[data-remove]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        resistors = resistors.filter(r => r.id !== Number(btn.dataset.remove));
+        renderRows();
+        drawPreview();
+      });
+    });
+  }
+
+  addResBtn.addEventListener('click', () => {
+    resistors.push({ id: nextId++, from: '', to: '', ohms: 100 });
+    renderRows();
+    drawPreview();
+  });
+
+  // ---- Voltage sources (list, like resistors) ----
+  const srcBody = document.getElementById('srcBody');
+  const addSrcBtn = document.getElementById('addSrcBtn');
+  const srcCount = document.getElementById('srcCount');
+  let sources = [
+    { id: 1, pos: 'A', neg: '0', volts: 10 }
+  ];
+  let nextSrcId = 2;
+
+  function renderSources() {
+    srcBody.innerHTML = '';
+    sources.forEach((s, idx) => {
+      const tr = document.createElement('tr');
+      tr.innerHTML = `
+        <td><input type="text" data-sid="${s.id}" data-field="pos" value="${s.pos}" maxlength="4"></td>
+        <td><input type="text" data-sid="${s.id}" data-field="neg" value="${s.neg}" maxlength="4"></td>
+        <td><input type="number" data-sid="${s.id}" data-field="volts" value="${s.volts}" step="0.1"></td>
+        <td>${sources.length > 1 ? `<button class="cs-del-btn" data-removesrc="${s.id}" aria-label="Remove source ${idx+1}">✕</button>` : ''}</td>
+      `;
+      srcBody.appendChild(tr);
+    });
+    srcCount.textContent = sources.length + (sources.length === 1 ? ' source' : ' sources');
+
+    srcBody.querySelectorAll('input').forEach(inp => {
+      inp.addEventListener('input', (e) => {
+        const id = Number(e.target.dataset.sid);
+        const field = e.target.dataset.field;
+        const s = sources.find(s => s.id === id);
+        if (!s) return;
+        s[field] = field === 'volts' ? e.target.value : e.target.value.toUpperCase();
+        drawPreview();
+      });
+    });
+    srcBody.querySelectorAll('[data-removesrc]').forEach(btn => {
+      btn.addEventListener('click', () => {
+        sources = sources.filter(s => s.id !== Number(btn.dataset.removesrc));
+        renderSources();
+        drawPreview();
+      });
+    });
+  }
+
+  addSrcBtn.addEventListener('click', () => {
+    sources.push({ id: nextSrcId++, pos: '', neg: '0', volts: 5 });
+    renderSources();
+    drawPreview();
+  });
+
+  // ---- Preview: simple circular layout ----
+  function drawPreview() {
+    const nodeSet = new Set();
+    resistors.forEach(r => {
+      if (r.from) nodeSet.add(r.from);
+      if (r.to) nodeSet.add(r.to);
+    });
+    const nodes = Array.from(nodeSet);
+    const cx = 430, cy = 130, radius = Math.min(200, 60 + nodes.length * 12);
+    const pos = {};
+    nodes.forEach((n, i) => {
+      const angle = (2 * Math.PI * i) / Math.max(nodes.length, 1) - Math.PI / 2;
+      pos[n] = { x: cx + radius * Math.cos(angle), y: cy + radius * Math.sin(angle) };
+    });
+
+    const srcTerminals = new Set();
+    sources.forEach(s => {
+      if (s.pos) srcTerminals.add(s.pos);
+      if (s.neg) srcTerminals.add(s.neg);
+      if (pos[s.pos]) nodeSet.add(s.pos);
+      if (pos[s.neg]) nodeSet.add(s.neg);
+    });
+
+    let svg = '';
+    resistors.forEach(r => {
+      if (!r.from || !r.to || !pos[r.from] || !pos[r.to]) return;
+      const p1 = pos[r.from], p2 = pos[r.to];
+      const mx = (p1.x + p2.x) / 2, my = (p1.y + p2.y) / 2;
+      svg += `<line class="wire" x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" />`;
+      svg += `<text class="res-label" x="${mx}" y="${my - 6}" text-anchor="middle">${r.ohms || 0}Ω</text>`;
+    });
+    nodes.forEach(n => {
+      const p = pos[n];
+      if (!p) return;
+      const isSrc = srcTerminals.has(n);
+      svg += `<circle class="node-dot" cx="${p.x}" cy="${p.y}" r="${isSrc ? 7 : 5}" ${isSrc ? 'stroke="#4ADE80" stroke-width="2" fill="#0B0E14"' : ''}/>`;
+      svg += `<text class="node-label" x="${p.x}" y="${p.y - 12}" text-anchor="middle">${n}</text>`;
+    });
+    svgPreview.innerHTML = svg;
+  }
+
+  // ---- MNA Solver (supports any number of independent voltage sources) ----
+  // Unknowns = [V_node1, V_node2, ..., I_source1, I_source2, ...]
+  // Node "0" (or "GND") is treated as ground (0V reference), excluded from unknowns.
+  function solveCircuit() {
+    const validResistors = resistors.filter(r => r.from && r.to && Number(r.ohms) > 0);
+    if (validResistors.length === 0) throw new Error('Add at least one resistor with a valid ohm value.');
+
+    const validSources = sources
+      .map(s => ({ ...s, pos: (s.pos || '').trim(), neg: (s.neg || '').trim() || '0', volts: Number(s.volts) }))
+      .filter(s => s.pos && isFinite(s.volts));
+    if (validSources.length === 0) throw new Error('Add at least one voltage source with a positive node.');
+
+    const nodeSet = new Set();
+    validResistors.forEach(r => { nodeSet.add(r.from); nodeSet.add(r.to); });
+    validSources.forEach(s => { nodeSet.add(s.pos); nodeSet.add(s.neg); });
+
+    const groundNode = nodeSet.has('0') ? '0' : (nodeSet.has('GND') ? 'GND' : validSources[0].neg);
+    const otherNodes = Array.from(nodeSet).filter(n => n !== groundNode);
+    const index = {};
+    otherNodes.forEach((n, i) => index[n] = i);
+
+    const n = otherNodes.length;
+    const m = validSources.length;
+    const size = n + m; // one extra unknown current per source
+    const A = Array.from({ length: size }, () => new Array(size).fill(0));
+    const b = new Array(size).fill(0);
+
+    function stampG(n1, n2, g) {
+      const i = n1 === groundNode ? null : index[n1];
+      const j = n2 === groundNode ? null : index[n2];
+      if (i !== null) { A[i][i] += g; if (j !== null) A[i][j] -= g; }
+      if (j !== null) { A[j][j] += g; if (i !== null) A[j][i] -= g; }
+    }
+    validResistors.forEach(r => stampG(r.from, r.to, 1 / Number(r.ohms)));
+
+    validSources.forEach((s, k) => {
+      if (s.pos === s.neg) throw new Error(`Source ${k+1}: positive and negative nodes can't be the same.`);
+      const row = n + k;
+      const pi = s.pos === groundNode ? null : index[s.pos];
+      const ni = s.neg === groundNode ? null : index[s.neg];
+      if (pi !== null) { A[pi][row] += 1; A[row][pi] += 1; }
+      if (ni !== null) { A[ni][row] -= 1; A[row][ni] -= 1; }
+      b[row] = s.volts;
+    });
+
+    const x = gaussianSolve(A, b);
+
+    const nodeVoltage = {};
+    nodeVoltage[groundNode] = 0;
+    otherNodes.forEach((node, i) => nodeVoltage[node] = x[i]);
+    const sourceCurrents = validSources.map((s, k) => x[n + k]);
+
+    const perResistor = validResistors.map(r => {
+      const v = nodeVoltage[r.from] - nodeVoltage[r.to];
+      const i = v / Number(r.ohms);
+      return { ...r, voltage: v, current: i };
+    });
+
+    const sourceResults = validSources.map((s, k) => ({
+      ...s,
+      current: sourceCurrents[k],
+      effectiveR: Math.abs(s.volts / sourceCurrents[k])
+    }));
+
+    return { perResistor, nodeVoltage, sourceResults, singleSource: m === 1 };
+  }
+
+  // Gaussian elimination with partial pivoting
+  function gaussianSolve(A, b) {
+    const n = b.length;
+    const M = A.map((row, i) => [...row, b[i]]);
+    for (let col = 0; col < n; col++) {
+      let pivot = col;
+      for (let r = col + 1; r < n; r++) {
+        if (Math.abs(M[r][col]) > Math.abs(M[pivot][col])) pivot = r;
+      }
+      if (Math.abs(M[pivot][col]) < 1e-12) throw new Error('Circuit is not solvable — check for disconnected nodes or a short across the source.');
+      [M[col], M[pivot]] = [M[pivot], M[col]];
+      for (let r = 0; r < n; r++) {
+        if (r === col) continue;
+        const factor = M[r][col] / M[col][col];
+        for (let c = col; c <= n; c++) M[r][c] -= factor * M[col][c];
+      }
+    }
+    return M.map((row, i) => row[n] / row[i]);
+  }
+
+  function fmt(v, digits) {
+    if (!isFinite(v)) return '—';
+    return (Math.round(v * Math.pow(10, digits)) / Math.pow(10, digits)).toString();
+  }
+
+  const sourceResultsTable = document.getElementById('sourceResultsTable');
+  const sourceResultsBody = document.getElementById('sourceResultsBody');
+
+  solveBtn.addEventListener('click', () => {
+    errMsg.classList.remove('show');
+    resultsTable.style.display = 'none';
+    sourceResultsTable.style.display = 'none';
+    resultPanel.style.display = 'block';
+    try {
+      const { perResistor, sourceResults, singleSource } = solveCircuit();
+
+      if (singleSource) {
+        totalR.textContent = fmt(sourceResults[0].effectiveR, 3) + 'Ω';
+        totalNote.textContent = 'Equivalent resistance seen by the source';
+      } else {
+        totalR.textContent = sourceResults.length + ' sources';
+        totalNote.textContent = 'Equivalent resistance is per-source below — see the source table';
+      }
+
+      sourceResultsBody.innerHTML = sourceResults.map(s => `
+        <tr>
+          <td>${s.pos}–${s.neg}</td>
+          <td>${fmt(s.volts, 3)}V</td>
+          <td>${fmt(s.current * 1000, 3)}mA</td>
+        </tr>
+      `).join('');
+      sourceResultsTable.style.display = 'table';
+
+      resultsBody.innerHTML = perResistor.map((r) => `
+        <tr>
+          <td>${r.from}–${r.to}</td>
+          <td>${fmt(Number(r.ohms), 2)}Ω</td>
+          <td>${fmt(r.voltage, 3)}V</td>
+          <td>${fmt(r.current * 1000, 3)}mA</td>
+        </tr>
+      `).join('');
+      resultsTable.style.display = 'table';
+    } catch (e) {
+      totalR.textContent = '—';
+      totalR.style.color = 'var(--bad)';
+      totalNote.textContent = '';
+      errMsg.textContent = e.message;
+      errMsg.classList.add('show');
+    }
+  });
+
+  renderRows();
+  renderSources();
+  drawPreview();
+})();
+</script>
+
+</body>
+</html>
