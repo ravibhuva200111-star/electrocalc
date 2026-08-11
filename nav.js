@@ -8,7 +8,7 @@ const CALCULATORS = [
     { href: "voltage-divider.html", name: "Voltage Divider" },
   ]},
   { category: "🎨 Component Codes", items: [
-    { href: "index.html", name: "Resistor Color Code" },
+    { href: "resistor-color-code.html", name: "Resistor Color Code" },
     { href: "capacitor.html", name: "Capacitor Code Reader" },
   ]},
   { category: "🔋 Resistors & Power", items: [
@@ -76,6 +76,7 @@ function renderToolGrid(){
 document.addEventListener('DOMContentLoaded', function(){
   renderNav();
   renderToolGrid();
+  initTheme();
 
   document.addEventListener('click', function(e){
     const wrap = document.querySelector('.nav-menu-wrap');
@@ -88,3 +89,27 @@ document.addEventListener('DOMContentLoaded', function(){
   const yearEl = document.getElementById('year');
   if(yearEl) yearEl.textContent = '© ' + new Date().getFullYear();
 });
+
+function initTheme(){
+  const btn = document.getElementById('themeToggleBtn');
+  if(!btn) return;
+
+  const saved = localStorage.getItem('electrocalc-theme');
+  const systemPrefersLight = window.matchMedia && window.matchMedia('(prefers-color-scheme: light)').matches;
+  const initial = saved || (systemPrefersLight ? 'light' : 'dark');
+
+  applyTheme(initial);
+
+  btn.addEventListener('click', function(){
+    const current = document.documentElement.getAttribute('data-theme') || 'dark';
+    const next = current === 'light' ? 'dark' : 'light';
+    applyTheme(next);
+    localStorage.setItem('electrocalc-theme', next);
+  });
+}
+
+function applyTheme(theme){
+  document.documentElement.setAttribute('data-theme', theme);
+  const btn = document.getElementById('themeToggleBtn');
+  if(btn) btn.textContent = theme === 'light' ? '🌙' : '☀️';
+}
