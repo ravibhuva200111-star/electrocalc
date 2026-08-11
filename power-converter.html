@@ -180,7 +180,39 @@
     </div>
   </div>
 
-  <section class="info-section"><h2>Electrical Power Conversion: kW, kVA, HP and Power Factor</h2><p>kW represents real power, while kVA represents apparent power in AC systems. Horsepower is another unit used for mechanical output.</p><h3>Power Factor</h3><p><strong>kW = kVA × power factor</strong> in the simplified AC relationship.</p><h3>Example</h3><p>If apparent power is 100 kVA and power factor is 0.8, real power is <strong>80 kW</strong>.</p><h3>Practical Applications</h3><p>These conversions help compare motors, generators, transformers and electrical loads. Always distinguish real power, apparent power and mechanical shaft output.</p><h3>FAQs</h3><p><strong>Is kW the same as kVA?</strong> No; they are equal only at unity power factor in the simplified relationship.</p><p><strong>Why does power factor matter?</strong> It affects current and equipment loading.</p></section>
+  <section class="info-section">
+    <h2>Electrical Power Conversion: kW, kVA, Horsepower, and Power Factor</h2>
+    <p>Electrical and mechanical power are described using several different units depending on context — kW for real electrical power, kVA for apparent power in AC systems, and horsepower for mechanical shaft output. Converting between them correctly requires understanding what each unit actually measures.</p>
+
+    <h3>kW vs kVA</h3>
+    <p><strong>Kilowatts (kW)</strong> measure real power — the actual power doing useful work (heating, mechanical rotation, light output, etc.). <strong>Kilovolt-amps (kVA)</strong> measure apparent power — the total power the source must supply, including power that's used to establish electric and magnetic fields but isn't converted to useful work. In DC circuits or purely resistive AC loads, kW and kVA are equal. In AC circuits with motors, transformers, or other inductive/capacitive loads, kVA is typically higher than kW, and the difference is captured by the power factor.</p>
+
+    <h3>Power Factor Relationship</h3>
+    <p><strong>kW = kVA × power factor</strong></p>
+    <p>Power factor is a value between 0 and 1 (sometimes expressed as a percentage) representing how efficiently apparent power converts to real power. A power factor of 1.0 (unity) means all apparent power is real power — this occurs with purely resistive loads. Motors and other inductive equipment typically have power factors between 0.7 and 0.95.</p>
+
+    <h3>Power Factor Example</h3>
+    <p>If a load has an apparent power of 100 kVA and a power factor of 0.8, the real power is: 100 × 0.8 = <strong>80 kW</strong>. The remaining "reactive" portion (60 kVAR in this case, calculated separately) doesn't perform useful work but still must be supplied by the source and accounted for in equipment and wiring sizing.</p>
+
+    <h3>Horsepower Conversion</h3>
+    <p>Horsepower (HP) is a unit of mechanical power, historically used for engines and motors. The standard conversion is: <strong>1 HP = 0.746 kW</strong> (mechanical/imperial horsepower), so to convert kW to HP, divide by 0.746 (or multiply by approximately 1.341). This conversion assumes 100% efficiency — actual motor output versus electrical input will differ based on the motor's efficiency rating.</p>
+
+    <h3>Motor Example</h3>
+    <p>A motor rated at 5 HP requires approximately 5 × 0.746 = 3.73 kW of mechanical output power. If the motor's electrical efficiency is 85%, the actual electrical input power needed would be 3.73 / 0.85 ≈ 4.39 kW — higher than the mechanical rating alone, since some input energy is lost as heat in the motor.</p>
+
+    <h3>Transformer / Generator Example</h3>
+    <p>Transformers and generators are typically rated in kVA rather than kW, because their thermal limits are determined by current (which relates to apparent power) rather than the actual real-power load, which depends on what's connected. A transformer rated 50 kVA can supply up to 50 kW to a purely resistive (unity power factor) load, but only 40 kW to a load with a 0.8 power factor, since the current draw for a given kW increases as power factor decreases.</p>
+
+    <h3>Single-Phase vs Three-Phase Distinction</h3>
+    <p>Power calculations differ between single-phase and three-phase AC systems. For single-phase: <strong>kVA = (V × I) / 1000</strong>. For three-phase: <strong>kVA = (√3 × V × I) / 1000</strong>, where V is line-to-line voltage. Three-phase systems are more efficient for delivering large amounts of power (common in industrial and commercial settings), while single-phase is typical for residential and smaller loads. Always confirm which system you're working with before applying a power formula, since using the wrong one produces results off by a factor of √3 (≈1.732).</p>
+
+    <h3>FAQs</h3>
+    <p><strong>Is kW the same as kVA?</strong> Only when power factor equals 1.0 (unity). For most real-world AC loads with motors or reactive components, kVA is higher than kW.</p>
+    <p><strong>Why does power factor matter?</strong> Lower power factor means more current is needed to deliver the same real power, increasing conductor sizing requirements, energy losses, and sometimes utility penalty charges for industrial customers.</p>
+    <p><strong>How do I convert horsepower to kW?</strong> Multiply HP by 0.746. For example, 10 HP × 0.746 = 7.46 kW.</p>
+    <p><strong>Why are generators and transformers rated in kVA instead of kW?</strong> Because their physical limits (winding current, heat dissipation) are tied to apparent power, not real power, which depends on the connected load's power factor.</p>
+    <p><strong>What's a typical power factor for household appliances?</strong> Resistive loads like heaters and incandescent bulbs are close to 1.0; motors (fans, compressors, pumps) are typically 0.7–0.9; modern electronics with power factor correction can be close to 0.95–0.99.</p>
+  </section>
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>

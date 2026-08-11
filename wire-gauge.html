@@ -251,7 +251,46 @@
     </div>
   </div>
 
-  <section class="info-section"><h2>Wire Gauge and Cable Size: Voltage Drop, Ampacity and Selection</h2><p>Wire sizing should consider ampacity, allowable voltage drop, conductor material, insulation rating, installation method, ambient temperature, grouping and applicable electrical codes.</p><h3>Voltage Drop</h3><p>For a simple circuit, voltage drop can be estimated from Vdrop = I × R. Longer runs and smaller conductors generally produce greater voltage drop.</p><h3>Example</h3><p>If a load draws 10 A and the total current-path resistance is 0.5 Ω, estimated voltage drop is <strong>5 V</strong>.</p><h3>Copper vs Aluminium</h3><p>Copper generally has lower resistivity for the same cross-sectional area. Aluminium can be economical for larger installations but requires suitable terminals and installation practices.</p><h3>Important Safety Note</h3><p>This calculator is an engineering estimate and should not be the sole basis for cable or protective-device selection. Follow applicable codes, manufacturer data and qualified-engineer requirements.</p><h3>FAQs</h3><p><strong>Does a longer cable need a larger conductor?</strong> Often yes, because voltage drop increases with length.</p><p><strong>Is AWG the same as mm²?</strong> No. They are different conductor-sizing systems.</p></section>
+  <section class="info-section">
+    <h2>Wire Gauge and Cable Sizing: Voltage Drop, Ampacity, and Safe Selection</h2>
+    <p>Choosing the right wire size involves more than one calculation. Two separate concerns determine whether a conductor is appropriate: <strong>voltage drop</strong> (how much voltage is lost along the wire's length) and <strong>ampacity</strong> (how much current the wire can safely carry without overheating). This calculator estimates voltage drop only — it does not evaluate ampacity, so a wire that "passes" the voltage drop check may still be undersized for safe current-carrying capacity depending on installation conditions.</p>
+
+    <h3>Voltage Drop Formula</h3>
+    <p>For a simple DC or single-phase circuit, voltage drop is estimated as:</p>
+    <p><strong>Vdrop = I × R</strong></p>
+    <p>where I is the circuit current in amps, and R is the total resistance of the conductor path (both the outbound and return wire, for a 2-wire circuit). Resistance depends on the wire's cross-sectional area (gauge), length, and material.</p>
+
+    <h3>AWG Explained</h3>
+    <p>AWG (American Wire Gauge) is a standardized numbering system for conductor diameter. Counterintuitively, a <em>lower</em> AWG number means a <em>thicker</em> wire — for example, 10 AWG is thicker and carries more current than 18 AWG. Thicker wires have lower resistance per unit length, which reduces both voltage drop and heat buildup under load.</p>
+
+    <h3>Copper vs Aluminium</h3>
+    <p>Copper has lower resistivity than aluminium for the same cross-sectional area, meaning a copper conductor can typically carry more current (or produce less voltage drop) than an aluminium conductor of the same gauge. Aluminium is lighter and often more economical for larger installations, but it requires appropriately rated terminals, anti-oxidant compounds, and installation practices to prevent connection failures over time — aluminium wiring done incorrectly is a recognized fire risk.</p>
+
+    <h3>2-Wire vs 3-Phase Calculation</h3>
+    <p>This calculator supports two circuit types. For a standard 2-wire DC or single-phase AC circuit, the voltage drop calculation accounts for both the outbound and return conductor (effectively doubling the one-way resistance). For 3-phase AC circuits, the calculation uses a different multiplier (√3 ≈ 1.732) reflecting the phase relationship between the three conductors, which generally results in lower voltage drop for the same load compared to an equivalent single-phase circuit.</p>
+
+    <h3>Example Calculation</h3>
+    <p>Suppose a 12V DC load draws 10A over a 25 ft one-way run using 12 AWG copper wire. The round-trip conductor length is 50 ft. Using the AWG resistance table, 12 AWG copper has approximately 1.588 Ω per 1000 ft, so 50 ft of conductor has about 0.079 Ω of resistance. Voltage drop = 10A × 0.079Ω ≈ 0.79V, or about 6.6% of the 12V supply — above the commonly recommended 3% threshold, suggesting a thicker gauge would be a better choice for this run.</p>
+
+    <h3>Ampacity vs Voltage Drop: Two Different Checks</h3>
+    <p>A wire can pass a voltage drop calculation and still be unsafe if its ampacity is exceeded. Ampacity — the maximum current a conductor can carry continuously without exceeding its temperature rating — depends on factors this calculator does not model, including insulation type and temperature rating, ambient temperature, how many conductors are bundled together (grouping/derating), and the installation method (in conduit, in free air, buried, etc.). Always check ampacity tables (such as those in your local electrical code) in addition to voltage drop before finalizing a wire size.</p>
+
+    <h3>Temperature and Installation Considerations</h3>
+    <p>Higher ambient temperatures reduce a wire's safe current-carrying capacity, since the wire has less margin before reaching its insulation's maximum rated temperature. Bundling multiple current-carrying conductors together (in a conduit or cable) also requires derating, since heat dissipates less effectively. These factors can significantly change the appropriate wire size even when the voltage-drop calculation alone looks acceptable.</p>
+
+    <h3>Breaker and Overcurrent Protection</h3>
+    <p>The circuit breaker or fuse protecting a circuit must be rated appropriately for the wire's ampacity — not just the load's expected current. A breaker rated higher than the wire's safe ampacity can allow the wire to overheat before the breaker trips, which is a fire hazard. Wire size and overcurrent protection sizing should always be selected together, following your local electrical code.</p>
+
+    <h3>Important Safety Disclaimer</h3>
+    <p>This calculator provides an engineering estimate of voltage drop only and should not be the sole basis for selecting cable size or protective devices. It does not account for ampacity, derating, or installation-specific factors. Always follow your applicable local and national electrical codes, consult manufacturer conductor ampacity tables, and involve a qualified electrician or electrical engineer for any circuit where safety, code compliance, or property protection is a concern.</p>
+
+    <h3>FAQs</h3>
+    <p><strong>Does a longer cable need a larger conductor?</strong> Often yes — voltage drop increases proportionally with conductor length, so longer runs typically need a thicker wire to stay within acceptable drop limits.</p>
+    <p><strong>Is AWG the same as mm²?</strong> No. AWG and mm² are two different wire-sizing systems used in different regions (AWG is common in North America, mm² is common in most of the rest of the world). They don't convert with a simple linear formula — use a proper AWG-to-mm² conversion table.</p>
+    <p><strong>What voltage drop percentage is acceptable?</strong> A commonly cited guideline is 3% for branch circuits and 5% total (including feeders), though acceptable limits can vary by application and local code — always check the requirements that apply to your specific installation.</p>
+    <p><strong>Can I just use a thicker wire than needed to be safe?</strong> Generally yes, oversizing a conductor is safe from a thermal standpoint (thicker wire has more ampacity margin), though it increases material cost and can occasionally complicate termination at connectors sized for a specific gauge range.</p>
+    <p><strong>Does this calculator check if my wire is safe?</strong> No — it estimates voltage drop only. Safe wire selection also requires an ampacity check based on your specific installation conditions, which this tool does not perform.</p>
+  </section>
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>

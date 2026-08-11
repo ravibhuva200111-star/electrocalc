@@ -187,7 +187,38 @@
     </div>
   </div>
 
-  <section class="info-section"><h2>Battery Life Calculator: Runtime Formula and Limitations</h2><p>A simple runtime estimate compares battery capacity with load current. Actual runtime depends on chemistry, temperature, discharge rate, age, efficiency and cutoff voltage.</p><h3>Formula</h3><p><strong>Runtime (hours) ≈ capacity (Ah) / load current (A)</strong> for a simple constant-current estimate.</p><h3>Example</h3><p>A 2 Ah battery supplying 0.5 A gives an ideal estimate of <strong>4 hours</strong>. With losses, practical runtime is lower.</p><h3>mAh and Ah</h3><p>1 Ah = 1,000 mAh. Convert units before calculating.</p><h3>Important Note</h3><p>Do not use a simple estimate to determine safe high-current operation. Check the battery manufacturer's current rating and protection requirements.</p><h3>FAQs</h3><p><strong>Does double capacity double runtime?</strong> Under the same conditions, approximately.</p><p><strong>Is mAh energy?</strong> No. Energy also depends on voltage; watt-hours are useful for comparing different voltages.</p></section>
+  <section class="info-section">
+    <h2>Battery Life Calculator: Runtime Formula, Efficiency, and Real-World Limitations</h2>
+    <p>Estimating battery runtime seems simple on paper, but actual results are affected by battery chemistry, discharge rate, temperature, age, and how "empty" is defined for a given application. This calculator provides a practical estimate that accounts for efficiency losses, while this section explains the underlying factors in more depth.</p>
+
+    <h3>mAh and Ah — Capacity Units</h3>
+    <p>Battery capacity is typically rated in milliamp-hours (mAh) or amp-hours (Ah), where <strong>1 Ah = 1,000 mAh</strong>. This rating represents how much current the battery can theoretically supply for one hour before being depleted — for example, a 2,000 mAh battery could theoretically supply 2,000 mA (2A) for one hour, or 1,000 mA for two hours, under ideal conditions.</p>
+
+    <h3>Runtime Formula</h3>
+    <p><strong>Runtime (hours) ≈ Capacity (Ah) / Load Current (A)</strong></p>
+    <p>This is the simple, ideal calculation assuming constant current draw and 100% usable capacity. Real-world runtime is almost always shorter due to the efficiency factors discussed below.</p>
+
+    <h3>Efficiency and Why Real Runtime Is Shorter</h3>
+    <p>Several factors reduce actual runtime below the theoretical ideal: internal resistance causes some energy to be lost as heat rather than delivered to the load; battery voltage sags under load and continues dropping as the battery discharges, which can trigger a device's low-voltage cutoff before the battery is technically "empty"; and not all of a battery's rated capacity is usable — many devices stop operating before 100% of capacity is drawn, to protect the battery or maintain stable voltage.</p>
+
+    <h3>Example</h3>
+    <p>A 2,000 mAh (2 Ah) battery supplying a constant 500 mA (0.5A) load gives an ideal estimate of 2 / 0.5 = <strong>4 hours</strong>. Applying a realistic 80% efficiency factor (accounting for voltage sag and incomplete capacity usage) gives an adjusted estimate of approximately 3.2 hours — a meaningfully different number for planning purposes.</p>
+
+    <h3>Li-ion vs Alkaline Considerations</h3>
+    <p><strong>Lithium-ion (Li-ion)</strong> batteries maintain a relatively flat voltage output through most of their discharge cycle, then drop off more sharply near depletion — this makes runtime estimates more predictable until near the end. They also handle higher discharge currents more efficiently than alkaline cells, with less capacity loss at high current draw. <strong>Alkaline</strong> batteries have a voltage that declines more gradually and continuously throughout discharge, meaning a device may lose adequate voltage well before the battery's rated capacity is fully used — and alkaline cells lose a larger fraction of their usable capacity at high discharge currents compared to their rating (which is typically measured at a low, standardized discharge rate).</p>
+
+    <h3>The Peukert Effect</h3>
+    <p>For lead-acid and some other battery chemistries, actual usable capacity decreases disproportionately as discharge current increases — a phenomenon described by Peukert's Law. A battery rated for 100Ah at a slow 5-hour discharge rate might only deliver the equivalent of 70-80Ah if discharged in 1 hour at a much higher current, because higher currents generate more internal losses. This effect is most significant for lead-acid batteries and less pronounced (though not absent) in modern Li-ion cells, which is one reason Li-ion has become preferred for high-drain applications.</p>
+
+    <h3>Why Actual Runtime Differs From Calculations</h3>
+    <p>Beyond chemistry-specific effects, several other real-world factors affect runtime: temperature (cold significantly reduces usable capacity in most chemistries, especially alkaline and lead-acid), battery age and cycle count (capacity degrades over repeated charge/discharge cycles), varying load current (many real devices don't draw perfectly constant current, e.g., a phone's screen-on vs. idle power draw), and manufacturing tolerances (actual capacity often varies somewhat from the rated nameplate value).</p>
+
+    <h3>FAQs</h3>
+    <p><strong>Does double capacity double runtime?</strong> Approximately yes, under the same load and conditions — doubling mAh roughly doubles runtime for a constant current draw, though efficiency and chemistry-specific effects mean it's rarely an exact doubling.</p>
+    <p><strong>Is mAh the same as energy?</strong> No — mAh measures charge capacity, not energy. Energy (in watt-hours, Wh) also depends on voltage: Wh = Ah × V. Comparing batteries of different voltages by mAh alone can be misleading; watt-hours is the more accurate comparison.</p>
+    <p><strong>Why does my device's battery drain faster at high current draw?</strong> Higher discharge currents cause greater internal resistance losses and, in chemistries affected by the Peukert effect, reduce the effective usable capacity — this is normal battery behavior, not necessarily a fault.</p>
+    <p><strong>Should I use 100% efficiency for my calculation?</strong> No — using a realistic efficiency estimate (typically 75-90% depending on chemistry and load) gives a more accurate real-world runtime than the ideal theoretical calculation.</p>
+  </section>
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>

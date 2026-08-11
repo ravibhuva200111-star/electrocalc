@@ -184,7 +184,47 @@
     </div>
   </div>
 
-  <section class="info-section"><h2>Capacitor Code: How to Read 3-Digit Markings</h2><p>Many ceramic capacitors use a three-digit code for capacitance in picofarads. The first two digits are significant figures and the third is the multiplier.</p><h3>Formula</h3><p>For ABC, capacitance = AB × 10<sup>C</sup> pF.</p><h3>Common Examples</h3><p><strong>101 = 100 pF</strong>, <strong>102 = 1 nF</strong>, <strong>103 = 10 nF</strong>, <strong>104 = 100 nF (0.1 µF)</strong>, and <strong>472 = 4.7 nF</strong>.</p><h3>Tolerance and Voltage Rating</h3><p>The code does not necessarily show the complete component specification. Check tolerance, dielectric type, temperature characteristics and voltage rating in the manufacturer's data.</p><h3>FAQs</h3><p><strong>What does 104 mean?</strong> 100 nF or 0.1 µF.</p><p><strong>Does the code show voltage rating?</strong> Not necessarily; check the component marking or datasheet.</p></section>
+  <section class="info-section">
+    <h2>Capacitor Code: How to Read 3-Digit Markings</h2>
+    <p>Ceramic and film capacitors are often too small to print their full capacitance value legibly, so manufacturers use a compact 3-digit code instead. Understanding this code lets you identify a capacitor's value directly from its markings without needing a datasheet or capacitance meter.</p>
+
+    <h3>What Capacitor Codes Mean</h3>
+    <p>The 3-digit code follows the same logic as resistor color codes: the first two digits are significant figures, and the third digit is a power-of-ten multiplier, always expressed in picofarads (pF). The formula is:</p>
+    <p><strong>Capacitance = AB × 10<sup>C</sup> pF</strong></p>
+    <p>where "AB" are the first two digits read as a two-digit number, and "C" is the third digit used as the multiplier exponent.</p>
+
+    <h3>Common Examples</h3>
+    <p><strong>101</strong> = 10 × 10¹ = 100 pF</p>
+    <p><strong>102</strong> = 10 × 10² = 1,000 pF = 1 nF</p>
+    <p><strong>103</strong> = 10 × 10³ = 10,000 pF = 10 nF</p>
+    <p><strong>104</strong> = 10 × 10⁴ = 100,000 pF = 100 nF = 0.1 µF</p>
+    <p><strong>221</strong> = 22 × 10¹ = 220 pF</p>
+    <p><strong>472</strong> = 47 × 10² = 4,700 pF = 4.7 nF</p>
+
+    <h3>pF → nF → µF Conversion Table</h3>
+    <p>Picofarads (pF), nanofarads (nF), and microfarads (µF) are related by factors of 1,000:</p>
+    <p><strong>1 µF</strong> = 1,000 nF = 1,000,000 pF</p>
+    <p><strong>1 nF</strong> = 1,000 pF = 0.001 µF</p>
+    <p><strong>1 pF</strong> = 0.001 nF = 0.000001 µF</p>
+    <p>When reading a capacitor code, the result is always in pF first — convert to nF or µF afterward by dividing by 1,000 or 1,000,000 respectively, whichever gives a more readable number.</p>
+
+    <h3>Tolerance Markings</h3>
+    <p>Many capacitors include a letter after the 3-digit code indicating tolerance — how much the actual capacitance may vary from the marked value. Common tolerance letters include: <strong>B</strong> (±0.1 pF), <strong>C</strong> (±0.25 pF), <strong>D</strong> (±0.5 pF), <strong>F</strong> (±1%), <strong>G</strong> (±2%), <strong>J</strong> (±5%), <strong>K</strong> (±10%), and <strong>M</strong> (±20%). For example, a capacitor marked "104K" is 100 nF with ±10% tolerance.</p>
+
+    <h3>Voltage Rating</h3>
+    <p>The 3-digit code and tolerance letter do not indicate the capacitor's voltage rating — the maximum voltage it can safely handle. Voltage rating is usually printed separately on the component body (e.g., "50V" or "16V") or must be looked up in the manufacturer's datasheet if not marked. Using a capacitor beyond its rated voltage can cause it to fail or, in some cases, fail dangerously.</p>
+
+    <h3>Common Capacitor Codes Reference</h3>
+    <p><strong>100</strong> = 10 pF · <strong>220</strong> = 22 pF · <strong>330</strong> = 33 pF · <strong>470</strong> = 47 pF · <strong>102</strong> = 1 nF · <strong>222</strong> = 2.2 nF · <strong>332</strong> = 3.3 nF · <strong>472</strong> = 4.7 nF · <strong>103</strong> = 10 nF · <strong>223</strong> = 22 nF · <strong>473</strong> = 47 nF · <strong>104</strong> = 100 nF · <strong>224</strong> = 220 nF · <strong>474</strong> = 470 nF · <strong>105</strong> = 1 µF</p>
+
+    <h3>FAQs</h3>
+    <p><strong>What does 104 mean?</strong> 100,000 pF, equal to 100 nF or 0.1 µF.</p>
+    <p><strong>What does 221 mean?</strong> 220 pF (22 × 10¹).</p>
+    <p><strong>Does the code show voltage rating?</strong> No — voltage rating is printed separately on the component or found in the datasheet, not encoded in the 3-digit capacitance code.</p>
+    <p><strong>What if the capacitor only has 2 digits?</strong> A 2-digit marking (with no multiplier) is typically read directly as the value in pF — for example, "47" means 47 pF.</p>
+    <p><strong>What does the letter after the code mean?</strong> It indicates tolerance — how much the actual capacitance may vary from the marked value, such as J (±5%) or K (±10%).</p>
+    <p><strong>Why use pF as the base unit instead of µF?</strong> The 3-digit code system was standardized around picofarads because it allows both very small and moderately large capacitance values to be expressed with just three digits using the significant-figures-plus-multiplier approach.</p>
+  </section>
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>

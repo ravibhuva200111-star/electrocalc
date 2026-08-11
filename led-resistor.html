@@ -197,7 +197,45 @@
     </div>
   </div>
 
-  <section class="info-section"><h2>LED Resistor Calculator: Formula and Examples</h2><p>A current-limiting resistor is commonly used with an LED to prevent excessive current.</p><h3>Formula</h3><p><strong>R = (Vs − Vf) / I</strong>, where Vs is supply voltage, Vf is LED forward voltage and I is LED current.</p><h3>Example</h3><p>With 5 V supply, 2.0 V LED and 10 mA current: R = (5 − 2) / 0.01 = <strong>300 Ω</strong>. Select an appropriate standard value and verify actual current.</p><h3>Resistor Power</h3><p>Power can be estimated using P = I²R. Choose an appropriate power rating with practical margin.</p><h3>Important Notes</h3><p>LED forward voltage varies by type, current and temperature. For multiple LEDs, the correct circuit depends on the configuration and supply.</p><h3>FAQs</h3><p><strong>Why is a resistor needed?</strong> It limits current through the LED.</p><p><strong>Should I use the exact calculated value?</strong> Select a suitable standard value and verify the resulting current.</p></section>
+  <section class="info-section">
+    <h2>LED Resistor Calculator: Formula, Examples, and Wiring Guidance</h2>
+    <p>LEDs require a current-limiting resistor in series to operate safely — without one, an LED will draw excessive current and fail almost immediately when connected to a typical power supply. This calculator finds the correct resistor value for your specific supply voltage, LED, and target current.</p>
+
+    <h3>Why a Resistor Is Required</h3>
+    <p>Unlike a regular resistive load, an LED's current does not increase gradually with voltage — once the supply voltage exceeds the LED's forward voltage, current rises very steeply for small increases in voltage. Without a resistor to limit current, this steep relationship means even a small excess voltage can drive current far beyond the LED's rated maximum, causing overheating and permanent damage within seconds. The series resistor "absorbs" the difference between the supply voltage and the LED's forward voltage while limiting current to a safe level.</p>
+
+    <h3>Resistor Formula</h3>
+    <p><strong>R = (Vs − Vf) / I</strong></p>
+    <p>where Vs is the supply voltage, Vf is the LED's forward voltage (typically 1.8–3.3V depending on color and type), and I is the desired LED current in amps (commonly 0.01–0.02A / 10–20mA for standard indicator LEDs).</p>
+
+    <h3>5V Example</h3>
+    <p>Supply: 5V, LED forward voltage: 2.0V (red LED), target current: 10mA (0.01A).</p>
+    <p>R = (5 − 2) / 0.01 = <strong>300 Ω</strong> — the nearest standard value would be 330Ω, giving a slightly lower, safer current.</p>
+
+    <h3>9V Example</h3>
+    <p>Supply: 9V, LED forward voltage: 2.1V (red LED), target current: 20mA (0.02A).</p>
+    <p>R = (9 − 2.1) / 0.02 = <strong>345 Ω</strong> — nearest standard value: 330Ω or 390Ω, depending on desired current margin.</p>
+
+    <h3>12V Example</h3>
+    <p>Supply: 12V, LED forward voltage: 3.2V (white/blue LED), target current: 20mA (0.02A).</p>
+    <p>R = (12 − 3.2) / 0.02 = <strong>440 Ω</strong> — nearest standard value: 470Ω, which slightly reduces current for a safety margin.</p>
+
+    <h3>Resistor Power Calculation</h3>
+    <p>The resistor itself dissipates power as heat, calculated as <strong>P = I² × R</strong>. For the 9V example above: P = (0.02)² × 345 ≈ 0.138W. Since standard resistors are commonly rated at 1/8W (0.125W), 1/4W (0.25W), or 1/2W (0.5W), this example would need at least a 1/4W resistor — a 1/8W resistor would be underrated and could overheat.</p>
+
+    <h3>Series LEDs</h3>
+    <p>Multiple LEDs can be wired in series (one after another) sharing a single current-limiting resistor, as long as the supply voltage is comfortably higher than the sum of all the LEDs' forward voltages. For example, three red LEDs at ~2V each need at least 6V, plus enough headroom for the resistor to do meaningful current limiting — a 9V or 12V supply works well. Calculate the resistor using the combined forward voltage: R = (Vs − ΣVf) / I.</p>
+
+    <h3>⚠ Parallel LED Warning</h3>
+    <p>Connecting multiple LEDs in parallel across a single shared resistor is generally <strong>not recommended</strong>. LEDs have slightly different forward voltages even within the same batch, so when several are wired in parallel, the LED with the slightly lower forward voltage will conduct more current than the others — potentially far more — leading to uneven brightness and premature failure of that LED, sometimes triggering a cascading failure as remaining LEDs take on the extra load. If you need multiple LEDs in parallel, give each LED its own individual current-limiting resistor instead of sharing one.</p>
+
+    <h3>FAQs</h3>
+    <p><strong>Why is a resistor needed?</strong> LEDs don't limit their own current — without a series resistor, current rises uncontrollably once forward voltage is exceeded, destroying the LED almost immediately.</p>
+    <p><strong>Should I use the exact calculated value?</strong> Not necessary — round up to the nearest standard resistor value for a safety margin, or round down slightly if you want marginally more brightness (verify the resulting current stays within the LED's rated maximum).</p>
+    <p><strong>Can I wire LEDs in parallel with one resistor?</strong> It's not recommended due to forward voltage variation between LEDs causing uneven current sharing — use individual resistors per LED instead.</p>
+    <p><strong>What forward voltage should I use if I don't know my LED's exact spec?</strong> Common approximations: red/yellow/orange ≈ 1.8–2.2V, green ≈ 2.0–3.2V, blue/white/UV ≈ 2.8–3.6V — check the datasheet for accurate values when possible.</p>
+    <p><strong>What happens if my resistor value is too low?</strong> Too low a resistance allows excess current through the LED, risking overheating and permanent damage or significantly shortened lifespan.</p>
+  </section>
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>

@@ -210,7 +210,40 @@
     </div>
   </div>
 
-  <section class="info-section"><h2>Frequency and Wavelength: Formula and Examples</h2><p>Frequency is the number of cycles per second, while wavelength is the distance between corresponding points of a wave.</p><h3>Formula</h3><p><strong>λ = v / f</strong>, where λ is wavelength, v is wave velocity and f is frequency.</p><h3>Example: 100 MHz</h3><p>For an electromagnetic wave travelling about 300,000,000 m/s at 100 MHz, wavelength is about <strong>3 metres</strong>.</p><h3>Example: 2.4 GHz</h3><p>At 2.4 GHz, free-space wavelength is approximately <strong>12.5 cm</strong>.</p><h3>Practical Note</h3><p>Use the appropriate wave velocity. Electromagnetic waves travel close to the speed of light in free space, while velocity can be lower in materials.</p><h3>FAQs</h3><p><strong>What happens when frequency increases?</strong> For constant velocity, wavelength decreases.</p><p><strong>Can this formula be used for sound?</strong> Yes; use the speed of sound for the relevant medium.</p></section>
+  <section class="info-section">
+    <h2>Frequency and Wavelength: Formula, Examples, and RF Applications</h2>
+    <p>Frequency and wavelength describe the same wave from two different angles — how often it repeats per second, and how much physical distance one full cycle spans. They're inversely related: as frequency increases, wavelength decreases, and vice versa.</p>
+
+    <h3>The Formula: λ = c / f</h3>
+    <p><strong>λ = v / f</strong>, where λ (lambda) is wavelength, v is the wave's propagation velocity, and f is frequency. For electromagnetic waves (radio, light, etc.) traveling through free space or air, v is approximated by the speed of light, c ≈ 299,792,458 m/s (roughly 3×10⁸ m/s).</p>
+
+    <h3>Understanding Frequency</h3>
+    <p>Frequency measures how many complete wave cycles occur per second, expressed in Hertz (Hz). Radio and electronic applications commonly use kHz (thousands), MHz (millions), or GHz (billions) of Hz to keep numbers manageable — for example, FM radio operates around 88–108 MHz, while modern Wi-Fi operates at 2.4 GHz or 5 GHz.</p>
+
+    <h3>Understanding Wavelength</h3>
+    <p>Wavelength is the physical distance a wave travels during one complete cycle, typically measured in meters, centimeters, or millimeters for electromagnetic waves depending on frequency range. Lower-frequency waves (like AM radio) have wavelengths spanning hundreds of meters, while higher-frequency waves (like Wi-Fi or radar) have wavelengths of centimeters or less.</p>
+
+    <h3>The Speed of Light</h3>
+    <p>All electromagnetic waves — radio, microwaves, visible light, X-rays — travel at the same speed in a vacuum: approximately 299,792,458 m/s. In materials other than vacuum (air, cable dielectric, water, etc.), the effective propagation velocity is slightly to significantly lower, which matters for precise antenna and transmission line design but is a small correction for most free-space estimates.</p>
+
+    <h3>Example: 100 MHz</h3>
+    <p>For a 100 MHz signal (typical FM radio range) traveling at approximately 3×10⁸ m/s: λ = (3×10⁸) / (100×10⁶) = <strong>3 meters</strong>. This is why FM radio antennas are often designed around multiples or fractions of 3 meters.</p>
+
+    <h3>Example: 2.4 GHz Wi-Fi</h3>
+    <p>For a 2.4 GHz Wi-Fi signal: λ = (3×10⁸) / (2.4×10⁹) ≈ <strong>0.125 meters (12.5 cm)</strong>. This shorter wavelength compared to FM radio is part of why Wi-Fi antennas are physically much smaller than radio broadcast antennas.</p>
+
+    <h3>RF Applications</h3>
+    <p>Frequency-wavelength relationships matter directly in real-world RF (radio frequency) design: antenna length is often sized as a fraction of the wavelength (such as a quarter-wave or half-wave antenna) for efficient signal transmission and reception; higher frequencies (shorter wavelengths) generally support higher data rates but travel shorter distances and penetrate obstacles less effectively, which is why Wi-Fi (2.4/5 GHz) has shorter range than AM/FM radio; and frequency allocation for different services (broadcast radio, cellular, satellite, radar) is chosen partly based on the propagation characteristics that come with a given wavelength range.</p>
+
+    <h3>Practical Note on Wave Velocity</h3>
+    <p>This calculator assumes free-space (vacuum/air) propagation using the speed of light. If you're working with a wave traveling through a different medium — sound through air, signals through a coaxial cable with a dielectric, or light through fiber optic glass — the actual propagation velocity differs from c, and you should substitute the correct velocity for that medium into the formula for an accurate result.</p>
+
+    <h3>FAQs</h3>
+    <p><strong>What happens when frequency increases?</strong> For a constant wave velocity, wavelength decreases proportionally — doubling frequency halves the wavelength.</p>
+    <p><strong>Can this formula be used for sound?</strong> Yes — substitute the speed of sound in the relevant medium (approximately 343 m/s in air at room temperature) instead of the speed of light.</p>
+    <p><strong>Why do higher frequencies have shorter range in Wi-Fi and cellular?</strong> Higher-frequency (shorter-wavelength) signals are more readily absorbed or blocked by obstacles like walls, and they attenuate faster over distance compared to lower-frequency signals, which is a fundamental RF propagation tradeoff.</p>
+    <p><strong>Does wavelength change in different materials?</strong> Yes — frequency stays constant when a wave crosses into a different medium, but propagation velocity changes, which means wavelength changes too (following λ = v/f with the new velocity).</p>
+  </section>
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a></div>
