@@ -110,6 +110,66 @@
 <script src="nav.js" defer></script>
 
   <link rel="canonical" href="https://electrocalc.in/battery-life.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does double capacity double runtime?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Approximately yes, under the same load and conditions \u2014 doubling mAh roughly doubles runtime for a constant current draw, though efficiency and chemistry-specific effects mean it's rarely an exact doubling."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is mAh the same as energy?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 mAh measures charge capacity, not energy. Energy (in watt-hours, Wh) also depends on voltage: Wh = Ah \u00d7 V. Comparing batteries of different voltages by mAh alone can be misleading; watt-hours is the more accurate comparison."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my device's battery drain faster at high current draw?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Higher discharge currents cause greater internal resistance losses and, in chemistries affected by the Peukert effect, reduce the effective usable capacity \u2014 this is normal battery behavior, not necessarily a fault."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Should I use 100% efficiency for my calculation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 using a realistic efficiency estimate (typically 75-90% depending on chemistry and load) gives a more accurate real-world runtime than the ideal theoretical calculation."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Battery Life Calculator",
+  "url": "https://electrocalc.in/battery-life.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
 </head>
 <body>
 <div class="wrap">

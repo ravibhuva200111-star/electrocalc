@@ -148,6 +148,74 @@
 <script src="nav.js" defer></script>
 
   <link rel="canonical" href="https://electrocalc.in/wire-gauge.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does a longer cable need a larger conductor?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Often yes \u2014 voltage drop increases proportionally with conductor length, so longer runs typically need a thicker wire to stay within acceptable drop limits."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is AWG the same as mm\u00b2?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. AWG and mm\u00b2 are two different wire-sizing systems used in different regions (AWG is common in North America, mm\u00b2 is common in most of the rest of the world). They don't convert with a simple linear formula \u2014 use a proper AWG-to-mm\u00b2 conversion table."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What voltage drop percentage is acceptable?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A commonly cited guideline is 3% for branch circuits and 5% total (including feeders), though acceptable limits can vary by application and local code \u2014 always check the requirements that apply to your specific installation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I just use a thicker wire than needed to be safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Generally yes, oversizing a conductor is safe from a thermal standpoint (thicker wire has more ampacity margin), though it increases material cost and can occasionally complicate termination at connectors sized for a specific gauge range."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does this calculator check if my wire is safe?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 it estimates voltage drop only. Safe wire selection also requires an ampacity check based on your specific installation conditions, which this tool does not perform."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Wire Gauge / Voltage Drop Calculator",
+  "url": "https://electrocalc.in/wire-gauge.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
 </head>
 <body>
 <div class="wrap">

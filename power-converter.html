@@ -106,6 +106,74 @@
 <script src="nav.js" defer></script>
 
   <link rel="canonical" href="https://electrocalc.in/power-converter.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Is kW the same as kVA?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Only when power factor equals 1.0 (unity). For most real-world AC loads with motors or reactive components, kVA is higher than kW."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does power factor matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lower power factor means more current is needed to deliver the same real power, increasing conductor sizing requirements, energy losses, and sometimes utility penalty charges for industrial customers."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do I convert horsepower to kW?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply HP by 0.746. For example, 10 HP \u00d7 0.746 = 7.46 kW."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why are generators and transformers rated in kVA instead of kW?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Because their physical limits (winding current, heat dissipation) are tied to apparent power, not real power, which depends on the connected load's power factor."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's a typical power factor for household appliances?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Resistive loads like heaters and incandescent bulbs are close to 1.0; motors (fans, compressors, pumps) are typically 0.7\u20130.9; modern electronics with power factor correction can be close to 0.95\u20130.99."
+      }
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Power Converter",
+  "url": "https://electrocalc.in/power-converter.html",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (Web Browser)",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "isPartOf": {
+    "@type": "WebSite",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
 </head>
 <body>
 <div class="wrap">
