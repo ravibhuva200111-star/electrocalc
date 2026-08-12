@@ -119,6 +119,54 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What's the difference between this and the Series/Parallel calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The Series/Parallel tool is faster for simple chains and combinations, using the classic reduction formulas. This solver handles any topology, including ones that can't be reduced with those formulas \u2014 bridges, ladders, and meshes \u2014 using full nodal analysis."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I solve a circuit with no voltage source?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 without a source, there's no current flow and nothing meaningful to solve. Every circuit needs at least one voltage source."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why did I get a \"singular matrix\" or similar error?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This usually means your circuit is under-defined \u2014 for example, a node that isn't connected to anything else, or a resistor value of zero (which creates a short circuit/infinite current mathematically). Check that every node has a real connection."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does node numbering order matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No \u2014 you can use any labels, as long as node \"0\" (or however you designate it) is consistently used as your ground reference throughout."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I model a resistor with 0 ohms?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not accurately \u2014 a true 0\u03a9 connection is a direct wire (a short), which nodal analysis can't handle numerically. Use a very small resistance (like 0.001\u03a9) if you need to approximate a wire connection between nodes."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -189,6 +237,40 @@
     <h2>More calculators</h2>
     <div class="tool-grid" id="toolGrid"></div>
   </div>
+
+  <section class="info-section">
+    <h2>How This Solver Works: Nodal Analysis</h2>
+    <p>Unlike simple series/parallel calculators, this tool handles <strong>any resistor network topology</strong> — including bridges, ladders, and meshes that can't be reduced with basic series/parallel rules alone. It does this using <strong>nodal analysis</strong> (also called node-voltage analysis), a standard circuit analysis method taught in every introductory electronics course.</p>
+    <p>The method works by: (1) assigning a voltage variable to every node in the circuit except the ground reference, (2) writing a Kirchhoff's Current Law (KCL) equation at each node — the sum of currents leaving a node equals zero, (3) solving the resulting system of linear equations simultaneously. This calculator builds that system automatically from your node/resistor entries and solves it numerically, then back-calculates current through every resistor and current drawn from every voltage source using Ohm's Law.</p>
+
+    <h3>Why "Node 0" Matters</h3>
+    <p>Every circuit needs a reference point that all other voltages are measured against — this is ground, and this calculator always calls it Node 0. Every other node's "voltage" is really the voltage difference between that node and ground. You can name your other nodes anything (1, 2, A, B, etc.) as long as you're consistent.</p>
+
+    <h3>Series and Parallel Are Special Cases</h3>
+    <p>A simple series or parallel circuit is really just a special case of a general resistor network — this solver handles those too, it just doesn't need shortcut formulas to do it. Enter a chain of resistors between sequential nodes for series, or multiple resistors between the same two nodes for parallel, and the nodal analysis produces the same answer you'd get from the classic formulas.</p>
+
+    <h3>Bridge Circuits</h3>
+    <p>A Wheatstone bridge — four resistors arranged in a diamond with a fifth "bridge" resistor connecting the midpoints — cannot be solved with simple series/parallel reduction when the bridge is unbalanced. This is exactly the kind of topology nodal analysis is built for: define the five nodes and five resistors, add your source, and solve directly.</p>
+
+    <h3>Multiple Voltage Sources</h3>
+    <p>Real circuits sometimes have more than one voltage source — for example, a circuit combining a battery and a separate reference voltage. This solver supports adding multiple independent voltage sources between any nodes, and correctly accounts for superposition effects without you needing to manually apply the superposition theorem.</p>
+
+    <h3>Example: Simple Voltage Divider</h3>
+    <p>To verify the tool against a known result — set up 2 nodes plus ground (node 0): a 12V source from Node 0 to Node 1, then a 1kΩ resistor from Node 1 to Node 2, and a 2kΩ resistor from Node 2 to Node 0. Solving gives Node 2 at 8V — matching the standard voltage divider formula V_out = V_in × R2/(R1+R2) = 12 × 2000/3000 = 8V.</p>
+
+    <h3>Reading the Results</h3>
+    <p>After solving, you'll see the voltage at each node relative to ground, the current drawn from each voltage source, and the voltage/current through each individual resistor. Current direction follows the sign convention of "from" → "to" as you entered each resistor — a negative current value means current is actually flowing the opposite direction from what you specified.</p>
+
+    <h3>Limitations</h3>
+    <p>This solver handles linear resistive DC circuits — resistors and DC voltage sources only. It does not currently support current sources, capacitors, inductors, AC analysis, or non-linear components (like diodes or transistors). For those, you'd need SPICE-based simulation software.</p>
+
+    <h3>FAQs</h3>
+    <p><strong>What's the difference between this and the Series/Parallel calculator?</strong> The Series/Parallel tool is faster for simple chains and combinations, using the classic reduction formulas. This solver handles any topology, including ones that can't be reduced with those formulas — bridges, ladders, and meshes — using full nodal analysis.</p>
+    <p><strong>Can I solve a circuit with no voltage source?</strong> No — without a source, there's no current flow and nothing meaningful to solve. Every circuit needs at least one voltage source.</p>
+    <p><strong>Why did I get a "singular matrix" or similar error?</strong> This usually means your circuit is under-defined — for example, a node that isn't connected to anything else, or a resistor value of zero (which creates a short circuit/infinite current mathematically). Check that every node has a real connection.</p>
+    <p><strong>Does node numbering order matter?</strong> No — you can use any labels, as long as node "0" (or however you designate it) is consistently used as your ground reference throughout.</p>
+    <p><strong>Can I model a resistor with 0 ohms?</strong> Not accurately — a true 0Ω connection is a direct wire (a short), which nodal analysis can't handle numerically. Use a very small resistance (like 0.001Ω) if you need to approximate a wire connection between nodes.</p>
+  </section>
 
   <div class="comments-section">
     <h2>Discussion</h2>
