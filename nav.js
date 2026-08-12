@@ -4,33 +4,33 @@
 
 const CALCULATORS = [
   { category: "📐 Basics", items: [
-    { href: "ohms-law.html", name: "Ohm's Law Calculator" },
-    { href: "voltage-divider.html", name: "Voltage Divider" },
+    { href: "ohms-law.html", name: "Ohm's Law Calculator", desc: "Solve voltage, current, resistance or power from any two known values." },
+    { href: "voltage-divider.html", name: "Voltage Divider", desc: "Calculate output voltage across two resistors in series." },
   ]},
   { category: "🎨 Component Codes", items: [
-    { href: "resistor-color-code.html", name: "Resistor Color Code" },
-    { href: "capacitor.html", name: "Capacitor Code Reader" },
+    { href: "resistor-color-code.html", name: "Resistor Color Code", desc: "Decode 4, 5 or 6-band resistors into ohms, or reverse it." },
+    { href: "capacitor.html", name: "Capacitor Code Reader", desc: "Convert 3-digit capacitor codes into pF, nF, or µF." },
   ]},
   { category: "🔋 Resistors & Power", items: [
-    { href: "series-parallel.html", name: "Series / Parallel R" },
-    { href: "circuit-solver.html", name: "Resistor Network Solver" },
-    { href: "led-resistor.html", name: "LED Resistor Calculator" },
-    { href: "power-converter.html", name: "Power Converter" },
+    { href: "series-parallel.html", name: "Series / Parallel R", desc: "Combine resistor values in series or parallel instantly." },
+    { href: "circuit-solver.html", name: "Resistor Network Solver", desc: "Solve total resistance for complex resistor networks." },
+    { href: "led-resistor.html", name: "LED Resistor Calculator", desc: "Find the right series resistor for any LED and supply voltage." },
+    { href: "power-converter.html", name: "Power Converter", desc: "Convert between kW, kVA, and horsepower." },
   ]},
   { category: "⚡ Wiring & Safety", items: [
-    { href: "wire-gauge.html", name: "Wire Gauge / Voltage Drop" },
+    { href: "wire-gauge.html", name: "Wire Gauge / Voltage Drop", desc: "Size AWG wire and calculate voltage drop over distance." },
   ]},
   { category: "🔁 AC / Reactive Circuits", items: [
-    { href: "rc-time-constant.html", name: "RC Time Constant" },
+    { href: "rc-time-constant.html", name: "RC Time Constant", desc: "Calculate charge/discharge time constant for RC circuits." },
   ]},
   { category: "📡 RF & Signal", items: [
-    { href: "frequency-wavelength.html", name: "Frequency / Wavelength" },
+    { href: "frequency-wavelength.html", name: "Frequency / Wavelength", desc: "Convert between frequency and wavelength for RF work." },
   ]},
   { category: "🔌 Transformers & Motors", items: [
-    { href: "transformer.html", name: "Transformer Ratio" },
+    { href: "transformer.html", name: "Transformer Ratio", desc: "Calculate turns ratio and primary/secondary voltage or current." },
   ]},
   { category: "🔋 Batteries & Energy", items: [
-    { href: "battery-life.html", name: "Battery Life Calculator" },
+    { href: "battery-life.html", name: "Battery Life Calculator", desc: "Estimate runtime from battery capacity and load current." },
   ]},
 ];
 
@@ -75,9 +75,28 @@ function renderToolGrid(){
   grid.innerHTML = html;
 }
 
+function renderHub(containerId){
+  const container = document.getElementById(containerId || 'hubContainer');
+  if(!container) return;
+
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+  let html = '';
+  CALCULATORS.forEach(group => {
+    const items = group.items.filter(item => item.href !== currentPage);
+    if(items.length === 0) return;
+    html += `<div class="hub-cat"><div class="hub-cat-title">${group.category}</div><div class="hub-grid">`;
+    items.forEach(item => {
+      html += `<a class="hub-card" href="${item.href}"><div class="hname">${item.name}</div><div class="hdesc">${item.desc || ''}</div></a>`;
+    });
+    html += `</div></div>`;
+  });
+  container.innerHTML = html;
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   renderNav();
   renderToolGrid();
+  renderHub();
   initTheme();
 
   document.addEventListener('click', function(e){

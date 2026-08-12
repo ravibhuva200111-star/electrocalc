@@ -208,9 +208,25 @@
     <button class="reset-btn" onclick="resetAll()">Reset</button>
   </div>
 
-  <div class="more-tools">
-    <h2>More calculators</h2>
-    <div class="tool-grid" id="toolGrid"></div>
+<section class="info-section">
+  <h2>Transformer Ratio: Formula and Practical Example</h2>
+  <p>An ideal transformer relates primary and secondary voltage to the number of turns on each winding. The voltage ratio follows the turns ratio.</p>
+  <h3>Formula</h3>
+  <p><strong>Vp / Vs = Np / Ns</strong>, where Vp and Vs are primary and secondary voltages and Np and Ns are the corresponding winding turns.</p>
+  <h3>Example</h3>
+  <p>If a transformer has 230 V on the primary and 23 V on the secondary, the voltage ratio is <strong>10:1</strong>. If the secondary has 100 turns, an idealized calculation gives about 1,000 primary turns.</p>
+  <h3>How to Use This Calculator</h3>
+  <ol><li>Enter any compatible known voltage and turns values.</li><li>Use the calculator to determine the remaining values when enough information is provided.</li><li>Check the displayed ratio before applying the result to a design.</li></ol>
+  <h3>Important Notes</h3>
+  <p>Real transformers have winding resistance, leakage reactance, losses and voltage regulation. Therefore, measured load voltage may differ from the ideal turns-ratio calculation. Never use the calculator alone to determine safe operating limits.</p>
+  <h3>FAQs</h3>
+  <p><strong>Does a step-up transformer increase current?</strong> Ideally, increasing voltage reduces available current for the same apparent power, subject to transformer losses.</p>
+  <p><strong>Can two voltage values determine the ratio?</strong> Yes. Vp/Vs directly gives the ideal voltage ratio.</p>
+</section>
+
+  <div class="hub">
+    <h2>All ElectroCalc Tools</h2>
+    <div id="hubContainer"></div>
   </div>
 
   <div class="comments-section">
@@ -235,21 +251,6 @@
   </div>
 
   
-<section class="info-section">
-  <h2>Transformer Ratio: Formula and Practical Example</h2>
-  <p>An ideal transformer relates primary and secondary voltage to the number of turns on each winding. The voltage ratio follows the turns ratio.</p>
-  <h3>Formula</h3>
-  <p><strong>Vp / Vs = Np / Ns</strong>, where Vp and Vs are primary and secondary voltages and Np and Ns are the corresponding winding turns.</p>
-  <h3>Example</h3>
-  <p>If a transformer has 230 V on the primary and 23 V on the secondary, the voltage ratio is <strong>10:1</strong>. If the secondary has 100 turns, an idealized calculation gives about 1,000 primary turns.</p>
-  <h3>How to Use This Calculator</h3>
-  <ol><li>Enter any compatible known voltage and turns values.</li><li>Use the calculator to determine the remaining values when enough information is provided.</li><li>Check the displayed ratio before applying the result to a design.</li></ol>
-  <h3>Important Notes</h3>
-  <p>Real transformers have winding resistance, leakage reactance, losses and voltage regulation. Therefore, measured load voltage may differ from the ideal turns-ratio calculation. Never use the calculator alone to determine safe operating limits.</p>
-  <h3>FAQs</h3>
-  <p><strong>Does a step-up transformer increase current?</strong> Ideally, increasing voltage reduces available current for the same apparent power, subject to transformer losses.</p>
-  <p><strong>Can two voltage values determine the ratio?</strong> Yes. Vp/Vs directly gives the ideal voltage ratio.</p>
-</section>
 
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>

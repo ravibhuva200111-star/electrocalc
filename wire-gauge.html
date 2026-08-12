@@ -296,33 +296,6 @@
     </div>
   </div>
 
-  <div class="more-tools">
-    <h2>More calculators</h2>
-    <div class="tool-grid" id="toolGrid"></div>
-  </div>
-
-
-  <div class="comments-section">
-    <h2>Discussion</h2>
-    <div class="giscus-frame">
-      <script src="https://giscus.app/client.js"
-              data-repo="ravibhuva200111-star/electrocalc"
-              data-repo-id="R_kgDOTyJ9Aw"
-              data-category="General"
-              data-category-id="DIC_kwDOTyJ9A84DC72D"
-              data-mapping="pathname"
-              data-strict="0"
-              data-reactions-enabled="1"
-              data-emit-metadata="0"
-              data-input-position="bottom"
-              data-theme="preferred_color_scheme"
-              data-lang="en"
-              crossorigin="anonymous"
-              async>
-      </script>
-    </div>
-  </div>
-
   <section class="info-section">
     <h2>Wire Gauge and Cable Sizing: Voltage Drop, Ampacity, and Safe Selection</h2>
     <p>Choosing the right wire size involves more than one calculation. Two separate concerns determine whether a conductor is appropriate: <strong>voltage drop</strong> (how much voltage is lost along the wire's length) and <strong>ampacity</strong> (how much current the wire can safely carry without overheating). This calculator estimates voltage drop only — it does not evaluate ampacity, so a wire that "passes" the voltage drop check may still be undersized for safe current-carrying capacity depending on installation conditions.</p>
@@ -363,6 +336,34 @@
     <p><strong>Can I just use a thicker wire than needed to be safe?</strong> Generally yes, oversizing a conductor is safe from a thermal standpoint (thicker wire has more ampacity margin), though it increases material cost and can occasionally complicate termination at connectors sized for a specific gauge range.</p>
     <p><strong>Does this calculator check if my wire is safe?</strong> No — it estimates voltage drop only. Safe wire selection also requires an ampacity check based on your specific installation conditions, which this tool does not perform.</p>
   </section>
+
+  <div class="hub">
+    <h2>All ElectroCalc Tools</h2>
+    <div id="hubContainer"></div>
+  </div>
+
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  </div>
+
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>

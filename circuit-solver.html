@@ -234,10 +234,7 @@
     </table>
   </div>
 
-  <div class="more-tools">
-    <h2>More calculators</h2>
-    <div class="tool-grid" id="toolGrid"></div>
-  </div>
+
 
   <section class="info-section">
     <h2>How This Solver Works: Nodal Analysis</h2>
@@ -272,6 +269,11 @@
     <p><strong>Does node numbering order matter?</strong> No — you can use any labels, as long as node "0" (or however you designate it) is consistently used as your ground reference throughout.</p>
     <p><strong>Can I model a resistor with 0 ohms?</strong> Not accurately — a true 0Ω connection is a direct wire (a short), which nodal analysis can't handle numerically. Use a very small resistance (like 0.001Ω) if you need to approximate a wire connection between nodes.</p>
   </section>
+  <div class="hub">
+    <h2>All ElectroCalc Tools</h2>
+    <div id="hubContainer"></div>
+  </div>
+
 
   <div class="comments-section">
     <h2>Discussion</h2>

@@ -99,7 +99,7 @@
     </div>
   </header>
 
-  <span class="eyebrow">Basics Tool · 011</span>
+  <span class="eyebrow">Basics Tool · 013</span>
   <h1>Two resistors in.<br>One <em>output voltage</em>.</h1>
   <p class="sub">Enter your input voltage and two resistor values to find the output voltage at the midpoint — the classic voltage divider circuit.</p>
 
@@ -165,9 +165,25 @@
     <div class="hint"><b>Formula:</b> Vout = Vin × R2 / (R1 + R2). Keep in mind: a voltage divider under load will sag if the load draws significant current relative to the divider current — this calculator assumes no load (open circuit output).</div>
   </div>
 
-  <div class="more-tools">
-    <h2>More calculators</h2>
-    <div class="tool-grid" id="toolGrid"></div>
+<section class="info-section">
+  <h2>Voltage Divider: Formula, Example and Design Tips</h2>
+  <p>A voltage divider uses two resistors in series to produce a lower output voltage from a known input voltage. It is commonly used for signal conditioning, sensing and reference circuits.</p>
+  <h3>Formula</h3>
+  <p><strong>Vout = Vin × R2 / (R1 + R2)</strong>. The calculator also shows the divider current and total resistor power based on the ideal unloaded circuit.</p>
+  <h3>Example</h3>
+  <p>With Vin = 12 V, R1 = 10 kΩ and R2 = 10 kΩ, Vout = 12 × 10/(10+10) = <strong>6 V</strong>. The divider current is 0.6 mA.</p>
+  <h3>How to Use This Calculator</h3>
+  <ol><li>Enter the source voltage.</li><li>Enter R1 and R2 in ohms.</li><li>Read the calculated output voltage, current and resistor power.</li></ol>
+  <h3>Important Notes</h3>
+  <p>The simple formula assumes the output is unloaded. If a load is connected to Vout, its resistance is effectively in parallel with R2 and the actual output voltage will be lower.</p>
+  <h3>FAQs</h3>
+  <p><strong>Which resistor controls Vout?</strong> Both resistors determine the ratio, but R2 is the resistor from the output node to ground in the standard configuration.</p>
+  <p><strong>Can a divider power a load?</strong> Usually it should not be treated as a power supply because load current changes the divider ratio.</p>
+</section>
+
+  <div class="hub">
+    <h2>All ElectroCalc Tools</h2>
+    <div id="hubContainer"></div>
   </div>
 
   <div class="comments-section">
@@ -192,21 +208,6 @@
   </div>
 
   
-<section class="info-section">
-  <h2>Voltage Divider: Formula, Example and Design Tips</h2>
-  <p>A voltage divider uses two resistors in series to produce a lower output voltage from a known input voltage. It is commonly used for signal conditioning, sensing and reference circuits.</p>
-  <h3>Formula</h3>
-  <p><strong>Vout = Vin × R2 / (R1 + R2)</strong>. The calculator also shows the divider current and total resistor power based on the ideal unloaded circuit.</p>
-  <h3>Example</h3>
-  <p>With Vin = 12 V, R1 = 10 kΩ and R2 = 10 kΩ, Vout = 12 × 10/(10+10) = <strong>6 V</strong>. The divider current is 0.6 mA.</p>
-  <h3>How to Use This Calculator</h3>
-  <ol><li>Enter the source voltage.</li><li>Enter R1 and R2 in ohms.</li><li>Read the calculated output voltage, current and resistor power.</li></ol>
-  <h3>Important Notes</h3>
-  <p>The simple formula assumes the output is unloaded. If a load is connected to Vout, its resistance is effectively in parallel with R2 and the actual output voltage will be lower.</p>
-  <h3>FAQs</h3>
-  <p><strong>Which resistor controls Vout?</strong> Both resistors determine the ratio, but R2 is the resistor from the output node to ground in the standard configuration.</p>
-  <p><strong>Can a divider power a load?</strong> Usually it should not be treated as a power supply because load current changes the divider ratio.</p>
-</section>
 
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>

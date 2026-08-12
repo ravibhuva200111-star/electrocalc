@@ -225,32 +225,6 @@
     <div class="hint"><b>Why efficiency matters:</b> real batteries rarely deliver their full rated capacity due to voltage sag, temperature, and discharge curve. 80-90% is typical for alkaline/li-ion under moderate load — lower for high-drain devices.</div>
   </div>
 
-  <div class="more-tools">
-    <h2>More calculators</h2>
-    <div class="tool-grid" id="toolGrid"></div>
-  </div>
-
-  <div class="comments-section">
-    <h2>Discussion</h2>
-    <div class="giscus-frame">
-      <script src="https://giscus.app/client.js"
-              data-repo="ravibhuva200111-star/electrocalc"
-              data-repo-id="R_kgDOTyJ9Aw"
-              data-category="General"
-              data-category-id="DIC_kwDOTyJ9A84DC72D"
-              data-mapping="pathname"
-              data-strict="0"
-              data-reactions-enabled="1"
-              data-emit-metadata="0"
-              data-input-position="bottom"
-              data-theme="preferred_color_scheme"
-              data-lang="en"
-              crossorigin="anonymous"
-              async>
-      </script>
-    </div>
-  </div>
-
   <section class="info-section">
     <h2>Battery Life Calculator: Runtime Formula, Efficiency, and Real-World Limitations</h2>
     <p>Estimating battery runtime seems simple on paper, but actual results are affected by battery chemistry, discharge rate, temperature, age, and how "empty" is defined for a given application. This calculator provides a practical estimate that accounts for efficiency losses, while this section explains the underlying factors in more depth.</p>
@@ -283,6 +257,33 @@
     <p><strong>Why does my device's battery drain faster at high current draw?</strong> Higher discharge currents cause greater internal resistance losses and, in chemistries affected by the Peukert effect, reduce the effective usable capacity — this is normal battery behavior, not necessarily a fault.</p>
     <p><strong>Should I use 100% efficiency for my calculation?</strong> No — using a realistic efficiency estimate (typically 75-90% depending on chemistry and load) gives a more accurate real-world runtime than the ideal theoretical calculation.</p>
   </section>
+
+  <div class="hub">
+    <h2>All ElectroCalc Tools</h2>
+    <div id="hubContainer"></div>
+  </div>
+
+  <div class="comments-section">
+    <h2>Discussion</h2>
+    <div class="giscus-frame">
+      <script src="https://giscus.app/client.js"
+              data-repo="ravibhuva200111-star/electrocalc"
+              data-repo-id="R_kgDOTyJ9Aw"
+              data-category="General"
+              data-category-id="DIC_kwDOTyJ9A84DC72D"
+              data-mapping="pathname"
+              data-strict="0"
+              data-reactions-enabled="1"
+              data-emit-metadata="0"
+              data-input-position="bottom"
+              data-theme="preferred_color_scheme"
+              data-lang="en"
+              crossorigin="anonymous"
+              async>
+      </script>
+    </div>
+  </div>
+
 <footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
