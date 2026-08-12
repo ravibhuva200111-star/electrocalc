@@ -13,8 +13,8 @@
 </script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>About — ElectroCalc</title>
-<meta name="description" content="About ElectroCalc — free, fast, accurate electrical engineering calculators built for students and engineers.">
+<title>Disclaimer — ElectroCalc</title>
+<meta name="description" content="Important disclaimer for ElectroCalc calculators — for reference and educational use only, not a substitute for professional engineering judgment or code compliance.">
 <meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
 <link rel="icon" type="image/x-icon" href="/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
@@ -39,7 +39,6 @@
   nav a:hover{color:var(--accent);}
   .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
   h1{font-weight:800;font-size:clamp(28px,5vw,40px);line-height:1.1;letter-spacing:-0.02em;margin:0 0 14px;}
-  h1 em{color:var(--accent);font-style:normal;}
   .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:60ch;margin-bottom:44px;}
   .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:32px;margin-bottom:24px;}
   .panel h2{font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--accent);letter-spacing:.05em;text-transform:uppercase;margin:0 0 14px;}
@@ -47,13 +46,7 @@
   .panel p:last-child{margin-bottom:0;}
   .panel ul{color:var(--ink-dim);font-size:15px;line-height:1.75;margin:0 0 14px;padding-left:20px;}
   .panel a{color:var(--trace);}
-  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-top:8px;}
-  .tool-card{background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:13px;transition:.15s;}
-  .tool-card:hover{border-color:var(--accent);color:var(--accent);}
-  .contact-row{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:14px;color:var(--ink-dim);margin-bottom:10px;}
-  .contact-row:last-child{margin-bottom:0;}
-  .contact-row a{color:var(--trace);text-decoration:none;}
-  .contact-row a:hover{text-decoration:underline;}
+  .updated{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);margin-bottom:32px;}
   footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
 
   .nav-menu-wrap{position:relative;}
@@ -84,7 +77,7 @@
 <link rel="stylesheet" href="site.css">
 <script src="nav.js" defer></script>
 
-  <link rel="canonical" href="https://electrocalc.in/about.html">
+  <link rel="canonical" href="https://electrocalc.in/disclaimer.html">
 </head>
 <body>
 <div class="wrap">
@@ -98,45 +91,60 @@
       </div>
     </div>
   </header>
+  <span class="eyebrow">Legal</span>
+  <h1>Disclaimer</h1>
+  <p class="sub">Please read before relying on any calculator results for real-world electrical work.</p>
 
-  <span class="eyebrow">About</span>
-  <h1>Built for engineers.<br>Made to be <em>fast</em>.</h1>
-  <p class="sub">ElectroCalc is a free collection of electrical engineering calculators — no sign-up, no clutter, just the tool you need and an instant answer.</p>
+  <div class="updated">Last updated: August 11, 2026</div>
 
   <div class="panel">
-    <h2>What we do</h2>
-    <p>ElectroCalc started as a simple resistor color code calculator and has grown into a full toolkit covering the calculations electronics students, hobbyists, and working engineers reach for most often — Ohm's Law, wire gauge sizing, capacitor codes, LED resistors, transformer ratios, battery runtime, and more.</p>
-    <p>Every calculator runs entirely in your browser. Nothing you type is uploaded or stored — you enter values, get an answer, and move on.</p>
+    <h2>Educational &amp; Reference Use Only</h2>
+    <p>ElectroCalc's calculators are provided for educational purposes, quick estimates, and general reference. They are built using standard formulas and publicly available engineering data (such as IPC-2221 for PCB trace width, standard AWG resistance tables, and Ohm's Law relationships), but they are <strong>not a substitute for professional engineering judgment, certified electrical design, or compliance verification</strong>.</p>
   </div>
 
   <div class="panel">
-    <h2>Why it's free</h2>
-    <p>ElectroCalc is supported by advertising, which keeps every calculator free to use with no account or payment required. We aim to keep ads unobtrusive and separate from the actual tools.</p>
+    <h2>Electrical Safety — Read This If You're Doing Real Wiring Work</h2>
+    <p>Calculators like Wire Gauge / Voltage Drop, PCB Trace Width, and Resistor Power Rating touch on electrical safety. A few important limitations to understand:</p>
+    <ul>
+      <li><strong>Voltage drop is not the same as ampacity.</strong> A wire gauge that shows an acceptable voltage drop percentage may still be undersized for safe current-carrying capacity depending on insulation type, ambient temperature, conduit fill, bundling with other cables, and installation method. Always check ampacity tables (e.g. NEC Table 310.16 or your local equivalent) separately.</li>
+      <li><strong>Local electrical codes vary</strong> by country, state, and municipality. Formulas here are general-purpose and do not account for your specific jurisdiction's code requirements (NEC, IEC, BS 7671, or others).</li>
+      <li><strong>Real-world installation conditions matter.</strong> Temperature derating, altitude, humidity, cable grouping, and conduit material can all affect safe current ratings beyond what a simple calculator captures.</li>
+      <li><strong>Always size overcurrent protection (breakers/fuses) appropriately</strong> for the actual wire ampacity, not just the calculated load.</li>
+    </ul>
+    <p>For any installation involving mains voltage, building wiring, or anything where an error could cause fire, shock, or equipment damage, <strong>consult a licensed electrician or professional engineer</strong> and verify against your local electrical code and manufacturer datasheets.</p>
   </div>
 
   <div class="panel">
-    <h2>Accuracy</h2>
-    <p>Formulas used across ElectroCalc are based on standard, widely-taught electrical engineering principles (Ohm's Law, EIA resistor color code standards, standard wire gauge tables, etc.). That said, for safety-critical or professional work, always verify results against a datasheet or a second reference — these tools are built for quick reference and learning, not as a substitute for professional engineering judgment.</p>
+    <h2>No Warranty</h2>
+    <p>ElectroCalc is provided "as is" without warranty of any kind, express or implied. While we aim for accuracy and use standard, well-established formulas, we do not guarantee that results are error-free, complete, or suitable for any particular purpose. Calculations depend entirely on the values you enter — incorrect inputs will produce incorrect results.</p>
   </div>
 
   <div class="panel">
-    <h2>Get in touch</h2>
-    <p>Found a bug, have a suggestion, or want to request a new calculator? We'd like to hear from you.</p>
-    <div class="contact-row">💬 <a href="index.html">Leave a comment on any calculator page</a> — Discussion is open on every tool</div>
-    <div class="contact-row">✉️ <a href="mailto:contact@electrocalc.in">contact@electrocalc.in</a></div>
+    <h2>Limitation of Liability</h2>
+    <p>To the fullest extent permitted by law, ElectroCalc and its creator are not liable for any direct, indirect, incidental, or consequential damages arising from the use of, or inability to use, these calculators — including but not limited to equipment damage, injury, fire, or financial loss. Use of this site and its tools is entirely at your own risk.</p>
   </div>
 
   <div class="panel">
-    <h2>Explore the calculators</h2>
-    <div class="tool-grid" id="toolGrid"></div>
+    <h2>Component &amp; Formula Accuracy</h2>
+    <p>Resistor color code, capacitor code, and similar decoders follow standard industry conventions (e.g. 4-band and 5-band resistor color codes, EIA capacitor marking systems). Manufacturer-specific or non-standard markings may not be accurately represented. Always cross-check critical component values against the manufacturer's datasheet.</p>
   </div>
 
-  <footer>
+  <div class="panel">
+    <h2>Questions</h2>
+    <p>If you notice a calculation that appears incorrect, or have questions about how a specific calculator works, reach out via the <a href="contact.html">Contact page</a> — we take accuracy seriously and want to fix genuine errors quickly.</p>
+  </div>
+
+<footer>
     <span>ElectroCalc — built for engineers &amp; students</span>
     <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
     <span id="year"></span>
   </footer>
 </div>
+<script></script>
+
+</body>
+</html>
+
 <script></script>
 
 </body>

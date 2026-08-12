@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://www.electrocalc.in/sitemap.xml
+Sitemap: https://electrocalc.in/sitemap.xml
