@@ -174,6 +174,54 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Does Ohm's Law apply to AC circuits?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes, with a modification \u2014 for AC circuits with capacitors or inductors, resistance is replaced by impedance (Z), which accounts for phase differences between voltage and current. For purely resistive AC loads, the basic V=IR relationship still applies directly."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What if my calculated resistance isn't a standard value?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Round up to the nearest standard resistor value (see our Resistor Color Code Calculator) \u2014 this typically gives you slightly less current than calculated, which is usually the safer direction."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why does my multimeter reading not match my calculation?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Real components have tolerances (typically \u00b15% or \u00b110% for resistors), and wiring/contact resistance adds small additional resistance not accounted for in ideal calculations."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is Ohm's Law always true?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It holds for \"ohmic\" materials and components (most resistors, wires) across normal operating conditions. Some components (diodes, transistors, LEDs) are \"non-ohmic\" \u2014 their resistance changes with voltage/current, so V=IR doesn't directly apply to them in the same simple way."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What's the difference between this and the Voltage Divider calculator?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "This tool solves the basic V/I/R/P relationship for a single component or circuit. The Voltage Divider Calculator specifically solves the two-resistor voltage divider configuration, a common sub-circuit built from this same underlying law."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -273,10 +321,38 @@
     </div>
   </div>
 
-  <div class="hub">
-    <h2>All ElectroCalc Tools</h2>
-    <div id="hubContainer"></div>
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
   </div>
+
+  <section class="info-section">
+    <h2>Understanding Ohm's Law</h2>
+    <p>Ohm's Law is the single most fundamental relationship in electrical circuits, describing how voltage, current, and resistance interact. Formulated by Georg Ohm in 1827, it states that the current through a conductor is directly proportional to the voltage across it, and inversely proportional to its resistance.</p>
+
+    <h3>The Formula</h3>
+    <p><strong>V = I × R</strong> — where V is voltage in volts, I is current in amps, and R is resistance in ohms. This single equation rearranges into three useful forms depending on what you're solving for:</p>
+    <p><strong>Voltage:</strong> V = I × R<br><strong>Current:</strong> I = V ÷ R<br><strong>Resistance:</strong> R = V ÷ I</p>
+
+    <h3>Adding Power to the Mix</h3>
+    <p>Power (P, in watts) relates to Ohm's Law through P = V × I. Combining this with V=IR gives two more useful forms: P = I²R (useful when you know current and resistance) and P = V²/R (useful when you know voltage and resistance). This calculator solves for all four quantities — V, I, R, and P — from any two known values.</p>
+
+    <h3>Example: Sizing a Simple Resistor</h3>
+    <p>Say you have a 9V battery and want to limit current through a component to 20mA (0.02A). Using R = V/I: R = 9 ÷ 0.02 = 450Ω. The power dissipated would be P = V × I = 9 × 0.02 = 0.18W, so a standard 1/4W (0.25W) resistor would handle it safely.</p>
+
+    <h3>Why Voltage Seems to "Drop" Under Load</h3>
+    <p>A common point of confusion: if V=IR, why does voltage seem to decrease when current increases (like lights dimming when a heater turns on)? The answer is that real circuits include the resistance of wiring and the power source itself, not just the load. As current rises, more voltage gets "used up" by that wiring resistance, leaving less for everything downstream — Ohm's Law still holds true at every point, it's just being applied to a different resistance than you might expect.</p>
+
+    <h3>Series vs. Parallel Circuits</h3>
+    <p>In a series circuit, the same current flows through every component, and voltages add up. In a parallel circuit, voltage is the same across every branch, and currents add up. Ohm's Law applies to each individual component or to the circuit as a whole, depending on what you're analyzing — see our <a href="series-parallel.html">Series/Parallel Resistance Calculator</a> for combining multiple resistors.</p>
+
+    <h3>FAQs</h3>
+    <p><strong>Does Ohm's Law apply to AC circuits?</strong> Yes, with a modification — for AC circuits with capacitors or inductors, resistance is replaced by impedance (Z), which accounts for phase differences between voltage and current. For purely resistive AC loads, the basic V=IR relationship still applies directly.</p>
+    <p><strong>What if my calculated resistance isn't a standard value?</strong> Round up to the nearest standard resistor value (see our <a href="resistor-color-code.html">Resistor Color Code Calculator</a>) — this typically gives you slightly less current than calculated, which is usually the safer direction.</p>
+    <p><strong>Why does my multimeter reading not match my calculation?</strong> Real components have tolerances (typically ±5% or ±10% for resistors), and wiring/contact resistance adds small additional resistance not accounted for in ideal calculations.</p>
+    <p><strong>Is Ohm's Law always true?</strong> It holds for "ohmic" materials and components (most resistors, wires) across normal operating conditions. Some components (diodes, transistors, LEDs) are "non-ohmic" — their resistance changes with voltage/current, so V=IR doesn't directly apply to them in the same simple way.</p>
+    <p><strong>What's the difference between this and the Voltage Divider calculator?</strong> This tool solves the basic V/I/R/P relationship for a single component or circuit. The <a href="voltage-divider.html">Voltage Divider Calculator</a> specifically solves the two-resistor voltage divider configuration, a common sub-circuit built from this same underlying law.</p>
+  </section>
 
 
   <div class="comments-section">

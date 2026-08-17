@@ -245,6 +245,54 @@
   }
 }
 </script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What if my resistor has 6 bands?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A 6th band typically indicates a temperature coefficient (how much resistance changes with temperature), common on precision resistors. The first 5 bands still follow the standard 5-band reading."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do some resistors have no visible color bands?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Surface-mount (SMD) resistors use a printed numeric code instead of color bands due to their small size \u2014 a 3-digit or 4-digit code follows similar logic (digits + multiplier) but printed as text rather than colors."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which end do I start reading from?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Start from the band closest to one end of the resistor \u2014 the tolerance band (often gold or silver) is usually spaced slightly further from the others and marks the end you read backward from."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I verify the color code with a multimeter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Yes \u2014 always double-check critical values with a multimeter if precision matters, since color perception can vary and bands can be hard to distinguish under poor lighting."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Does band width matter?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No, only the color and position matter \u2014 band width is just a manufacturing/visual detail, not part of the encoded value."
+      }
+    }
+  ]
+}
+</script>
 </head>
 <body>
 <div class="wrap">
@@ -444,6 +492,33 @@
       </div>
     </div>
   </div>
+
+  <section class="info-section">
+    <h2>How to Read Resistor Color Codes</h2>
+    <p>Resistors use colored bands instead of printed numbers because the small cylindrical body doesn't have room for readable text, and colors can be read from any angle. The system has been standardized since the early 20th century and is still universal across manufacturers today.</p>
+
+    <h3>4-Band vs 5-Band Resistors</h3>
+    <p>Most common resistors use either 4 or 5 bands. A 4-band resistor has 2 significant digits, a multiplier, and a tolerance band. A 5-band resistor (used for higher precision) has 3 significant digits, a multiplier, and a tolerance band — giving more precise values. This calculator handles the standard 4-band format most commonly found in general electronics.</p>
+
+    <h3>The Color-to-Number Code</h3>
+    <p>Black=0, Brown=1, Red=2, Orange=3, Yellow=4, Green=5, Blue=6, Violet=7, Grey=8, White=9. The multiplier band uses the same scale as a power of 10 (except Gold=×0.1 and Silver=×0.01 for very low resistances). Many students memorize this with mnemonics like "Bad Boys Race Our Young Girls, But Violet Generally Wins" — one letter per color in order.</p>
+
+    <h3>Worked Example</h3>
+    <p>A resistor with bands <strong>Yellow-Violet-Red-Gold</strong>: Yellow=4, Violet=7, so the first two digits are "47." Red multiplier = ×100. So 47 × 100 = 4,700Ω, or 4.7kΩ. Gold tolerance band means ±5% — so the actual resistance could be anywhere from 4,465Ω to 4,935Ω.</p>
+
+    <h3>Reverse Mode: From Value to Bands</h3>
+    <p>If you already know the resistance you need (say, from a circuit design or Ohm's Law calculation) but need to find the physical resistor, use the reverse mode above — enter the value and see which color bands to look for in your parts bin.</p>
+
+    <h3>Tolerance Bands Explained</h3>
+    <p>Brown = ±1%, Red = ±2%, Gold = ±5%, Silver = ±10%. No tolerance band typically means ±20% (rare on modern resistors). Tighter tolerance resistors cost more but matter for precision applications like audio circuits, sensor references, or timing circuits.</p>
+
+    <h3>FAQs</h3>
+    <p><strong>What if my resistor has 6 bands?</strong> A 6th band typically indicates a temperature coefficient (how much resistance changes with temperature), common on precision resistors. The first 5 bands still follow the standard 5-band reading.</p>
+    <p><strong>Why do some resistors have no visible color bands?</strong> Surface-mount (SMD) resistors use a printed numeric code instead of color bands due to their small size — a 3-digit or 4-digit code follows similar logic (digits + multiplier) but printed as text rather than colors.</p>
+    <p><strong>Which end do I start reading from?</strong> Start from the band closest to one end of the resistor — the tolerance band (often gold or silver) is usually spaced slightly further from the others and marks the end you read backward from.</p>
+    <p><strong>Can I verify the color code with a multimeter?</strong> Yes — always double-check critical values with a multimeter if precision matters, since color perception can vary and bands can be hard to distinguish under poor lighting.</p>
+    <p><strong>Does band width matter?</strong> No, only the color and position matter — band width is just a manufacturing/visual detail, not part of the encoded value.</p>
+  </section>
 
   <div class="comments-section">
     <h2>Discussion</h2>
