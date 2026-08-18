@@ -57,6 +57,15 @@
   .brand a{color:inherit;text-decoration:none;}
 
   .hero{margin-bottom:40px;}
+  .intro-section{max-width:760px;margin:0 0 44px;line-height:1.75;color:var(--ink-dim);font-size:15px;}
+  .intro-section p{margin:0 0 16px;}
+  .intro-section strong{color:var(--ink);}
+  .intro-section a{color:var(--trace);}
+  .popular-section{margin-bottom:40px;}
+  .popular-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .popular-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;}
+  .popular-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;text-decoration:none;color:var(--ink);transition:.15s;font-weight:600;font-size:14px;}
+  .popular-card:hover{border-color:var(--accent);transform:translateY(-2px);}
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);
     letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;
@@ -145,9 +154,29 @@
 
   <div class="hero">
     <span class="eyebrow">ElectroCalc · Free Tools</span>
-    <h1>Pick a calculator.<br>Get your <em>answer</em>.</h1>
-    <p class="sub">13 free electrical and electronics calculators — no signup, works on any device. Search or browse by category below.</p>
+    <h1>Free Electrical &amp; Electronics <em>Calculators</em></h1>
+    <p class="sub">13 free, browser-based calculators for electrical and electronics work — Ohm's Law, resistor color codes, wire sizing, LED resistors, and more. No signup, no download, works on any device.</p>
   </div>
+
+  <section class="intro-section">
+    <p>ElectroCalc is a growing collection of practical calculators built for people who work with electrical and electronics problems regularly — whether that's professionally, academically, or as a hobby. Every tool here uses standard, well-established engineering formulas (Ohm's Law, IPC-2221 for PCB trace sizing, standard AWG resistance tables, EIA color codes) rather than approximations, and every calculation runs instantly in your browser with no signup, tracking of your inputs, or data sent anywhere.</p>
+
+    <p>The site is genuinely useful for a range of people: <strong>electrical engineering students</strong> checking homework or building intuition for formulas like V=IR; <strong>hobbyist electronics builders</strong> sizing an LED resistor or reading a capacitor code; <strong>field electricians</strong> doing a quick wire gauge or voltage drop check; and <strong>anyone learning electronics</strong> who wants a fast, reliable answer without digging through a textbook or spreadsheet.</p>
+
+    <p>Each calculator page includes not just the tool itself, but a real explanation of the underlying formula, a worked example with actual numbers, and answers to common questions people have about that specific calculation — so you're not just getting a number, you're getting the reasoning behind it.</p>
+
+    <p><strong>A note on safety and accuracy:</strong> these calculators are built for education, quick estimates, and general reference. For anything involving real electrical installation work — building wiring, mains voltage, or situations where an error could cause fire, shock, or equipment damage — always verify against your local electrical code, manufacturer datasheets, and where appropriate, a licensed electrician or professional engineer. See our full <a href="disclaimer.html">Disclaimer</a> for details, particularly around wire sizing and ampacity.</p>
+  </section>
+
+  <section class="popular-section">
+    <h2>Popular Calculators</h2>
+    <div class="popular-grid">
+      <a class="popular-card" href="ohms-law.html">Ohm's Law Calculator</a>
+      <a class="popular-card" href="resistor-color-code.html">Resistor Color Code</a>
+      <a class="popular-card" href="wire-gauge.html">Wire Gauge / Voltage Drop</a>
+      <a class="popular-card" href="led-resistor.html">LED Resistor Calculator</a>
+    </div>
+  </section>
 
   <div class="search-wrap">
     <input type="text" class="search-input" id="calcSearch" placeholder="Search calculators… (e.g. resistor, voltage, battery)" oninput="filterCalcs()">
