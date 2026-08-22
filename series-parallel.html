@@ -198,20 +198,47 @@
 
 <section class="info-section">
   <h2>Series and Parallel Resistance: Formulas and Examples</h2>
-  <p>The equivalent resistance of a resistor network depends on whether the resistors are connected in series or in parallel.</p>
+  <p>Combining resistors is one of the most fundamental skills in circuit design — whether you're building a voltage divider, adjusting an LED's brightness, or creating a specific resistance value from parts you have on hand. The equivalent (total) resistance of a network depends entirely on whether the resistors are wired in series, in parallel, or in some combination of both.</p>
+
   <h3>Series Formula</h3>
-  <p>For resistors in series, <strong>Rtotal = R1 + R2 + R3 + …</strong>. The same current flows through every resistor.</p>
+  <p>For resistors in series (connected end-to-end in a single path), the total resistance is simply the sum of all individual resistances: <strong>Rtotal = R1 + R2 + R3 + …</strong>. The same current flows through every resistor in the chain, since there's only one path for it to take. Adding resistors in series always increases total resistance.</p>
+
   <h3>Parallel Formula</h3>
-  <p>For parallel resistors, <strong>1/Rtotal = 1/R1 + 1/R2 + 1/R3 + …</strong>. The same voltage appears across each branch.</p>
-  <h3>Example</h3>
-  <p>Two resistors of 220 Ω and 330 Ω in series give <strong>550 Ω</strong>. In parallel they give approximately <strong>132 Ω</strong>.</p>
+  <p>For resistors in parallel (connected across the same two points, forming multiple paths), the reciprocal of total resistance equals the sum of reciprocals: <strong>1/Rtotal = 1/R1 + 1/R2 + 1/R3 + …</strong>. The same voltage appears across every branch, but current splits between them based on each branch's resistance. Adding resistors in parallel always decreases total resistance — the result is always lower than the smallest individual resistor in the group.</p>
+
+  <p>For exactly two resistors in parallel, there's a simpler shortcut: <strong>Rtotal = (R1 × R2) / (R1 + R2)</strong> — this avoids dealing with reciprocals directly.</p>
+
+  <h3>Worked Example</h3>
+  <p>Two resistors of 220Ω and 330Ω: In <strong>series</strong>, Rtotal = 220 + 330 = <strong>550Ω</strong>. In <strong>parallel</strong>, using the two-resistor shortcut: Rtotal = (220 × 330) / (220 + 330) = 72,600 / 550 = <strong>132Ω</strong>. Notice the parallel result (132Ω) is lower than even the smallest resistor (220Ω) — this is always true for parallel combinations.</p>
+
+  <p>For three or more resistors, say 100Ω, 220Ω, and 330Ω in parallel: 1/Rtotal = 1/100 + 1/220 + 1/330 = 0.01 + 0.00455 + 0.00303 = 0.01758. So Rtotal = 1/0.01758 ≈ <strong>56.9Ω</strong>.</p>
+
+  <h3>Why Combine Resistors At All?</h3>
+  <p>Combining standard resistor values lets you create resistances that aren't available as single off-the-shelf parts. Standard resistors follow the E12 or E24 series (12 or 24 values per decade), so if your circuit needs an odd value like 175Ω, combining two standard-series resistors (like 150Ω + 27Ω in series ≈ 177Ω) gets you close without needing a custom part. It's also common in power distribution — splitting current across multiple parallel resistors to divide the heat load, since each resistor only handles a fraction of the total power.</p>
+
+  <h3>Mixed Series-Parallel Networks</h3>
+  <p>Real circuits often combine both — some resistors in series, feeding into a parallel group, or vice versa. The standard approach is to reduce the network step by step: identify a purely series or purely parallel sub-group, calculate its equivalent resistance, replace those resistors with a single equivalent value, and repeat until you're down to one resistor. For networks that can't be reduced this way (bridges, meshes with multiple sources), you need full nodal analysis — see our <a href="circuit-solver.html">Resistor Network Solver</a> for those cases.</p>
+
   <h3>How to Use This Calculator</h3>
-  <ol><li>Select Series or Parallel.</li><li>Add the required number of resistors.</li><li>Enter each resistance value.</li><li>Read the equivalent resistance shown by the calculator.</li></ol>
+  <ol>
+    <li>Select Series or Parallel mode</li>
+    <li>Add the number of resistors your circuit uses (use the + button to add more)</li>
+    <li>Enter each resistor's value</li>
+    <li>Read the equivalent resistance shown instantly</li>
+  </ol>
+
   <h3>Engineering Note</h3>
-  <p>Equivalent resistance is only one part of a real design. Check resistor power rating, voltage rating, tolerance and temperature coefficient before selecting components.</p>
+  <p>Equivalent resistance is only one part of a real design. Before finalizing your resistor selection, also check: <strong>power rating</strong> (each resistor must dissipate its actual power without overheating — see our <a href="led-resistor.html">LED Resistor Calculator</a> for a worked power calculation example), <strong>voltage rating</strong> (especially relevant for series combinations across high voltage), <strong>tolerance</strong> (±1% to ±20% depending on resistor type — tighter tolerance costs more but matters for precision circuits), and <strong>temperature coefficient</strong> (how much resistance drifts with heat, more significant in tightly-toleranced precision applications).</p>
+
   <h3>FAQs</h3>
-  <p><strong>Is parallel resistance always lower?</strong> For positive resistor values, the equivalent parallel resistance is lower than the smallest individual resistor.</p>
-  <p><strong>Does series resistance increase?</strong> Yes. Series resistances add directly.</p>
+  <p><strong>Is parallel resistance always lower?</strong> Yes — for any set of positive resistor values, the equivalent parallel resistance is always lower than the smallest individual resistor in the group.</p>
+  <p><strong>Does series resistance always increase?</strong> Yes — series resistances add directly, so the total is always at least as large as the largest individual resistor.</p>
+  <p><strong>What happens if I put a 0Ω resistor in parallel with anything?</strong> The combined resistance becomes 0Ω (a short circuit) — the 0Ω path completely dominates since current always takes the path of least resistance.</p>
+  <p><strong>Can I use this for capacitors or inductors instead?</strong> No — capacitors combine with the opposite logic (parallel capacitors add directly, series capacitors use the reciprocal formula), and inductors follow the same rules as resistors. This calculator is resistor-specific.</p>
+  <p><strong>Why does my parallel calculation give a very small number?</strong> That's expected behavior — parallel resistance is always smaller than any individual resistor, sometimes dramatically so if the values are very different (a 10Ω resistor in parallel with a 10,000Ω resistor gives a result very close to 10Ω, not an average of the two).</p>
+
+  <h3>Related Calculators</h3>
+  <div class="tool-grid" id="relatedGrid"></div>
 </section>
 
   <div class="hub">
