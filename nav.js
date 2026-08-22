@@ -93,9 +93,40 @@ function renderHub(containerId){
   container.innerHTML = html;
 }
 
+function renderRelatedGrid(){
+  const grid = document.getElementById('relatedGrid');
+  if(!grid) return;
+
+  const currentPage = window.location.pathname.split('/').pop() || 'index.html';
+
+  let currentCategory = null;
+  CALCULATORS.forEach(group => {
+    if(group.items.some(item => item.href === currentPage)) currentCategory = group;
+  });
+
+  let related = [];
+  if(currentCategory){
+    related = currentCategory.items.filter(item => item.href !== currentPage);
+  }
+
+  if(related.length < 3){
+    const all = [];
+    CALCULATORS.forEach(group => group.items.forEach(item => all.push(item)));
+    const others = all.filter(item => item.href !== currentPage && !related.includes(item));
+    related = related.concat(others.slice(0, 3 - related.length));
+  }
+
+  let html = '';
+  related.slice(0, 5).forEach(item => {
+    html += `<a class="tool-card" href="${item.href}"><div class="tname">${item.name}</div></a>`;
+  });
+  grid.innerHTML = html;
+}
+
 document.addEventListener('DOMContentLoaded', function(){
   renderNav();
   renderToolGrid();
+  renderRelatedGrid();
   renderHub();
   initTheme();
 
