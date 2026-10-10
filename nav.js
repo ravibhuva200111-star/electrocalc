@@ -32,6 +32,9 @@ const CALCULATORS = [
   { category: "🔋 Batteries & Energy", items: [
     { href: "battery-life.html", name: "Battery Life Calculator", desc: "Estimate runtime from battery capacity and load current." },
   ]},
+  { category: "📚 Guides", items: [
+    { href: "ohms-law-explained.html", name: "Ohm's Law Explained", desc: "Formula, triangle, worked examples and practice problems." },
+  ]},
 ];
 
 function renderNav(){
