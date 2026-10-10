@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Ohm's Law Explained: Formula, Triangle &amp; Worked Examples | ElectroCalc</title>
+<meta name="description" content="Learn Ohm's Law (V = I × R) with a simple formula triangle, worked examples, power formulas and common mistakes. Includes a quick solver.">
+<link rel="canonical" href="https://electrocalc.in/ohms-law-explained.html">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg">
+<link rel="stylesheet" href="site.css">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Ohm's Law Explained: Formula, Triangle & Worked Examples",
+  "description": "A beginner-friendly guide to Ohm's Law with formulas, examples and common mistakes.",
+  "mainEntityOfPage": "https://electrocalc.in/ohms-law-explained.html",
+  "publisher": { "@type": "Organization", "name": "ElectroCalc" }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    { "@type": "Question", "name": "What is Ohm's Law?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Ohm's Law says the current through a conductor is directly proportional to the voltage across it and inversely proportional to its resistance: V = I × R." } },
+    { "@type": "Question", "name": "What are the units in Ohm's Law?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Voltage (V) is measured in volts, current (I) in amperes, and resistance (R) in ohms (Ω)." } },
+    { "@type": "Question", "name": "Does Ohm's Law work for all components?",
+      "acceptedAnswer": { "@type": "Answer", "text": "No. It applies to ohmic (linear) materials such as resistors at constant temperature. Diodes, transistors and filament lamps are non-ohmic." } },
+    { "@type": "Question", "name": "How do I calculate power using Ohm's Law?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Power P = V × I. Combined with Ohm's Law this gives P = I² × R and P = V² / R." } }
+  ]
+}
+</script>
+
+<style>
+  /* Page-specific styles only. Remove or merge into site.css if you prefer. */
+  .guide { max-width: 760px; margin: 0 auto; padding: 1.5rem 1rem 3rem; line-height: 1.7; }
+  .guide h1 { font-size: 2rem; line-height: 1.2; margin-bottom: .5rem; }
+  .guide h1 em { font-style: italic; }
+  .eyebrow { margin: 0 0 .4rem; opacity: .7; font-size: .9rem; }
+  .guide h2 { margin-top: 2.2rem; }
+  .guide .lead { font-size: 1.1rem; opacity: .85; }
+  .formula { font-size: 1.6rem; font-weight: 700; text-align: center; padding: 1rem; margin: 1.2rem 0;
+             border: 2px solid currentColor; border-radius: 10px; }
+  .guide table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+  .guide th, .guide td { border: 1px solid rgba(128,128,128,.4); padding: .5rem .7rem; text-align: left; }
+  .example { border-left: 4px solid currentColor; padding: .6rem 1rem; margin: 1rem 0; background: rgba(128,128,128,.08); }
+  .solver { border: 1px solid rgba(128,128,128,.4); border-radius: 10px; padding: 1rem; margin: 1.2rem 0; }
+  .solver label { display: block; margin: .5rem 0 .2rem; font-weight: 600; }
+  .solver input { width: 100%; padding: .5rem; font-size: 1rem; box-sizing: border-box; }
+  .solver button { margin-top: .8rem; padding: .6rem 1.2rem; font-size: 1rem; cursor: pointer; }
+  .solver output { display: block; margin-top: .8rem; font-weight: 700; min-height: 1.4em; }
+  .guide details { margin: .6rem 0; }
+  .guide summary { cursor: pointer; font-weight: 600; }
+</style>
+</head>
+<body>
+<!-- nav.js injects the shared navigation; keep this placeholder/structure the same as your other pages -->
+<script src="nav.js"></script>
+
+<main class="guide">
+  <p class="eyebrow">ElectroCalc · Fundamentals</p>
+  <h1>Ohm's Law <em>Explained</em></h1>
+  <p class="lead">Ohm's Law links voltage, current and resistance in one short equation. It is the first tool you reach for when analysing any circuit.</p>
+
+  <h2>What is Ohm's Law?</h2>
+  <p>In 1827 the German physicist Georg Ohm showed that, for many materials, the current flowing through a conductor is proportional to the voltage applied across it. Double the voltage and the current doubles. Double the resistance and the current halves.</p>
+  <div class="formula">V = I × R</div>
+  <table>
+    <tr><th>Symbol</th><th>Quantity</th><th>Unit</th></tr>
+    <tr><td>V</td><td>Voltage (potential difference)</td><td>Volt (V)</td></tr>
+    <tr><td>I</td><td>Current</td><td>Ampere (A)</td></tr>
+    <tr><td>R</td><td>Resistance</td><td>Ohm (Ω)</td></tr>
+  </table>
+
+  <h2>The three forms of the formula</h2>
+  <p>Rearrange the equation depending on what you need to find:</p>
+  <ul>
+    <li><strong>Voltage:</strong> V = I × R</li>
+    <li><strong>Current:</strong> I = V / R</li>
+    <li><strong>Resistance:</strong> R = V / I</li>
+  </ul>
+  <p><strong>Memory trick:</strong> draw a triangle with V on top and I and R at the bottom. Cover the quantity you want. What remains is the formula: V on top of I × R means V = I × R, and I beside R under a covered V means multiply.</p>
+
+  <h2>Worked examples</h2>
+  <div class="example">
+    <strong>Example 1: find current.</strong> A 12 V battery is connected to a 4 Ω resistor.<br>
+    I = V / R = 12 / 4 = <strong>3 A</strong>
+  </div>
+  <div class="example">
+    <strong>Example 2: find voltage.</strong> A current of 0.5 A flows through a 220 Ω resistor.<br>
+    V = I × R = 0.5 × 220 = <strong>110 V</strong>
+  </div>
+  <div class="example">
+    <strong>Example 3: find resistance.</strong> An LED circuit draws 20 mA with 3 V across the series resistor.<br>
+    Convert first: 20 mA = 0.02 A. R = V / I = 3 / 0.02 = <strong>150 Ω</strong>
+  </div>
+
+  <h2>Quick solver</h2>
+  <p>Fill in any two values and leave the third empty.</p>
+  <div class="solver">
+    <label for="v">Voltage (V)</label>
+    <input id="v" type="number" step="any" inputmode="decimal">
+    <label for="i">Current (A)</label>
+    <input id="i" type="number" step="any" inputmode="decimal">
+    <label for="r">Resistance (Ω)</label>
+    <input id="r" type="number" step="any" inputmode="decimal">
+    <button type="button" id="solve">Calculate</button>
+    <output id="out" aria-live="polite"></output>
+  </div>
+
+  <h2>Ohm's Law and electrical power</h2>
+  <p>Power is the rate at which energy is used: <strong>P = V × I</strong>, measured in watts. Substituting Ohm's Law gives two more useful forms:</p>
+  <ul>
+    <li>P = I² × R (handy when you know current and resistance)</li>
+    <li>P = V² / R (handy when you know voltage and resistance)</li>
+  </ul>
+  <p>For example, a 10 Ω resistor carrying 2 A dissipates P = 2² × 10 = 40 W. Always check that a resistor's power rating is higher than the power it will dissipate, or it will overheat.</p>
+
+  <h2>Where Ohm's Law applies, and where it doesn't</h2>
+  <p>Ohm's Law holds for <em>ohmic</em> conductors, where resistance stays constant as voltage changes. Metal wires and standard resistors at stable temperature behave this way. It does not describe diodes, LEDs, transistors or incandescent filaments, whose resistance changes with voltage or temperature. For these you use the component's characteristic curve, though Ohm's Law still works at any single operating point.</p>
+
+  <h2>Common mistakes</h2>
+  <ul>
+    <li><strong>Forgetting unit conversions.</strong> Convert mA to A and kΩ to Ω before calculating.</li>
+    <li><strong>Mixing circuit values.</strong> Use the voltage across a component with the current through that same component.</li>
+    <li><strong>Ignoring power ratings.</strong> A correct resistance value is not enough if the resistor cannot handle the heat.</li>
+    <li><strong>Applying it to AC without care.</strong> In AC circuits with capacitors or inductors, resistance becomes impedance (Z).</li>
+  </ul>
+
+  <h2>Frequently asked questions</h2>
+  <details><summary>What is Ohm's Law?</summary>
+    <p>It states that current through a conductor is directly proportional to the voltage across it and inversely proportional to its resistance: V = I × R.</p></details>
+  <details><summary>What are the units?</summary>
+    <p>Volts (V) for voltage, amperes (A) for current and ohms (Ω) for resistance.</p></details>
+  <details><summary>Does it work for all components?</summary>
+    <p>No. It applies to ohmic, linear materials at constant temperature. Diodes, transistors and filament lamps are non-ohmic.</p></details>
+  <details><summary>How do I calculate power?</summary>
+    <p>Use P = V × I, or P = I² × R, or P = V² / R.</p></details>
+
+  <h2>Try the calculator</h2>
+  <p>Need to solve several values quickly? Use the <a href="ohms-law.html">Ohm's Law Calculator</a>, then explore the <a href="series-parallel.html">Series / Parallel R</a>, <a href="led-resistor.html">LED Resistor</a> and <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> calculators.</p>
+</main>
+
+<footer class="guide" style="text-align:center;opacity:.8;padding-top:0">
+  <p>ElectroCalc — built for engineers &amp; students</p>
+  <p><a href="about.html">About</a> · <a href="contact.html">Contact</a> · <a href="privacy-policy.html">Privacy Policy</a> · <a href="terms.html">Terms</a> · <a href="disclaimer.html">Disclaimer</a></p>
+</footer>
+
+<script>
+(function () {
+  var v = document.getElementById('v'), i = document.getElementById('i'),
+      r = document.getElementById('r'), out = document.getElementById('out');
+  function fmt(n) { return Math.round(n * 1e6) / 1e6; }
+  document.getElementById('solve').addEventListener('click', function () {
+    var V = parseFloat(v.value), I = parseFloat(i.value), R = parseFloat(r.value);
+    var given = [V, I, R].filter(function (x) { return !isNaN(x); }).length;
+    if (given !== 2) { out.textContent = 'Enter exactly two values.'; return; }
+    if (isNaN(V)) { out.textContent = 'V = ' + fmt(I * R) + ' V'; }
+    else if (isNaN(I)) {
+      if (R === 0) { out.textContent = 'Resistance cannot be zero.'; return; }
+      out.textContent = 'I = ' + fmt(V / R) + ' A';
+    } else {
+      if (I === 0) { out.textContent = 'Current cannot be zero.'; return; }
+      out.textContent = 'R = ' + fmt(V / I) + ' Ω';
+    }
+  });
+})();
+</script>
+</body>
+</html>
