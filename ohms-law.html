@@ -288,6 +288,31 @@
     <h3>When Ohm's Law doesn't apply</h3>
     <p>Ohm's Law only holds for linear, "ohmic" components — plain resistors and wires at a roughly constant temperature. Diodes, LEDs, and transistors are non-linear: their effective resistance changes with the current passing through them, so V = I × R can't predict their behavior directly. For those parts you need the manufacturer's datasheet curves instead of this formula.</p>
 
+    <h3>How to use this calculator</h3>
+    <ol>
+      <li>Enter any two of the four values: voltage (V), current (A), resistance (&Omega;) or power (W).</li>
+      <li>Check the units. Convert milliamps to amps and kilo-ohms to ohms before you type, for example 20 mA is 0.02 A.</li>
+      <li>Read the other two values, which are calculated instantly.</li>
+      <li>Compare the power result with the rating of your resistor or component, and leave a safety margin.</li>
+    </ol>
+
+    <h3>Common uses for Ohm's Law</h3>
+    <ul>
+      <li><strong>Choosing an LED resistor:</strong> subtract the LED's forward voltage from the supply, then divide by the current you want. For a 5V supply, a 2V LED and 20 mA, that is 3 &divide; 0.02 = 150&Omega;. Our <a href="led-resistor.html">LED Resistor Calculator</a> handles series and parallel arrangements.</li>
+      <li><strong>Checking current draw:</strong> divide a device's voltage by its resistance to see how much current a supply, fuse or wire must carry.</li>
+      <li><strong>Estimating voltage drop in cables:</strong> long, thin wires have resistance too, so some voltage is lost along the way. Use the <a href="wire-gauge.html">Wire Gauge calculator</a> for this.</li>
+      <li><strong>Troubleshooting:</strong> compare the voltage and current you measure with the values Ohm's Law predicts. A big difference often points to a bad connection or a failed part.</li>
+    </ul>
+
+    <h3>Quick reference table</h3>
+    <table style="width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;">
+      <tr><th style="border:1px solid var(--line);padding:8px 12px;text-align:left;">Voltage</th><th style="border:1px solid var(--line);padding:8px 12px;text-align:left;">Resistance</th><th style="border:1px solid var(--line);padding:8px 12px;text-align:left;">Current</th><th style="border:1px solid var(--line);padding:8px 12px;text-align:left;">Power</th></tr>
+      <tr><td style="border:1px solid var(--line);padding:8px 12px;">5 V</td><td style="border:1px solid var(--line);padding:8px 12px;">100 &Omega;</td><td style="border:1px solid var(--line);padding:8px 12px;">50 mA</td><td style="border:1px solid var(--line);padding:8px 12px;">0.25 W</td></tr>
+      <tr><td style="border:1px solid var(--line);padding:8px 12px;">12 V</td><td style="border:1px solid var(--line);padding:8px 12px;">470 &Omega;</td><td style="border:1px solid var(--line);padding:8px 12px;">25.5 mA</td><td style="border:1px solid var(--line);padding:8px 12px;">0.31 W</td></tr>
+      <tr><td style="border:1px solid var(--line);padding:8px 12px;">9 V</td><td style="border:1px solid var(--line);padding:8px 12px;">1 k&Omega;</td><td style="border:1px solid var(--line);padding:8px 12px;">9 mA</td><td style="border:1px solid var(--line);padding:8px 12px;">0.081 W</td></tr>
+    </table>
+    <p>New to the topic? Our <a href="ohms-law-explained.html">Ohm's Law guide</a> walks through it step by step with practice problems.</p>
+
     <h3>Frequently asked questions</h3>
     <div class="faq">
       <div class="faq-item">
