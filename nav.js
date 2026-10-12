@@ -36,6 +36,7 @@ const CALCULATORS = [
     { href: "ohms-law-explained.html", name: "Ohm's Law Explained", desc: "Formula, triangle, worked examples and practice problems." },
     { href: "series-parallel-explained.html", name: "Series & Parallel Explained", desc: "Resistor and battery formulas with practical examples." },
     { href: "electrical-power-explained.html", name: "Electrical Power Explained", desc: "Watts, kWh, running cost, current draw and battery runtime." },
+    { href: "ac-vs-dc-explained.html", name: "AC vs DC Explained", desc: "RMS, frequency, why the grid uses AC and how conversion works." },
   ]},
 ];
 

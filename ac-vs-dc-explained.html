@@ -1,0 +1,371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AC vs DC Explained: Differences, RMS &amp; Practical Examples — ElectroCalc</title>
+<meta name="description" content="AC vs DC explained simply: how they differ, what RMS and frequency mean, why power grids use AC, how chargers and inverters convert between them, with worked examples.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/ac-vs-dc-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "AC vs DC Explained: Differences, RMS & Practical Examples",
+  "mainEntityOfPage": "https://electrocalc.in/ac-vs-dc-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the main difference between AC and DC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "DC current flows in one direction at a steady voltage, like from a battery. AC current reverses direction many times a second, so its voltage swings up and down."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why do power grids use AC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "AC voltage can be stepped up or down easily with transformers. High voltage means lower current, which cuts the heat lost in long transmission lines."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What does 230 V AC actually mean?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the RMS value, the steady DC voltage that would heat a resistor equally. The actual voltage peaks at about 325 V."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How do phone chargers turn AC into DC?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A charger steps the voltage down, rectifies it to DC with diodes, then smooths and regulates it to a steady output such as 5 V."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Fundamentals · Guide</span>
+  <h1>AC vs DC, <em>explained</em> with everyday examples.</h1>
+  <p class="sub">Why your wall socket and your phone battery use different kinds of electricity, what RMS and frequency mean, and how chargers and inverters convert between them.</p>
+
+  <div class="article" style="margin-top:0">
+    <h2>The core difference</h2>
+    <div class="analogy">
+      <div><b>DC: direct current</b><span>Flows one way at a steady voltage, like a river. Batteries, solar panels, USB ports and most electronics use it.</span></div>
+      <div><b>AC: alternating current</b><span>Reverses direction many times a second, like waves going back and forth. Wall sockets and the power grid use it.</span></div>
+    </div>
+    <table class="data-table">
+      <tr><th></th><th>DC</th><th>AC</th></tr>
+      <tr><td>Direction</td><td>Constant</td><td>Reverses periodically</td></tr>
+      <tr><td>Voltage</td><td>Steady</td><td>Swings positive and negative</td></tr>
+      <tr><td>Typical sources</td><td>Batteries, solar, USB</td><td>Mains supply, generators</td></tr>
+      <tr><td>Easy to step up/down</td><td>Needs electronics</td><td>Simple transformer</td></tr>
+      <tr><td>Typical uses</td><td>Phones, laptops, LEDs, cars</td><td>Homes, motors, long-distance power</td></tr>
+    </table>
+
+    <h2>Frequency and period</h2>
+    <p>Frequency is how many full cycles AC completes each second, measured in hertz (Hz). India and much of the world use 50 Hz, while the US uses 60 Hz. The time for one cycle is the period.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">T = 1 / f</div>
+      <div class="formula-chip">f = 1 / T</div>
+    </div>
+    <div class="example-box">
+      <p>Mains at 50 Hz:</p>
+      <p class="calc">T = 1 / 50 = 0.02 s = 20 ms per cycle</p>
+      <p>The direction reverses 100 times every second.</p>
+    </div>
+
+    <h2>What "230 V AC" really means: RMS</h2>
+    <p>AC voltage is constantly changing, so we quote one effective number, the <strong>RMS</strong> (root mean square) value. It is the DC voltage that would deliver the same heating power to a resistor. For a sine wave:</p>
+    <div class="formula-grid">
+      <div class="formula-chip">V<sub>peak</sub> = V<sub>RMS</sub> × 1.414</div>
+      <div class="formula-chip">V<sub>RMS</sub> = V<sub>peak</sub> / 1.414</div>
+    </div>
+    <div class="example-box">
+      <p>A 230 V mains supply:</p>
+      <p class="calc">V<sub>peak</sub> = 230 × 1.414 ≈ 325 V</p>
+      <p>That is why insulation and capacitors in mains equipment must be rated well above 230 V.</p>
+    </div>
+
+    <h2>Why the grid uses AC</h2>
+    <p>Power loss in a cable is I² × R, so lower current means far less wasted heat. Since P = V × I, raising the voltage lowers the current for the same power. Transformers raise and lower AC voltage easily and efficiently, which made AC the winner for long-distance transmission.</p>
+    <div class="example-box">
+      <p>Delivering 1 MW (1,000,000 W):</p>
+      <p class="calc">At 230 V: I = 1,000,000 / 230 ≈ 4,348 A</p>
+      <p class="calc">At 11 kV: I = 1,000,000 / 11,000 ≈ 91 A</p>
+      <p>The current is about 48 times lower, so the cable loss is about 2,300 times lower (48²) for the same cable.</p>
+    </div>
+
+    <h2>Converting between AC and DC</h2>
+    <ul>
+      <li><strong>Rectifier (AC to DC):</strong> diodes block the reverse half of the wave. A capacitor and regulator then smooth it. Every phone charger and laptop adapter contains one.</li>
+      <li><strong>Inverter (DC to AC):</strong> electronics switch a DC source rapidly to make an AC output. Home inverters and solar systems use them.</li>
+      <li><strong>Transformer (AC to AC):</strong> steps AC voltage up or down. It does not work on steady DC.</li>
+    </ul>
+
+    <h2>Practical example: sizing an inverter battery</h2>
+    <div class="example-box">
+      <p>A 1,000 W load run from a 12 V battery through an inverter that is 90% efficient:</p>
+      <p class="calc">DC input power = 1000 / 0.9 ≈ 1,111 W</p>
+      <p class="calc">Battery current = 1111 / 12 ≈ 92.6 A</p>
+      <p>That heavy current is why low-voltage inverter systems need thick cables. Our <a href="wire-gauge.html">Wire Gauge calculator</a> helps size them, and the <a href="battery-life.html">Battery Life calculator</a> estimates runtime.</p>
+    </div>
+
+    <h2>Ohm's Law and AC</h2>
+    <p>Ohm's Law works directly for AC on purely resistive loads such as heaters and incandescent bulbs, using RMS values. With capacitors and inductors, resistance becomes <strong>impedance (Z)</strong> and current can lag or lead the voltage. See the <a href="ohms-law-explained.html">Ohm's Law guide</a> for the basics.</p>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing up RMS and peak.</strong> Multimeters read RMS. Peak values are about 1.414 times higher.</li>
+      <li><strong>Plugging DC gear into AC, or the reverse.</strong> Check the label for input type and voltage first.</li>
+      <li><strong>Expecting transformers to work on DC.</strong> They need the changing magnetic field that only AC provides.</li>
+      <li><strong>Touching "low" AC.</strong> Mains voltage is dangerous. Always switch off and isolate before working on wiring.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. What is the peak voltage of a 120 V RMS supply?</summary><p>120 × 1.414 ≈ 170 V.</p></details>
+    <details class="practice"><summary>2. What is the period of a 60 Hz supply?</summary><p>T = 1 / 60 ≈ 0.0167 s, or 16.7 ms.</p></details>
+    <details class="practice"><summary>3. A 500 W load runs from a 12 V battery via a 100% efficient inverter. What current does the battery supply?</summary><p>I = 500 / 12 ≈ 41.7 A. A real inverter would draw more because of losses.</p></details>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">What is the main difference between AC and DC?</div>
+        <p class="faq-a">DC current flows in one direction at a steady voltage, like from a battery. AC current reverses direction many times a second, so its voltage swings up and down.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why do power grids use AC?</div>
+        <p class="faq-a">AC voltage can be stepped up or down easily with transformers. High voltage means lower current, which cuts the heat lost in long transmission lines.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What does 230 V AC actually mean?</div>
+        <p class="faq-a">It is the RMS value, the steady DC voltage that would heat a resistor equally. The actual voltage peaks at about 325 V.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How do phone chargers turn AC into DC?</div>
+        <p class="faq-a">A charger steps the voltage down, rectifies it to DC with diodes, then smooths and regulates it to a steady output such as 5 V.</p>
+      </div>
+    </div>
+
+    <div class="cta-panel">
+      <p>Working with a transformer or an RC filter? Try our related calculators.</p>
+      <a class="cta-btn" href="transformer.html">Open the Transformer Calculator</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>
