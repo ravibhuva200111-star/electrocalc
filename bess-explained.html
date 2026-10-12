@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>BESS Explained: Battery Energy Storage Systems, Sizing &amp; Examples — ElectroCalc</title>
+<meta name="description" content="BESS (battery energy storage systems) explained: components, MW vs MWh, C-rate, round-trip efficiency, depth of discharge, sizing examples for solar and peak shaving, and safety.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/bess-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "BESS Explained: Battery Energy Storage Systems, Sizing & Examples",
+  "mainEntityOfPage": "https://electrocalc.in/bess-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What does BESS stand for?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "BESS stands for Battery Energy Storage System, a setup that stores electrical energy in batteries and releases it when needed, from a home backup unit to a grid-scale installation."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between MW and MWh in a BESS?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "MW is power, how fast the system can charge or discharge. MWh is energy, how much it can store. A 1 MW / 2 MWh system can deliver 1 MW for two hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is round-trip efficiency?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the share of energy you get back out compared with what you put in. Lithium-ion systems typically return roughly 85–90%, so 100 kWh in gives about 85–90 kWh out."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Which battery chemistry do most BESS projects use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Lithium iron phosphate (LFP) is widely used for stationary storage because of its long cycle life and good thermal stability, though other chemistries are also used."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Practical Guide · Energy Storage</span>
+  <h1>BESS, <em>explained</em>: how battery energy storage systems work and how to size one.</h1>
+  <p class="sub">From rooftop solar backup to grid-scale batteries, learn the parts, the key numbers (MW, MWh, C-rate, efficiency) and worked sizing examples.</p>
+
+  <div class="article" style="margin-top:0">
+    <h2>What is a BESS?</h2>
+    <p>A <strong>Battery Energy Storage System (BESS)</strong> stores electricity when it is cheap or plentiful and releases it when it is needed. It is essentially a large, managed battery connected to the grid or to a building, with the electronics and safety systems needed to run it.</p>
+
+    <h2>Main components</h2>
+    <div class="analogy">
+      <div><b>Battery modules and racks</b><span>The cells that store the energy, grouped into modules and racks. Lithium iron phosphate (LFP) is a common choice.</span></div>
+      <div><b>BMS</b><span>The battery management system monitors cell voltage, current and temperature and protects the cells.</span></div>
+      <div><b>PCS (inverter)</b><span>The power conversion system converts between the battery's DC and the grid's AC. See our <a href="ac-vs-dc-explained.html">AC vs. DC guide</a>.</span></div>
+      <div><b>EMS</b><span>The energy management system decides when to charge and discharge.</span></div>
+      <div><b>Thermal and fire safety</b><span>Cooling, ventilation and fire detection keep cells in a safe temperature range.</span></div>
+      <div><b>Transformer and switchgear</b><span>Connect the system to the grid at the right voltage and protect it.</span></div>
+    </div>
+
+    <h2>What BESS is used for</h2>
+    <ul>
+      <li><strong>Solar shifting:</strong> store daytime solar and use it in the evening.</li>
+      <li><strong>Peak shaving:</strong> discharge during the highest-demand periods to cut peak demand charges.</li>
+      <li><strong>Backup power:</strong> keep critical loads running during outages.</li>
+      <li><strong>Grid services:</strong> help balance frequency and smooth out renewable output.</li>
+      <li><strong>EV charging support:</strong> buffer the grid so fast chargers do not need a large grid connection.</li>
+    </ul>
+
+    <h2>The key numbers: MW, MWh and C-rate</h2>
+    <p>Every BESS has two headline ratings, and they mean different things. Our <a href="electrical-power-explained.html">power guide</a> covers the underlying difference between power and energy.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Duration (h) = MWh / MW</div>
+      <div class="formula-chip">C-rate = MW / MWh</div>
+    </div>
+    <div class="example-box">
+      <p>A 1 MW / 2 MWh battery:</p>
+      <p class="calc">Duration = 2 / 1 = 2 hours</p>
+      <p class="calc">C-rate = 1 / 2 = 0.5C</p>
+      <p>It can deliver its full 1 MW for two hours. A 4-hour system at the same power would need 4 MWh.</p>
+    </div>
+
+    <h2>Efficiency and depth of discharge</h2>
+    <ul>
+      <li><strong>Round-trip efficiency:</strong> energy out divided by energy in. Lithium-ion systems typically fall around 85–90%.</li>
+      <li><strong>Depth of discharge (DoD):</strong> the share of the battery you actually use. Using 90% rather than 100% extends battery life.</li>
+    </ul>
+    <div class="example-box">
+      <p>Charging with 100 kWh at 88% round-trip efficiency:</p>
+      <p class="calc">Energy out ≈ 100 × 0.88 = 88 kWh</p>
+    </div>
+
+    <h2>Sizing example 1: home solar backup</h2>
+    <div class="example-box">
+      <p>You want to supply 15 kWh of evening and night use from stored solar. Assume 90% usable depth of discharge and 92% inverter efficiency.</p>
+      <p class="calc">Battery size = 15 / (0.90 × 0.92) ≈ 18.1 kWh</p>
+      <p>So you would look for a battery of about 18–20 kWh. See our <a href="battery-life.html">Battery Life calculator</a> for runtime on a specific load.</p>
+    </div>
+
+    <h2>Sizing example 2: factory peak shaving</h2>
+    <div class="example-box">
+      <p>A factory peaks at 500 kW and wants to cap its peak at 400 kW for 2 hours each day.</p>
+      <p class="calc">Power needed = 500 − 400 = 100 kW</p>
+      <p class="calc">Energy delivered = 100 × 2 = 200 kWh</p>
+      <p>With 90% DoD and 90% efficiency:</p>
+      <p class="calc">Battery size = 200 / (0.90 × 0.90) ≈ 247 kWh, so roughly 250 kWh</p>
+      <p class="calc">C-rate = 100 / 250 = 0.4C (a 2.5-hour battery)</p>
+    </div>
+
+    <h2>How long will it last?</h2>
+    <p>Cycle life is the number of full charge-discharge cycles before capacity drops to a set level, often 80%. LFP batteries are commonly rated in the thousands of cycles.</p>
+    <div class="example-box">
+      <p>A battery rated for 6,000 cycles, used once a day:</p>
+      <p class="calc">Life ≈ 6,000 / 365 ≈ 16 years</p>
+      <p>Real life depends on temperature, depth of discharge and how hard the battery is used, so treat the figure as a ceiling, not a promise.</p>
+    </div>
+
+    <h2>Safety and standards</h2>
+    <p>Lithium batteries can overheat if damaged or poorly managed, so BESS design includes temperature monitoring, ventilation, fire detection and suppression, and spacing between units. Installations typically follow recognised standards for energy storage systems and fire-propagation testing, such as UL 9540 and UL 9540A. Always use qualified installers and follow local electrical codes. Cables and breakers must also be sized for the high currents involved, which our <a href="wire-gauge.html">Wire Gauge calculator</a> helps with.</p>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing up kW and kWh.</strong> Power and energy are different, so size for both.</li>
+      <li><strong>Ignoring efficiency and DoD.</strong> Nameplate capacity is never fully usable.</li>
+      <li><strong>Sizing only for average load.</strong> Peaks decide the power rating you need.</li>
+      <li><strong>Forgetting degradation.</strong> Capacity fades over time, so allow headroom.</li>
+      <li><strong>Skipping safety planning.</strong> Placement, cooling and fire protection matter as much as the battery.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. A 2 MW / 4 MWh BESS. What are its duration and C-rate?</summary><p>Duration = 4 / 2 = 2 hours. C-rate = 2 / 4 = 0.5C.</p></details>
+    <details class="practice"><summary>2. A 100 kWh battery with 90% usable DoD and 90% round-trip efficiency. How much energy can you get out?</summary><p>100 × 0.90 × 0.90 = 81 kWh.</p></details>
+    <details class="practice"><summary>3. A battery is rated for 4,000 cycles and cycled once a day. About how many years is that?</summary><p>4,000 / 365 ≈ 11 years.</p></details>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">What does BESS stand for?</div>
+        <p class="faq-a">BESS stands for Battery Energy Storage System, a setup that stores electrical energy in batteries and releases it when needed, from a home backup unit to a grid-scale installation.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the difference between MW and MWh in a BESS?</div>
+        <p class="faq-a">MW is power, how fast the system can charge or discharge. MWh is energy, how much it can store. A 1 MW / 2 MWh system can deliver 1 MW for two hours.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is round-trip efficiency?</div>
+        <p class="faq-a">It is the share of energy you get back out compared with what you put in. Lithium-ion systems typically return roughly 85–90%, so 100 kWh in gives about 85–90 kWh out.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Which battery chemistry do most BESS projects use?</div>
+        <p class="faq-a">Lithium iron phosphate (LFP) is widely used for stationary storage because of its long cycle life and good thermal stability, though other chemistries are also used.</p>
+      </div>
+    </div>
+
+    <div class="cta-panel">
+      <p>Estimate battery runtime for your own load, or size cables for the DC side of your battery system.</p>
+      <a class="cta-btn" href="battery-life.html">Open the Battery Life Calculator</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>

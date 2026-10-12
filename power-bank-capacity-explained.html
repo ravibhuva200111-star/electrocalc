@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Power Bank Capacity Explained: How Many Charges Will You Really Get? — ElectroCalc</title>
+<meta name="description" content="Power bank mAh vs Wh explained: why a 10,000 mAh power bank doesn't give 10,000 mAh, how to calculate real phone charges, charging time, fast-charge watts and flight limits.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/power-bank-capacity-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Power Bank Capacity Explained: How Many Charges Will You Really Get?",
+  "mainEntityOfPage": "https://electrocalc.in/power-bank-capacity-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why does my 10,000 mAh power bank not charge my phone fully twice?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "The rating is measured at the battery's internal 3.7 V, but power is lost in voltage conversion, heat and cable resistance. Real usable capacity is usually around 60–80% of the printed number."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is mAh or Wh a better way to compare power banks?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Wh is better because it accounts for voltage. Wh = mAh × 3.7 / 1000 for typical lithium cells, so two banks with the same mAh but different voltages are directly comparable."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How many watts does fast charging use?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Watts = volts × amps. A 20 V, 3 A USB-C output gives 60 W, and 20 V at 3.25 A gives 65 W."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can I take a power bank on a plane?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Power banks go in carry-on baggage, not checked luggage. Most airlines allow up to 100 Wh without approval, so a 10,000 mAh bank (about 37 Wh) is fine. Always check your own airline's rules."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Practical Guide · Batteries</span>
+  <h1>Power bank capacity, <em>explained</em>: how many charges will you really get?</h1>
+  <p class="sub">A 10,000 mAh power bank never delivers 10,000 mAh to your phone. Learn why, and how to calculate the real number before you buy.</p>
+
+  <div class="article" style="margin-top:0">
+    <h2>mAh vs. Wh: why voltage matters</h2>
+    <p>Milliamp-hours (mAh) tell you how much charge a battery holds, but not how much energy, because energy also depends on voltage. Watt-hours (Wh) combine both, which makes them the fair way to compare batteries.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Wh = mAh × V / 1000</div>
+      <div class="formula-chip">Typical lithium cell: 3.7 V</div>
+    </div>
+    <div class="example-box">
+      <p>A 10,000 mAh power bank:</p>
+      <p class="calc">Wh = 10,000 × 3.7 / 1000 = 37 Wh</p>
+      <p>A phone with a 5,000 mAh battery:</p>
+      <p class="calc">Wh = 5,000 × 3.7 / 1000 = 18.5 Wh</p>
+    </div>
+
+    <h2>Why you never get the full capacity</h2>
+    <p>Three things eat into the printed number:</p>
+    <ul>
+      <li><strong>Voltage conversion.</strong> The bank steps its 3.7 V cell up to 5 V or higher, and every conversion wastes some energy as heat.</li>
+      <li><strong>Phone-side charging losses.</strong> Charging circuits and heat lose a bit more.</li>
+      <li><strong>Cable and connector resistance.</strong> Poor cables lose power as heat, following P = I² × R.</li>
+    </ul>
+    <p>A realistic overall efficiency is about <strong>60–80%</strong>. Good fast-charging banks with quality cables sit at the top of that range, and cheap ones at the bottom.</p>
+
+    <h2>How many phone charges will you get?</h2>
+    <div class="formula-grid">
+      <div class="formula-chip">Charges = (Bank Wh × efficiency) / Phone Wh</div>
+    </div>
+    <div class="example-box">
+      <p>10,000 mAh bank, 5,000 mAh phone, 75% efficiency:</p>
+      <p class="calc">Charges = (37 × 0.75) / 18.5 = 1.5</p>
+      <p>You get about one and a half charges, not two. That gap is the "missing" capacity.</p>
+    </div>
+    <table class="data-table">
+      <tr><th>Bank size</th><th>Energy</th><th>Charges for a 5,000 mAh phone (75%)</th></tr>
+      <tr><td>10,000 mAh</td><td>37 Wh</td><td>1.5</td></tr>
+      <tr><td>20,000 mAh</td><td>74 Wh</td><td>3.0</td></tr>
+      <tr><td>30,000 mAh</td><td>111 Wh</td><td>4.5</td></tr>
+    </table>
+
+    <h2>Fast charging: reading the watts</h2>
+    <p>USB-C power delivery negotiates the voltage, and power is simply volts times amps.</p>
+    <table class="data-table">
+      <tr><th>Voltage</th><th>Current</th><th>Power</th></tr>
+      <tr><td>5 V</td><td>3 A</td><td>15 W</td></tr>
+      <tr><td>9 V</td><td>3 A</td><td>27 W</td></tr>
+      <tr><td>20 V</td><td>3 A</td><td>60 W</td></tr>
+      <tr><td>20 V</td><td>3.25 A</td><td>65 W</td></tr>
+    </table>
+    <p>The charger, the cable and the phone must all support the higher wattage. The slowest of the three decides the speed. Learn the basics in our <a href="electrical-power-explained.html">electrical power guide</a>.</p>
+
+    <h2>How long does the power bank take to recharge?</h2>
+    <div class="formula-grid">
+      <div class="formula-chip">Time = Bank Wh / (input W × efficiency)</div>
+    </div>
+    <div class="example-box">
+      <p>A 37 Wh bank charged with an 18 W input at 85% efficiency:</p>
+      <p class="calc">Time = 37 / (18 × 0.85) ≈ 2.4 hours</p>
+      <p>Charging slows near the end of the battery, so expect a little longer in practice.</p>
+    </div>
+
+    <h2>Taking a power bank on a flight</h2>
+    <p>Lithium batteries must travel in your carry-on bag, never in checked luggage. Most airlines allow banks up to 100 Wh without special approval, and many allow larger ones with approval. A 10,000 mAh bank (37 Wh) is well within that, and a 30,000 mAh bank (about 111 Wh) is not. Always check your airline's current rules before you fly.</p>
+
+    <h2>Buying tips</h2>
+    <ul>
+      <li>Compare banks in <strong>Wh</strong>, not mAh.</li>
+      <li>Check the <strong>output watts</strong> match your phone's fast-charging needs.</li>
+      <li>Use a <strong>short, good-quality cable</strong> rated for the wattage.</li>
+      <li>Be cautious of unusually large capacities at very low prices, since real capacity is often much lower than printed.</li>
+    </ul>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Expecting full printed capacity.</strong> Always allow for 20–40% loss.</li>
+      <li><strong>Comparing mAh across different voltages.</strong> Convert to Wh first.</li>
+      <li><strong>Using the cable that came with a cheap accessory.</strong> It can limit charging speed and waste power.</li>
+      <li><strong>Charging in a hot place.</strong> Heat reduces efficiency and shortens battery life.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. A 20,000 mAh power bank is rated at 3.7 V. How many Wh is that?</summary><p>20,000 × 3.7 / 1000 = 74 Wh.</p></details>
+    <details class="practice"><summary>2. At 70% efficiency, how many full charges does a 20,000 mAh bank give a 4,500 mAh phone?</summary><p>(20,000 × 0.7) / 4,500 ≈ 3.1 charges.</p></details>
+    <details class="practice"><summary>3. A charger outputs 20 V at 3.25 A. What is its power?</summary><p>P = 20 × 3.25 = 65 W.</p></details>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">Why does my 10,000 mAh power bank not charge my phone fully twice?</div>
+        <p class="faq-a">The rating is measured at the battery's internal 3.7 V, but power is lost in voltage conversion, heat and cable resistance. Real usable capacity is usually around 60–80% of the printed number.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is mAh or Wh a better way to compare power banks?</div>
+        <p class="faq-a">Wh is better because it accounts for voltage. Wh = mAh × 3.7 / 1000 for typical lithium cells, so two banks with the same mAh but different voltages are directly comparable.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How many watts does fast charging use?</div>
+        <p class="faq-a">Watts = volts × amps. A 20 V, 3 A USB-C output gives 60 W, and 20 V at 3.25 A gives 65 W.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can I take a power bank on a plane?</div>
+        <p class="faq-a">Power banks go in carry-on baggage, not checked luggage. Most airlines allow up to 100 Wh without approval, so a 10,000 mAh bank (about 37 Wh) is fine. Always check your own airline's rules.</p>
+      </div>
+    </div>
+
+    <div class="cta-panel">
+      <p>Want to estimate runtime for your own battery and load? Use our Battery Life calculator, or convert watts with the Power Converter.</p>
+      <a class="cta-btn" href="battery-life.html">Open the Battery Life Calculator</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>

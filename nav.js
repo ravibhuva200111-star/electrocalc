@@ -37,6 +37,8 @@ const CALCULATORS = [
     { href: "series-parallel-explained.html", name: "Series & Parallel Explained", desc: "Resistor and battery formulas with practical examples." },
     { href: "electrical-power-explained.html", name: "Electrical Power Explained", desc: "Watts, kWh, running cost, current draw and battery runtime." },
     { href: "ac-vs-dc-explained.html", name: "AC vs DC Explained", desc: "RMS, frequency, why the grid uses AC and how conversion works." },
+    { href: "power-bank-capacity-explained.html", name: "Power Bank Capacity Explained", desc: "mAh vs Wh, real charges, fast-charge watts and flight limits." },
+    { href: "bess-explained.html", name: "BESS Explained", desc: "Battery energy storage: MW vs MWh, C-rate, sizing examples and safety." },
   ]},
 ];
 
