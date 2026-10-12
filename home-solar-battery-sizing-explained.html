@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Home Solar + Battery Sizing: Panels, kWh &amp; Inverter Explained — ElectroCalc</title>
+<meta name="description" content="How to size a home solar and battery system: find daily kWh, calculate panel kWp, battery capacity, backup hours and inverter size with step-by-step worked examples.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/home-solar-battery-sizing-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Home Solar + Battery Sizing: Panels, kWh & Inverter Explained",
+  "mainEntityOfPage": "https://electrocalc.in/home-solar-battery-sizing-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How many solar panels do I need for my home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Divide your daily energy use in kWh by the peak sun hours and an efficiency factor of about 0.75 to get the array size in kWp, then divide by the wattage of each panel."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between kW and kWp?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "kWp is the rated peak output of the solar panels under standard test conditions. kW is a general power unit. Real output is usually lower than kWp because of heat, dust, wiring and inverter losses."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How big a battery do I need?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Size it for the energy you want to use after sunset or during an outage, then divide by the usable depth of discharge and the inverter efficiency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can solar panels run my home without a battery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "A grid-tied system works without a battery but shuts down during a power cut for safety. To keep power during outages you need a hybrid inverter with a battery."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Practical Guide · Solar &amp; Storage</span>
+  <h1>Home solar and battery sizing, <em>explained</em> step by step.</h1>
+  <p class="sub">Work out how many panels, how big a battery and which inverter your home needs, using your own electricity bill and four simple formulas.</p>
+
+  <div class="article" style="margin-top:0">
+    <h2>The four sizing steps</h2>
+    <p>Sizing a home system follows the same order every time: how much you use, how big the solar array must be, how big the battery must be, and how big the inverter must be. Our worked example uses a home that uses 300 units a month.</p>
+
+    <h2>Step 1: find your daily energy use</h2>
+    <p>Your electricity bill shows monthly units, and one unit is one kilowatt-hour. Divide by 30 to get daily use. See our <a href="electrical-power-explained.html">power guide</a> for how to estimate individual appliances.</p>
+    <div class="example-box">
+      <p class="calc">300 units / 30 days = 10 kWh per day</p>
+    </div>
+
+    <h2>Step 2: size the solar array</h2>
+    <p>Solar output depends on how many <strong>peak sun hours</strong> your location gets, which is the equivalent number of hours of full-strength sunshine per day. Many places in India see roughly 4 to 6, but check a local figure. Real systems lose some energy to heat, dust, wiring and the inverter, so use an efficiency factor of about 0.75.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">kWp = Daily kWh / (sun hours × 0.75)</div>
+      <div class="formula-chip">Panels = kWp × 1000 / panel watts</div>
+    </div>
+    <div class="example-box">
+      <p>10 kWh a day, 5 peak sun hours:</p>
+      <p class="calc">kWp = 10 / (5 × 0.75) ≈ 2.67 kWp</p>
+      <p>Using 550 W panels:</p>
+      <p class="calc">Panels = 2,670 / 550 ≈ 4.9, so round up to 5 or 6 panels</p>
+      <p>With 6 panels (3.3 kWp), expected daily output is:</p>
+      <p class="calc">3.3 × 5 × 0.75 ≈ 12.4 kWh per day</p>
+    </div>
+
+    <h2>Step 3: size the battery</h2>
+    <p>Decide how much energy you want from the battery. This is usually your evening and night use, or the loads you want to keep during a power cut. Batteries should not be fully drained, and the inverter wastes a little energy, so divide by both factors.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Battery kWh = Need / (DoD × inverter efficiency)</div>
+    </div>
+    <div class="example-box">
+      <p>5 kWh of evening use, 90% usable depth of discharge, 92% inverter efficiency:</p>
+      <p class="calc">Battery = 5 / (0.90 × 0.92) ≈ 6.0 kWh</p>
+      <p>So look for a battery of about 6–7 kWh. Learn more about these ratings in our <a href="bess-explained.html">BESS guide</a>.</p>
+    </div>
+
+    <h2>How long will the battery run my home in a power cut?</h2>
+    <div class="example-box">
+      <p>A 7 kWh battery feeding a 500 W load (lights, fans, Wi-Fi, fridge):</p>
+      <p class="calc">Usable energy = 7 × 0.90 × 0.92 ≈ 5.8 kWh</p>
+      <p class="calc">Runtime = 5.8 / 0.5 ≈ 11.6 hours</p>
+      <p>Our <a href="battery-life.html">Battery Life calculator</a> does the same arithmetic for any load.</p>
+    </div>
+
+    <h2>Step 4: size the inverter</h2>
+    <p>The inverter must cope with everything running at once, plus the brief surge that motors draw when they start. List the loads you expect to run together and add a margin of about 25% to 50%.</p>
+    <div class="example-box">
+      <p>A 1.5 kW air conditioner, a 0.2 kW fridge and 0.3 kW of fans and lights:</p>
+      <p class="calc">Running load = 1.5 + 0.2 + 0.3 = 2.0 kW</p>
+      <p class="calc">Inverter ≈ 2.0 × 1.5 = 3 kW</p>
+    </div>
+
+    <h2>The electrical side: current and cables</h2>
+    <p>Low-voltage battery systems carry large currents. On a 48 V battery bank, a 3 kW load draws:</p>
+    <div class="example-box">
+      <p class="calc">I = P / V = 3,000 / 48 ≈ 62.5 A</p>
+      <p>Thick short cables and correctly rated fuses are essential on the DC side. Use our <a href="wire-gauge.html">Wire Gauge calculator</a> to check voltage drop. Panels and batteries produce DC and the home uses AC, which our <a href="ac-vs-dc-explained.html">AC vs. DC guide</a> explains.</p>
+    </div>
+
+    <h2>Which type of system?</h2>
+    <table class="data-table">
+      <tr><th>Type</th><th>Battery</th><th>Works in a power cut</th></tr>
+      <tr><td>Grid-tied</td><td>No</td><td>No, it shuts down for safety</td></tr>
+      <tr><td>Hybrid</td><td>Yes</td><td>Yes, for the loads you connect</td></tr>
+      <tr><td>Off-grid</td><td>Yes</td><td>Yes, it is the only supply</td></tr>
+    </table>
+
+    <h2>What could it save?</h2>
+    <div class="example-box">
+      <p>If solar covers 300 units a month, at an example tariff of ₹7 per unit:</p>
+      <p class="calc">300 × 7 = ₹2,100 per month</p>
+      <p>Tariffs, net-metering rules and subsidies differ by state and utility, so check your own before deciding.</p>
+    </div>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Sizing by roof space.</strong> Size by your energy use first, then see what fits.</li>
+      <li><strong>Using kWp as real output.</strong> Apply losses of roughly 25%.</li>
+      <li><strong>Ignoring shade and dust.</strong> Even partial shade can cut output sharply.</li>
+      <li><strong>Mixing kW and kWh.</strong> Inverters are rated in kW and batteries in kWh.</li>
+      <li><strong>Forgetting motor surges.</strong> Air conditioners and pumps need a bigger inverter than their running power.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. A home uses 450 units a month, with 5 sun hours and 0.75 efficiency. What kWp is needed?</summary><p>Daily use = 450 / 30 = 15 kWh. kWp = 15 / (5 × 0.75) = 4 kWp.</p></details>
+    <details class="practice"><summary>2. How many 540 W panels make 4 kWp?</summary><p>4,000 / 540 ≈ 7.4, so 8 panels.</p></details>
+    <details class="practice"><summary>3. You need 8 kWh from the battery at 90% DoD and 92% inverter efficiency. What battery size?</summary><p>8 / (0.90 × 0.92) ≈ 9.7 kWh.</p></details>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">How many solar panels do I need for my home?</div>
+        <p class="faq-a">Divide your daily energy use in kWh by the peak sun hours and an efficiency factor of about 0.75 to get the array size in kWp, then divide by the wattage of each panel.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the difference between kW and kWp?</div>
+        <p class="faq-a">kWp is the rated peak output of the solar panels under standard test conditions. kW is a general power unit. Real output is usually lower than kWp because of heat, dust, wiring and inverter losses.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How big a battery do I need?</div>
+        <p class="faq-a">Size it for the energy you want to use after sunset or during an outage, then divide by the usable depth of discharge and the inverter efficiency.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can solar panels run my home without a battery?</div>
+        <p class="faq-a">A grid-tied system works without a battery but shuts down during a power cut for safety. To keep power during outages you need a hybrid inverter with a battery.</p>
+      </div>
+    </div>
+
+    <div class="cta-panel">
+      <p>Estimate how long a battery will run your loads.</p>
+      <a class="cta-btn" href="battery-life.html">Open the Battery Life Calculator</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>

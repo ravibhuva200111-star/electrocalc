@@ -40,6 +40,7 @@ const CALCULATORS = [
     { href: "power-bank-capacity-explained.html", name: "Power Bank Capacity Explained", desc: "mAh vs Wh, real charges, fast-charge watts and flight limits." },
     { href: "bess-explained.html", name: "BESS Explained", desc: "Battery energy storage: MW vs MWh, C-rate, sizing examples and safety." },
     { href: "ai-data-center-power-explained.html", name: "AI Data Center Power", desc: "Rack kW, PUE, cooling, yearly energy and cost with worked examples." },
+    { href: "home-solar-battery-sizing-explained.html", name: "Home Solar + Battery Sizing", desc: "Panels, battery kWh and inverter size, step by step." },
   ]},
 ];
 
