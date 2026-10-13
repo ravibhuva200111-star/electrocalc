@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Can Your EV Power Your Home? V2H, V2L &amp; Backup Hours Explained — ElectroCalc</title>
+<meta name="description" content="Can an electric car power your house in a power cut? V2H, V2L and vehicle-to-grid explained in plain words, with a simple formula to calculate EV backup hours.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+
+  /* Blog extras */
+  .fig{margin:20px 0 26px;max-width:520px;}
+  .fig svg{width:100%;height:auto;display:block;background:var(--surface);border:1px solid var(--line);border-radius:12px;}
+  .fig figcaption{font-size:13px;color:var(--ink-dim);margin-top:8px;line-height:1.5;}
+  .tldr{background:var(--surface);border:1px solid var(--accent);border-radius:12px;padding:16px 20px;margin:0 0 24px;max-width:70ch;}
+  .tldr b{font-family:'IBM Plex Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);display:block;margin-bottom:6px;}
+  .tldr p{margin:0 0 6px;}
+  .tldr ul{margin:6px 0 0 18px;padding:0;}
+  .safety{border-left:3px solid var(--accent);background:var(--surface);padding:12px 16px;border-radius:8px;margin:0 0 18px;max-width:70ch;}
+  .byline{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);margin:0 0 20px;}
+  .sources{font-size:13px;color:var(--ink-dim);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/ev-power-home-v2h-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Can Your EV Power Your Home? V2H, V2L & Backup Hours Explained",
+  "datePublished": "2026-10-13",
+  "dateModified": "2026-10-13",
+  "mainEntityOfPage": "https://electrocalc.in/ev-power-home-v2h-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is V2H (vehicle-to-home)?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "V2H means the car's battery sends electricity back to your house, usually during a power cut. It needs a car, a charger and home wiring that all support two-way power flow."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between V2H, V2L and V2G?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "V2L (vehicle-to-load) powers plug-in appliances directly from the car. V2H powers your whole home through your electrical panel. V2G (vehicle-to-grid) sends power back to the utility grid."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How long can an EV run my house?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Divide the battery energy you can safely use by your load. A 60 kWh car with about 43 kWh available runs a 1 kW load for roughly 43 hours."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will powering my house damage the car battery?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Occasional backup use is a small amount of extra cycling, but heavy daily use adds wear. Check your car's warranty terms for bidirectional charging."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can any electric car power a home?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "No. The car, the charger and the home installation must all support it, and availability depends on the model and your country. Check your manual or ask the manufacturer."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Trending · EV &amp; Home Power</span>
+  <h1>Can your EV power your home? <em>V2H, V2L</em> and backup hours, explained.</h1>
+  <p class="byline">Oct 13, 2026 · 8 min read · by ElectroCalc</p>
+  <p class="sub">Electric cars are starting to work like giant power banks for your house. Here is how it works, in plain words, and how to work out how long your car could run your home in a power cut.</p>
+
+  <div class="article" style="margin-top:0">
+
+    <div class="tldr">
+      <b>Quick answer</b>
+      <p>Yes, some EVs can power a home, but only when the car, the charger and the home wiring all support two-way power. Backup time is simple maths:</p>
+      <ul>
+        <li><strong>Backup hours = usable battery kWh ÷ home load in kW</strong></li>
+        <li>A 60 kWh EV can run a 1 kW essentials load for about 43 hours.</li>
+        <li>Running a home for one day uses roughly 60 km of driving range.</li>
+      </ul>
+    </div>
+
+    <h2>Why everyone is talking about this</h2>
+    <p>Power cuts, high fuel prices and cheaper EVs have made "your car as a home battery" a hot topic. Recently, Tesla said new Model 3 and Model Y buyers in the US can use home backup with a Powerwall 3, and reports say it can keep a house running for over two days. Features like this change by model and country, so treat it as a sign of where things are going.</p>
+    <p>Other carmakers already offer similar features. Several EVs sold around the world, including in India, can power plug-in appliances directly. Check your own car's manual before you rely on it.</p>
+
+    <h2>V2L, V2H and V2G: what the letters mean</h2>
+    <p>These terms are everywhere in EV news. They all describe the car sending power out instead of only taking it in.</p>
+    <table class="data-table">
+      <tr><th>Term</th><th>Means</th><th>What it does</th></tr>
+      <tr><td>V2L</td><td>Vehicle-to-load</td><td>Plug an appliance into the car, like a big power bank</td></tr>
+      <tr><td>V2H</td><td>Vehicle-to-home</td><td>Car feeds your house panel during a power cut</td></tr>
+      <tr><td>V2G</td><td>Vehicle-to-grid</td><td>Car sends power back to the utility grid</td></tr>
+    </table>
+    <p>You can read more about the grid side on Wikipedia's <a href="https://en.wikipedia.org/wiki/Vehicle-to-grid" target="_blank" rel="noopener noreferrer">vehicle-to-grid</a> page, and about the cars themselves on <a href="https://en.wikipedia.org/wiki/Electric_vehicle" target="_blank" rel="noopener noreferrer">electric vehicle</a>.</p>
+
+    <h2>How it works</h2>
+    <p>An EV battery stores <strong>DC</strong> power, but your home runs on <strong>AC</strong>. A bidirectional charger contains an <a href="https://en.wikipedia.org/wiki/Power_inverter" target="_blank" rel="noopener noreferrer">inverter</a> that converts between the two. During a power cut, the home is disconnected from the grid so the car's power stays inside your house. Our <a href="ac-vs-dc-explained.html">AC vs. DC guide</a> explains why that conversion is needed.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 360 330" role="img" aria-label="Diagram: EV battery connected through a bidirectional charger and inverter to the home electrical panel, with the grid disconnected during a power cut">
+  <defs>
+    <marker id="ar" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/></marker>
+    <marker id="ar2" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto-start-reverse"><path d="M0,0 L8,4 L0,8 z" fill="var(--accent)"/></marker>
+  </defs>
+  <rect x="90" y="14" width="180" height="56" rx="10" fill="none" stroke="var(--trace)" stroke-width="2"/>
+  <text x="180" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">EV battery</text>
+  <text x="180" y="58" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">DC power, e.g. 60 kWh</text>
+  <line x1="180" y1="72" x2="180" y2="108" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ar)" marker-start="url(#ar2)"/>
+  <rect x="70" y="112" width="220" height="56" rx="10" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="180" y="136" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">Bidirectional charger</text>
+  <text x="180" y="156" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">converts DC to AC (inverter)</text>
+  <line x1="180" y1="170" x2="180" y2="204" stroke="var(--accent)" stroke-width="2.5" marker-end="url(#ar)"/>
+  <rect x="70" y="208" width="220" height="50" rx="10" fill="none" stroke="var(--line)" stroke-width="2"/>
+  <text x="180" y="230" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">Home electrical panel</text>
+  <text x="180" y="248" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">230 V AC</text>
+  <text x="180" y="284" text-anchor="middle" font-size="13" fill="var(--ink)" font-family="Inter, sans-serif">Fridge · Fans · Lights · Wi-Fi · TV</text>
+  <text x="180" y="312" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">Power cut: grid is disconnected</text>
+  <line x1="300" y1="233" x2="344" y2="233" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="326" y="222" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">Grid</text>
+  <text x="326" y="256" text-anchor="middle" font-size="16" font-weight="700" fill="var(--accent)" font-family="Inter, sans-serif">✕</text>
+</svg>
+      <figcaption>How vehicle-to-home (V2H) works: DC from the car battery is converted to AC for your home panel while the grid is cut off.</figcaption>
+    </figure>
+
+    <h2>Two numbers to know: kW and kWh</h2>
+    <p>Everything here depends on telling these apart. A <a href="https://en.wikipedia.org/wiki/Kilowatt-hour" target="_blank" rel="noopener noreferrer">kilowatt-hour (kWh)</a> is an amount of energy, like litres of fuel in a tank. A kilowatt (kW) is how fast you use it, like how quickly you burn that fuel.</p>
+    <ul>
+      <li><strong>Battery size</strong> is in kWh. A typical EV has 40 to 80 kWh.</li>
+      <li><strong>Charger and home load</strong> are in kW. A bidirectional charger is often rated at roughly 7 to 11 kW.</li>
+    </ul>
+    <p>Our <a href="electrical-power-explained.html">electrical power guide</a> covers this in more detail.</p>
+
+    <h2>How many hours can your EV run your home?</h2>
+    <p>Follow three easy steps.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Usable kWh = battery × reserve × efficiency</div>
+      <div class="formula-chip">Hours = usable kWh ÷ load (kW)</div>
+    </div>
+    <ol>
+      <li><strong>Keep a reserve.</strong> Don't drain the car to zero, because you may need to drive. Using 80% of the battery is a sensible example.</li>
+      <li><strong>Allow for losses.</strong> Converting DC to AC wastes some energy. Use about 90%.</li>
+      <li><strong>Divide by your load.</strong> Add up what you will actually run.</li>
+    </ol>
+    <div class="example-box">
+      <p>A 60 kWh EV, keeping a 20% reserve, with 90% conversion efficiency:</p>
+      <p class="calc">Usable = 60 × 0.80 × 0.90 = 43.2 kWh</p>
+      <p>Running essentials of 1 kW (fridge, fans, lights, Wi-Fi, TV):</p>
+      <p class="calc">Hours = 43.2 / 1 = 43.2 hours (about 1.8 days)</p>
+    </div>
+    <figure class="fig">
+      <svg viewBox="0 0 360 210" role="img" aria-label="Bar chart: backup hours from a 60 kWh EV at 0.5, 1, 2 and 3 kilowatts of home load">
+  <text x="12" y="24" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">0.5 kW</text>
+  <text x="68" y="24" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">fridge, fans, lights, Wi-Fi</text>
+  <rect x="12" y="30" width="190" height="16" rx="4" fill="var(--accent)"/>
+  <text x="210" y="43" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">86 h</text>
+  <text x="12" y="70" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">1 kW</text>
+  <text x="68" y="70" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">plus TV, laptop, water pump</text>
+  <rect x="12" y="76" width="95" height="16" rx="4" fill="var(--accent)"/>
+  <text x="115" y="89" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">43 h</text>
+  <text x="12" y="116" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">2 kW</text>
+  <text x="68" y="116" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">plus a small heater</text>
+  <rect x="12" y="122" width="48" height="16" rx="4" fill="var(--accent)"/>
+  <text x="68" y="135" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">22 h</text>
+  <text x="12" y="162" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">3 kW</text>
+  <text x="68" y="162" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">plus an air conditioner</text>
+  <rect x="12" y="168" width="32" height="16" rx="4" fill="var(--accent)"/>
+  <text x="52" y="181" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">14 h</text>
+</svg>
+      <figcaption>Backup time from a 60 kWh EV (80% usable, 90% efficiency) at different home loads. A heavy load like an air conditioner drains the car in about half a day.</figcaption>
+    </figure>
+    <p>Notice how fast the hours drop when you add big loads. Keeping to essentials is the secret to long backup. For a quick estimate with your own numbers, use our <a href="battery-life.html">Battery Life calculator</a>.</p>
+
+    <h2>What does it cost in driving range?</h2>
+    <p>Every kWh you give your house is a kWh you can't drive on. If your EV covers about 6 km per kWh (a common figure, but check yours):</p>
+    <div class="example-box">
+      <p>A normal home day of about 10 kWh:</p>
+      <p class="calc">10 kWh × 6 km/kWh = 60 km of range</p>
+      <p>So one day of backup costs roughly one short commute.</p>
+    </div>
+
+    <h2>Will your charger handle the load?</h2>
+    <p>The charger's kW rating is a hard limit. If your running loads add up to more, the system will cut out or refuse to start.</p>
+    <div class="example-box">
+      <p>Air conditioner 1.5 kW + fridge 0.2 kW + lights and fans 0.3 kW + water heater 2 kW:</p>
+      <p class="calc">Total = 1.5 + 0.2 + 0.3 + 2.0 = 4.0 kW</p>
+      <p>That fits within a 7.4 kW charger with room to spare. See how current and cable size work in our <a href="wire-gauge.html">Wire Gauge calculator</a>.</p>
+    </div>
+
+    <h2>Real-world checklist before you try this</h2>
+    <ul>
+      <li><strong>Does your car support it?</strong> Not all EVs allow power to flow out. Check the manual or ask the manufacturer.</li>
+      <li><strong>Do you have a bidirectional charger?</strong> A normal charger only charges.</li>
+      <li><strong>Is your home wired for it?</strong> You need a proper changeover (transfer) switch.</li>
+      <li><strong>What does your warranty say?</strong> Some makers have special terms for bidirectional use.</li>
+      <li><strong>Are the rules different where you live?</strong> Utility and local rules vary.</li>
+    </ul>
+    <div class="safety">
+      <p><strong>Safety first.</strong> Never connect a car to your home wiring yourself. Feeding power into home wiring without the right equipment can send power back into the grid and seriously hurt line workers. Always use certified equipment installed by a licensed electrician.</p>
+    </div>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing up kW and kWh.</strong> One is speed and the other is amount.</li>
+      <li><strong>Forgetting the reserve.</strong> Leave enough charge to drive afterwards.</li>
+      <li><strong>Ignoring losses.</strong> Real output is about 10% below the battery figure.</li>
+      <li><strong>Running heavy loads.</strong> Air conditioners and heaters drain the car fast.</li>
+      <li><strong>Assuming every EV can do it.</strong> The car, charger and wiring must all support it.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. A 40 kWh EV keeps a 20% reserve, converts at 90% efficiency and runs a 0.8 kW load. How many hours?</summary><p>Usable = 40 × 0.8 × 0.9 = 28.8 kWh. Hours = 28.8 / 0.8 = 36 hours.</p></details>
+    <details class="practice"><summary>2. You use 15 kWh from the car and it drives 6 km per kWh. How much range is lost?</summary><p>15 × 6 = 90 km.</p></details>
+    <details class="practice"><summary>3. Your loads total 4.5 kW and the charger is 7.4 kW. How much spare capacity is left?</summary><p>7.4 − 4.5 = 2.9 kW.</p></details>
+
+    <h2>Trending terms explained</h2>
+    <ul>
+      <li><strong>Bidirectional charging:</strong> a charger that lets power flow both into and out of the car.</li>
+      <li><strong>Home backup:</strong> using a battery to keep the house running in a power cut. Read about the best-known home battery on Wikipedia's <a href="https://en.wikipedia.org/wiki/Tesla_Powerwall" target="_blank" rel="noopener noreferrer">Tesla Powerwall</a> page.</li>
+      <li><strong>Lithium-ion:</strong> the battery type in most EVs. See <a href="https://en.wikipedia.org/wiki/Lithium-ion_battery" target="_blank" rel="noopener noreferrer">lithium-ion battery</a> for how it works.</li>
+      <li><strong>Inverter:</strong> the device that turns DC into household AC.</li>
+    </ul>
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">What is V2H (vehicle-to-home)?</div>
+        <p class="faq-a">V2H means the car's battery sends electricity back to your house, usually during a power cut. It needs a car, a charger and home wiring that all support two-way power flow.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the difference between V2H, V2L and V2G?</div>
+        <p class="faq-a">V2L (vehicle-to-load) powers plug-in appliances directly from the car. V2H powers your whole home through your electrical panel. V2G (vehicle-to-grid) sends power back to the utility grid.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How long can an EV run my house?</div>
+        <p class="faq-a">Divide the battery energy you can safely use by your load. A 60 kWh car with about 43 kWh available runs a 1 kW load for roughly 43 hours.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Will powering my house damage the car battery?</div>
+        <p class="faq-a">Occasional backup use is a small amount of extra cycling, but heavy daily use adds wear. Check your car's warranty terms for bidirectional charging.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can any electric car power a home?</div>
+        <p class="faq-a">No. The car, the charger and the home installation must all support it, and availability depends on the model and your country. Check your manual or ask the manufacturer.</p>
+      </div>
+    </div>
+
+    <h2>Sources and further reading</h2>
+    <p class="sources">Product details are based on news reports from early October 2026, including <a href="https://thecooldown.com/green-tech/tesla-home-backup-model-3-model-y-powerwall" target="_blank" rel="noopener noreferrer">The Cool Down</a> and <a href="https://pv-magazine-usa.com/" target="_blank" rel="noopener noreferrer">pv magazine USA</a>. Features, models and availability change, so always check the manufacturer for current details. The calculations on this page use example figures, so replace them with your own car and home numbers.</p>
+
+    <div class="cta-panel">
+      <p>Work out how long a battery can run your own load.</p>
+      <a class="cta-btn" href="battery-life.html">Open the Battery Life Calculator</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>
