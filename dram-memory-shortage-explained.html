@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why Are RAM and Phone Prices Rising? DRAM, HBM &amp; AI Memory Explained — ElectroCalc</title>
+<meta name="description" content="Why are RAM and phone prices rising? DRAM, HBM and AI memory explained in plain words, with a simple formula for how much memory an AI model needs.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/dram-memory-shortage-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Why Are RAM and Phone Prices Rising? DRAM, HBM & AI Memory Explained",
+  "datePublished": "2026-10-13",
+  "dateModified": "2026-10-13",
+  "mainEntityOfPage": "https://electrocalc.in/dram-memory-shortage-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Why are RAM prices going up?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Demand from AI data centres and AI devices is competing with phone, PC and tablet makers for a limited supply of memory chips, and new factories take years to build."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between RAM and storage?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "RAM is fast, short-term working memory that clears when the power goes off. Storage is slower, long-term memory that keeps your files."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How much RAM do I need for local AI?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Multiply the model's billions of parameters by the bytes per parameter, add about 20% overhead, and keep some memory free for the system. A 7 billion parameter model at 4-bit needs about 4 to 5 GB."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is HBM?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "High-bandwidth memory is stacked memory placed beside an AI chip, giving it far higher bandwidth than normal memory."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Trending · Tech Explained</span>
+  <h1>Why are RAM and phone prices rising? <em>DRAM, HBM</em> and AI memory, explained.</h1>
+  <p class="byline">Oct 13, 2026 · 8 min read · by ElectroCalc</p>
+  <p class="sub">AI is competing with your phone for memory chips. Here is what RAM, DRAM and HBM mean, why prices are climbing and how to work out how much memory an AI model needs.</p>
+
+  <div class="article" style="margin-top:0">
+
+    <div class="tldr">
+      <b>Quick answer</b>
+      <p>AI is soaking up memory chips, and that pushes up prices for everyone. You can check how much memory an AI model needs with one simple sum.</p>
+      <ul>
+        <li><strong>Memory (GB) ≈ billions of parameters × bytes per parameter</strong></li>
+        <li>A 7 billion parameter model needs about 3.5 GB at 4-bit and 14 GB at 16-bit.</li>
+        <li>RAM is fast working memory. Storage is slow long-term memory.</li>
+      </ul>
+    </div>
+
+
+    <h2>Why everyone is talking about memory prices</h2>
+    <p>Phones, laptops and gaming PCs are getting more expensive, and memory is a big reason. News reports this month describe AI companies competing hard for advanced memory chips, while phone and PC makers still need ordinary DRAM and storage. When demand jumps and factories can't keep up, prices rise. One report even described a memory squeeze that is rewriting the economics of the chip industry.</p>
+
+    <h2>RAM, DRAM and storage: what is the difference?</h2>
+    <p>These words get mixed up. Think of a desk and a filing cabinet.</p>
+    <ul>
+      <li><strong>RAM</strong> is your desk. It holds what you are working on right now. It is fast but small, and it forgets everything when the power goes off. Most RAM is <a href="https://en.wikipedia.org/wiki/Dynamic_random-access_memory" target="_blank" rel="noopener noreferrer">DRAM</a>.</li>
+      <li><strong>Storage</strong> is your filing cabinet. It keeps files for years, even without power. Phones and laptops use <a href="https://en.wikipedia.org/wiki/Flash_memory" target="_blank" rel="noopener noreferrer">flash memory</a>. It is bigger and cheaper per GB but slower.</li>
+    </ul>
+    <figure class="fig">
+      <svg viewBox="0 0 360 300" role="img" aria-label="Memory ladder from fast and small on top to slow and large at the bottom: chip cache, RAM (DRAM), storage (flash)">
+  <rect x="100" y="14" width="160" height="54" rx="10" fill="none" stroke="var(--trace)" stroke-width="2"/>
+  <text x="180" y="38" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">Chip cache</text>
+  <text x="180" y="57" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">tiny, fastest</text>
+  <rect x="70" y="86" width="220" height="62" rx="10" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="180" y="112" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">RAM (DRAM)</text>
+  <text x="180" y="133" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">working memory, 8 to 128 GB</text>
+  <rect x="40" y="166" width="280" height="70" rx="10" fill="none" stroke="var(--line)" stroke-width="2"/>
+  <text x="180" y="194" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">Storage (flash)</text>
+  <text x="180" y="216" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">keeps files, 128 GB to 2 TB</text>
+  <text x="180" y="266" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">Higher = faster and smaller</text>
+  <text x="180" y="286" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">Lower = slower, bigger, cheaper per GB</text>
+</svg>
+      <figcaption>The memory ladder: the closer to the chip, the faster and smaller the memory. Learn more about <a href="https://en.wikipedia.org/wiki/Random-access_memory" target="_blank" rel="noopener noreferrer">RAM</a>.</figcaption>
+    </figure>
+
+    <h2>Why AI eats so much memory</h2>
+    <p>A <a href="https://en.wikipedia.org/wiki/Large_language_model" target="_blank" rel="noopener noreferrer">large language model</a> is a huge list of numbers called parameters. To work quickly, all of those numbers must sit in fast memory at the same time. A faster chip doesn't help if the model won't fit. This is why AI laptops advertise big memory, such as 128 GB of unified memory, and why AI data centres buy memory by the truckload.</p>
+    <p>AI chips use a special stacked memory called <a href="https://en.wikipedia.org/wiki/High_Bandwidth_Memory" target="_blank" rel="noopener noreferrer">HBM (high-bandwidth memory)</a>. It is more complex to make than the memory in a phone, so every HBM chip made means less factory capacity for other types. That is one way AI demand pushes up the price of ordinary memory too.</p>
+
+    <h2>How much memory does an AI model need?</h2>
+    <p>Here is a rule of thumb you can use today. Memory needed equals the number of parameters times the bytes used for each one.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Memory (GB) ≈ parameters (billions) × bytes per parameter</div>
+    </div>
+    <p>Bytes per parameter depends on precision: 2 bytes at 16-bit, 1 byte at 8-bit and 0.5 byte at 4-bit. Lower precision (called quantization) shrinks the model.</p>
+    <div class="example-box">
+      <p>A 7 billion parameter model:</p>
+      <p class="calc">16-bit: 7 × 2 = 14 GB</p>
+      <p class="calc">8-bit: 7 × 1 = 7 GB</p>
+      <p class="calc">4-bit: 7 × 0.5 = 3.5 GB</p>
+      <p>Add roughly 20% for working space (an assumed figure), so the 4-bit version needs about 4.2 GB.</p>
+    </div>
+    <figure class="fig">
+      <svg viewBox="0 0 360 162" role="img" aria-label="Bar chart: memory needed for a 7 billion parameter AI model at 16-bit, 8-bit and 4-bit precision, 14, 7 and 3.5 gigabytes">
+  <text x="12" y="24" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">16-bit</text>
+  <text x="70" y="24" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">full precision</text>
+  <rect x="12" y="30" width="190" height="16" rx="4" fill="var(--accent)"/>
+  <text x="210" y="43" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">14 GB</text>
+  <text x="12" y="70" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">8-bit</text>
+  <text x="62" y="70" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">half the size</text>
+  <rect x="12" y="76" width="95" height="16" rx="4" fill="var(--accent)"/>
+  <text x="115" y="89" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">7 GB</text>
+  <text x="12" y="116" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">4-bit</text>
+  <text x="62" y="116" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">quarter the size</text>
+  <rect x="12" y="122" width="48" height="16" rx="4" fill="var(--accent)"/>
+  <text x="68" y="135" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">3.5 GB</text>
+</svg>
+      <figcaption>Memory for a 7 billion parameter model at three precisions. Lower precision means a smaller model that fits in a cheaper device.</figcaption>
+    </figure>
+    <div class="example-box">
+      <p>A 70 billion parameter model at 4-bit:</p>
+      <p class="calc">70 × 0.5 = 35 GB, plus overhead of about 42 GB</p>
+      <p>That fits inside a 128 GB AI laptop, but not inside a phone with 12 GB.</p>
+    </div>
+    <p>This is why one device can run a small assistant locally and another can't. It is a simple memory sum.</p>
+
+    <h2>Memory speed: bandwidth</h2>
+    <p>Memory also has to be fast. Bandwidth tells you how many gigabytes it can move each second.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Bandwidth (GB/s) = bus width (bits) ÷ 8 × transfer rate (MT/s) ÷ 1000</div>
+    </div>
+    <div class="example-box">
+      <p>A 128-bit memory bus at 6,400 MT/s:</p>
+      <p class="calc">128 ÷ 8 = 16 bytes per transfer</p>
+      <p class="calc">16 × 6,400 = 102,400 MB/s, about 102 GB/s</p>
+      <p>Chips with wider buses and stacked memory like HBM reach many times that.</p>
+    </div>
+
+    <h2>What does this mean when you buy a phone or laptop?</h2>
+    <ul>
+      <li><strong>Expect higher prices</strong> or smaller upgrades for extra RAM.</li>
+      <li><strong>Don't overpay for RAM you won't use.</strong> Most people are fine with 8 to 12 GB on a phone and 16 GB on a laptop.</li>
+      <li><strong>Buy more RAM if you plan to run AI models locally,</strong> since it is the first thing you run out of.</li>
+      <li><strong>Compare storage and RAM separately.</strong> A 1 TB phone with little RAM can still feel slow.</li>
+      <li><strong>Check the memory type.</strong> Soldered memory can't be upgraded later.</li>
+    </ul>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing up RAM and storage.</strong> They do different jobs.</li>
+      <li><strong>Thinking more RAM always means faster.</strong> Speed also depends on the chip and memory bandwidth.</li>
+      <li><strong>Forgetting overhead.</strong> A model needs more memory than its raw size.</li>
+      <li><strong>Assuming prices will fall quickly.</strong> New chip factories take years to build.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. How much memory does a 13 billion parameter model need at 8-bit precision (before overhead)?</summary><p>13 × 1 = 13 GB.</p></details>
+    <details class="practice"><summary>2. How much does a 30 billion parameter model need at 4-bit?</summary><p>30 × 0.5 = 15 GB.</p></details>
+    <details class="practice"><summary>3. What is the bandwidth of a 64-bit bus at 5,600 MT/s?</summary><p>64 ÷ 8 = 8 bytes. 8 × 5,600 = 44,800 MB/s, about 44.8 GB/s.</p></details>
+
+    <h2>Trending terms explained</h2>
+    <ul>
+      <li><strong>DRAM:</strong> the fast working memory used as RAM.</li>
+      <li><strong>HBM:</strong> stacked high-speed memory placed right next to AI chips.</li>
+      <li><strong>Unified memory:</strong> one pool of memory shared by the CPU and GPU.</li>
+      <li><strong>Quantization:</strong> shrinking an AI model by storing its numbers with fewer bits.</li>
+      <li><strong>NPU:</strong> a chip block designed to run AI tasks efficiently on a device.</li>
+    </ul>
+
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">Why are RAM prices going up?</div>
+        <p class="faq-a">Demand from AI data centres and AI devices is competing with phone, PC and tablet makers for a limited supply of memory chips, and new factories take years to build.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the difference between RAM and storage?</div>
+        <p class="faq-a">RAM is fast, short-term working memory that clears when the power goes off. Storage is slower, long-term memory that keeps your files.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How much RAM do I need for local AI?</div>
+        <p class="faq-a">Multiply the model's billions of parameters by the bytes per parameter, add about 20% overhead, and keep some memory free for the system. A 7 billion parameter model at 4-bit needs about 4 to 5 GB.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is HBM?</div>
+        <p class="faq-a">High-bandwidth memory is stacked memory placed beside an AI chip, giving it far higher bandwidth than normal memory.</p>
+      </div>
+    </div>
+
+    <h2>Sources and further reading</h2>
+    <p class="sources">Market details are based on tech news roundups from early October 2026, including <a href="https://www.notebookcheck.net/Weekly-tech-roundup-The-biggest-stories-of-the-week-Week-41.1420197.0.html" target="_blank" rel="noopener noreferrer">Notebookcheck</a> and <a href="https://techstartups.com/2026/10/09/tech-news-weekly-roundup-the-biggest-stories-in-ai-big-tech-startups-and-cybersecurity" target="_blank" rel="noopener noreferrer">Tech Startups</a>. Prices and products change often. The sums on this page use example figures, so replace them with your own device and model numbers.</p>
+
+    <div class="cta-panel">
+      <p>Convert and compare numbers on the way, or check how power works in your devices.</p>
+      <a class="cta-btn" href="battery-life.html">Open the Battery Life Calculator</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>

@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How Does Satellite-to-Phone Work? Starlink, Frequency &amp; Wavelength Explained — ElectroCalc</title>
+<meta name="description" content="How does satellite-to-phone work? Starlink mobile, frequency and wavelength explained in plain words, with simple formulas for delay and signal loss.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/satellite-to-phone-frequency-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "How Does Satellite-to-Phone Work? Starlink, Frequency & Wavelength Explained",
+  "datePublished": "2026-10-13",
+  "dateModified": "2026-10-13",
+  "mainEntityOfPage": "https://electrocalc.in/satellite-to-phone-frequency-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "How can my phone connect to a satellite?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Satellite-to-phone services use satellites that act like mobile towers in the sky. The satellite receives your phone's radio signal and passes it to a ground station connected to the internet."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "What is the difference between frequency and wavelength?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Frequency is how many wave cycles pass each second, in hertz. Wavelength is the length of one wave. They are linked by wavelength = speed of light ÷ frequency."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Why is low Earth orbit better than geostationary?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is much closer, so signals arrive in a few milliseconds instead of over 100 milliseconds, and the weaker distance loss helps small phone antennas."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Will it work everywhere and indoors?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It needs a clear view of the sky and usually does not work well indoors. Availability also depends on your country and operator."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Trending · Wireless Explained</span>
+  <h1>How does satellite-to-phone work? <em>Starlink, frequency</em> and wavelength, explained.</h1>
+  <p class="byline">Oct 13, 2026 · 8 min read · by ElectroCalc</p>
+  <p class="sub">Your phone may soon connect straight to a satellite. Here is how it works, what frequency and wavelength mean, and the simple maths behind signal delay and loss.</p>
+
+  <div class="article" style="margin-top:0">
+
+    <div class="tldr">
+      <b>Quick answer</b>
+      <p>Satellite-to-phone works like a mobile tower in the sky. Two simple formulas explain most of it.</p>
+      <ul>
+        <li><strong>Wavelength = 300,000,000 ÷ frequency (Hz)</strong></li>
+        <li><strong>Delay = distance ÷ 300,000 km/s</strong>, about 1.8 ms to a satellite 550 km up.</li>
+        <li>The satellite signal is thousands of times weaker than a tower's, so it needs big antennas.</li>
+      </ul>
+    </div>
+
+
+    <h2>Why everyone is talking about satellite-to-phone</h2>
+    <p>Phone coverage stops at the edge of the last mobile tower. Satellite companies want to remove that edge. This week's tech news covered SpaceX making an $8 billion move toward becoming a nationwide wireless carrier, and Starlink's plans for mobile service. The idea is simple: your normal phone connects to a satellite when there is no tower. Availability depends on your country and operator, and it is being rolled out region by region.</p>
+
+    <h2>How satellite-to-phone works</h2>
+    <p>A phone talks to a tower using radio waves. A satellite works the same way, except the "tower" is flying overhead. The satellite receives your phone's signal, then passes it down to a ground station that connects to the internet. Services like <a href="https://en.wikipedia.org/wiki/Starlink" target="_blank" rel="noopener noreferrer">Starlink</a> use many small satellites in <a href="https://en.wikipedia.org/wiki/Low_Earth_orbit" target="_blank" rel="noopener noreferrer">low Earth orbit</a> so that one is almost always overhead.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 360 320" role="img" aria-label="Diagram: a low Earth orbit satellite about 550 kilometres above sends signal directly to a phone, while a mobile tower is out of range">
+  <rect x="120" y="14" width="120" height="44" rx="10" fill="none" stroke="var(--trace)" stroke-width="2"/>
+  <text x="180" y="34" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">Satellite</text>
+  <text x="180" y="51" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">orbit ~550 km up</text>
+  <line x1="180" y1="62" x2="180" y2="200" stroke="var(--accent)" stroke-width="2.5" stroke-dasharray="6 5"/>
+  <text x="196" y="112" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">radio signal</text>
+  <text x="196" y="130" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">~1.8 ms one way</text>
+  <rect x="140" y="204" width="80" height="48" rx="10" fill="none" stroke="var(--accent)" stroke-width="2"/>
+  <text x="180" y="233" text-anchor="middle" font-size="15" font-weight="700" fill="var(--ink)" font-family="Inter, sans-serif">Phone</text>
+  <rect x="20" y="214" width="64" height="38" rx="8" fill="none" stroke="var(--line)" stroke-width="2" stroke-dasharray="4 4"/>
+  <text x="52" y="238" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="Inter, sans-serif">No tower</text>
+  <text x="180" y="290" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">Remote area: no mobile signal</text>
+  <text x="180" y="308" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">Satellite fills the gap</text>
+</svg>
+      <figcaption>A low Earth orbit satellite acts like a mobile tower in the sky, connecting phones where there are no towers.</figcaption>
+    </figure>
+
+    <h2>Frequency and wavelength: the key relationship</h2>
+    <p>Radio waves travel at the speed of light. The <a href="https://en.wikipedia.org/wiki/Frequency" target="_blank" rel="noopener noreferrer">frequency</a> (how many waves per second) and the <a href="https://en.wikipedia.org/wiki/Wavelength" target="_blank" rel="noopener noreferrer">wavelength</a> (the length of one wave) are linked by one simple formula:</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Wavelength (m) = 300,000,000 ÷ frequency (Hz)</div>
+      <div class="formula-chip">Frequency = speed of light ÷ wavelength</div>
+    </div>
+    <p>Higher frequency means shorter wavelength. Our <a href="frequency-wavelength.html">Frequency/Wavelength calculator</a> does this sum for you.</p>
+    <div class="example-box">
+      <p>A 1.9 GHz mobile signal (1,900,000,000 Hz):</p>
+      <p class="calc">λ = 300,000,000 ÷ 1,900,000,000 ≈ 0.158 m (15.8 cm)</p>
+      <p>A 700 MHz signal:</p>
+      <p class="calc">λ = 300,000,000 ÷ 700,000,000 ≈ 0.429 m (42.9 cm)</p>
+    </div>
+    <figure class="fig">
+      <svg viewBox="0 0 360 254" role="img" aria-label="Bar chart: wavelength in centimetres for 700 MHz, 1.9 GHz, 2.4 GHz, 5 GHz and 28 GHz signals">
+  <text x="12" y="24" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">700 MHz</text>
+  <text x="78" y="24" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">long reach</text>
+  <rect x="12" y="30" width="190" height="16" rx="4" fill="var(--accent)"/>
+  <text x="210" y="43" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">42.9 cm</text>
+  <text x="12" y="70" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">1.9 GHz</text>
+  <text x="78" y="70" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">common 4G/5G</text>
+  <rect x="12" y="76" width="70" height="16" rx="4" fill="var(--accent)"/>
+  <text x="90" y="89" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">15.8 cm</text>
+  <text x="12" y="116" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">2.4 GHz</text>
+  <text x="78" y="116" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">Wi-Fi</text>
+  <rect x="12" y="122" width="55" height="16" rx="4" fill="var(--accent)"/>
+  <text x="75" y="135" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">12.5 cm</text>
+  <text x="12" y="162" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">5 GHz</text>
+  <text x="62" y="162" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">Wi-Fi 5/6</text>
+  <rect x="12" y="168" width="27" height="16" rx="4" fill="var(--accent)"/>
+  <text x="47" y="181" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">6.0 cm</text>
+  <text x="12" y="208" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">28 GHz</text>
+  <text x="70" y="208" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">mmWave 5G</text>
+  <rect x="12" y="214" width="6" height="16" rx="4" fill="var(--accent)"/>
+  <text x="26" y="227" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">1.1 cm</text>
+</svg>
+      <figcaption>Higher frequencies have shorter waves. Low frequencies like 700 MHz travel farther and pass through obstacles more easily, which is why they suit wide coverage.</figcaption>
+    </figure>
+
+    <h2>Why using ordinary phones is hard</h2>
+    <p>A satellite is hundreds of kilometres away, and a signal gets weaker the farther it travels. Engineers calculate this with the free-space path loss formula, in decibels (dB). A bigger number means a weaker signal.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Loss (dB) = 20 log₁₀(distance in km) + 20 log₁₀(frequency in MHz) + 32.44</div>
+    </div>
+    <div class="example-box">
+      <p>At 1,900 MHz, comparing a satellite 550 km away with a tower 5 km away:</p>
+      <p class="calc">Satellite: 20 log₁₀(550) + 20 log₁₀(1900) + 32.44 ≈ 153 dB</p>
+      <p class="calc">Tower: 20 log₁₀(5) + 20 log₁₀(1900) + 32.44 ≈ 112 dB</p>
+      <p>The satellite link is about 41 dB weaker, which is roughly 12,000 times less signal power.</p>
+    </div>
+    <p>A phone transmits at most about 0.2 W, so this is a big challenge. It is why satellites carry large antennas and why early services began with text messages before moving on to calls and data. See our <a href="electrical-power-explained.html">power guide</a> for how watts work.</p>
+
+    <h2>Why low orbit is faster than high orbit</h2>
+    <p>Radio waves take time to travel, and distance is what decides how long. Older satellites sit in <a href="https://en.wikipedia.org/wiki/Geostationary_orbit" target="_blank" rel="noopener noreferrer">geostationary orbit</a>, about 35,786 km up. Starlink-style satellites orbit at roughly 550 km.</p>
+    <div class="formula-grid">
+      <div class="formula-chip">Delay = distance ÷ speed of light (about 300,000 km/s)</div>
+    </div>
+    <div class="example-box">
+      <p class="calc">Low orbit, 550 km: 550 ÷ 299,792 ≈ 1.8 ms one way</p>
+      <p class="calc">Geostationary, 35,786 km: 35,786 ÷ 299,792 ≈ 119 ms one way</p>
+      <p>Going up and back down is double: about 3.7 ms for low orbit and 239 ms for geostationary.</p>
+      <p>Real internet delay is higher, because of processing and extra links, but low orbit is far better for calls and video.</p>
+    </div>
+
+    <h2>What to know before you rely on it</h2>
+    <ul>
+      <li><strong>Availability varies.</strong> Check whether your country and operator support it.</li>
+      <li><strong>It needs a clear view of the sky.</strong> Trees, buildings and roofs block the signal.</li>
+      <li><strong>Speeds are limited at first.</strong> Early services focus on text and basic data.</li>
+      <li><strong>Your phone must support the right bands.</strong> Check the manufacturer's information.</li>
+      <li><strong>Battery use can rise.</strong> The phone transmits harder to reach a satellite.</li>
+    </ul>
+
+    <h2>Common mistakes</h2>
+    <ul>
+      <li><strong>Mixing up MHz and GHz.</strong> 1 GHz is 1,000 MHz.</li>
+      <li><strong>Thinking higher frequency means farther reach.</strong> It is usually the opposite.</li>
+      <li><strong>Forgetting distance.</strong> Satellites are far away, so the signal is very weak when it arrives.</li>
+      <li><strong>Assuming it works indoors.</strong> Walls and roofs block satellite signals.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. What is the wavelength of a 900 MHz signal?</summary><p>300,000,000 ÷ 900,000,000 ≈ 0.333 m (33.3 cm).</p></details>
+    <details class="practice"><summary>2. What is the one-way delay for a signal travelling 1,200 km?</summary><p>1,200 ÷ 299,792 ≈ 0.004 s, or about 4 ms.</p></details>
+    <details class="practice"><summary>3. A signal has a wavelength of 0.1 m. What is its frequency?</summary><p>300,000,000 ÷ 0.1 = 3,000,000,000 Hz, or 3 GHz.</p></details>
+
+    <h2>Trending terms explained</h2>
+    <ul>
+      <li><strong>LEO:</strong> low Earth orbit, a few hundred to about 2,000 km above Earth.</li>
+      <li><strong>Direct-to-cell:</strong> satellites that connect straight to ordinary phones.</li>
+      <li><strong>Ground station (gateway):</strong> the station that links satellites to the internet.</li>
+      <li><strong>Latency:</strong> the delay before data arrives, measured in milliseconds.</li>
+      <li><strong>dB (decibel):</strong> a scale for comparing signal strength.</li>
+    </ul>
+
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">How can my phone connect to a satellite?</div>
+        <p class="faq-a">Satellite-to-phone services use satellites that act like mobile towers in the sky. The satellite receives your phone's radio signal and passes it to a ground station connected to the internet.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What is the difference between frequency and wavelength?</div>
+        <p class="faq-a">Frequency is how many wave cycles pass each second, in hertz. Wavelength is the length of one wave. They are linked by wavelength = speed of light ÷ frequency.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Why is low Earth orbit better than geostationary?</div>
+        <p class="faq-a">It is much closer, so signals arrive in a few milliseconds instead of over 100 milliseconds, and the weaker distance loss helps small phone antennas.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Will it work everywhere and indoors?</div>
+        <p class="faq-a">It needs a clear view of the sky and usually does not work well indoors. Availability also depends on your country and operator.</p>
+      </div>
+    </div>
+
+    <h2>Sources and further reading</h2>
+    <p class="sources">News details are based on tech news roundups from early October 2026, including <a href="https://techstartups.com/2026/10/09/tech-news-weekly-roundup-the-biggest-stories-in-ai-big-tech-startups-and-cybersecurity" target="_blank" rel="noopener noreferrer">Tech Startups</a> and <a href="https://www.techradar.com/tech/icymi-the-7-biggest-tech-stories-of-the-week-from-new-amazon-alexa-tablets-to-starlink-mobiles-masterplan" target="_blank" rel="noopener noreferrer">TechRadar</a>. Services, bands and availability change, so check your operator for current details. The calculations use example figures.</p>
+
+    <div class="cta-panel">
+      <p>Turn any frequency into wavelength, or the reverse, in one tap.</p>
+      <a class="cta-btn" href="frequency-wavelength.html">Open the Frequency/Wavelength Calculator</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>

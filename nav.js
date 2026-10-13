@@ -41,7 +41,12 @@ const CALCULATORS = [
     { href: "bess-explained.html", name: "BESS Explained", desc: "Battery energy storage: MW vs MWh, C-rate, sizing examples and safety." },
     { href: "ai-data-center-power-explained.html", name: "AI Data Center Power", desc: "Rack kW, PUE, cooling, yearly energy and cost with worked examples." },
     { href: "home-solar-battery-sizing-explained.html", name: "Home Solar + Battery Sizing", desc: "Panels, battery kWh and inverter size, step by step." },
+  ]},
+  { category: "📰 Trending", items: [
     { href: "ev-power-home-v2h-explained.html", name: "Can Your EV Power Your Home?", desc: "V2H, V2L and backup hours explained with simple maths." },
+    { href: "dram-memory-shortage-explained.html", name: "Why RAM Prices Are Rising", desc: "DRAM, HBM and how much memory an AI model needs." },
+    { href: "satellite-to-phone-frequency-explained.html", name: "Satellite-to-Phone Explained", desc: "Starlink, frequency, wavelength, delay and signal loss." },
+    { href: "foldable-phones-explained.html", name: "How Foldable Phones Work", desc: "Hinges, screens, battery maths and a buying checklist." },
   ]},
 ];
 
