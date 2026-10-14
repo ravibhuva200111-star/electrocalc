@@ -116,3 +116,15 @@ footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-fa
 .noscript-nav strong{color:var(--accent); display:block; margin-bottom:8px;}
 .noscript-nav a{color:var(--ink); text-decoration:underline; margin-right:4px;}
 .noscript-nav a:hover{color:var(--accent);}
+
+
+/* Related guides / blog links */
+.related-guides{margin:36px 0 8px;}
+.related-guides h2{font-size:18px;margin:0 0 14px;color:var(--ink);}
+.related-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+.related-card{display:flex;flex-direction:column;gap:6px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;text-decoration:none;transition:border-color .15s,transform .15s;}
+.related-card:hover{border-color:var(--accent);transform:translateY(-2px);}
+.related-tag{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--accent);}
+.related-title{font-size:14.5px;line-height:1.4;color:var(--ink);font-weight:600;}
+.related-more{margin:12px 0 0;font-size:13px;}
+.related-more a{color:var(--accent);text-decoration:none;}
