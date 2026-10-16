@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6160633077012526"
+     crossorigin="anonymous"></script>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-B645XS55GE"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-B645XS55GE');
+</script>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tesla Roadster Thrusters Explained: The Physics — ElectroCalc</title>
+<meta name="description" content="Tesla's new rocket Roadster explained: cold-gas thrusters, the three versions, the under-one-second 0-60 claim, and the physics of force, power and hover time.">
+<meta name="google-site-verification" content="P3q1KyPcLJZAY-GlR1hnkipvR5zL_qKJOp7zKIZtzkg" />
+<link rel="icon" type="image/x-icon" href="/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32.png">
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48.png">
+<link rel="apple-touch-icon" sizes="180x180" href="/favicon-180.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="theme-color" content="#0B0E14">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0B0E14; --surface:#1A1F2B; --surface-hi:#212838;
+    --ink:#E8E6DF; --ink-dim:#8B93A7; --accent:#FF6B35; --trace:#4ADE80; --line:#2A3140;
+  }
+  *{box-sizing:border-box;}
+  html,body{margin:0;padding:0;}
+  body{
+    background:
+      linear-gradient(var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      linear-gradient(90deg, var(--line) 1px, transparent 1px) 0 0/40px 40px,
+      var(--bg);
+    background-attachment:fixed;
+    color:var(--ink); font-family:'Inter',system-ui,sans-serif;
+    -webkit-font-smoothing:antialiased; min-height:100vh;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:32px 20px 80px;}
+  header{display:flex;align-items:center;justify-content:space-between;margin-bottom:48px;flex-wrap:wrap;gap:12px;}
+  .brand{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-weight:600;font-size:15px;}
+  .brand .dot{width:9px;height:9px;border-radius:50%;background:var(--trace);box-shadow:0 0 8px var(--trace);}
+  .brand a{color:inherit;text-decoration:none;}
+  nav a{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);text-decoration:none;}
+  nav a:hover{color:var(--accent);}
+
+  .eyebrow{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:14px;display:block;}
+  h1{font-weight:800;font-size:clamp(28px,5vw,44px);line-height:1.08;letter-spacing:-0.02em;margin:0 0 14px;}
+  h1 em{color:var(--accent);font-style:normal;}
+  .sub{color:var(--ink-dim);font-size:16px;line-height:1.6;max-width:56ch;margin-bottom:44px;}
+
+  .panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:28px;margin-bottom:24px;}
+  .panel-title{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);letter-spacing:.05em;text-transform:uppercase;margin-bottom:24px;}
+
+  /* Ohm's law wheel */
+  .wheel-stage{display:flex;justify-content:center;margin-bottom:32px;}
+  .wheel{position:relative;width:180px;height:180px;}
+  .wheel-circle{
+    width:100%;height:100%;border-radius:50%;border:2px solid var(--line);
+    display:grid;grid-template-columns:1fr 1fr;grid-template-rows:1fr 1fr;
+  }
+  .quad{display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-weight:700;font-size:20px;color:var(--ink-dim);transition:.2s;}
+  .quad.active{color:var(--trace);}
+  #qV{border-radius:100% 0 0 0;} #qI{border-radius:0 100% 0 0;}
+  #qR{border-radius:0 0 0 100%;} #qP{border-radius:0 0 100% 0;}
+  .quad{border:1px solid var(--line);}
+
+  .grid4{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:24px;}
+  @media(max-width:520px){.grid4{grid-template-columns:1fr;}}
+  .field label{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:8px;}
+  .field label .unit{color:var(--accent);}
+  .field{position:relative;}
+  input[type=number]{
+    width:100%;padding:12px 14px;background:var(--surface-hi);border:1px solid var(--line);
+    border-radius:8px;color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:16px;
+  }
+  input[type=number]:focus{outline:2px solid var(--accent);outline-offset:1px;}
+  input[type=number]:disabled{color:var(--trace);background:#141a24;font-weight:700;}
+  .field.solved::after{
+    content:"solved"; position:absolute; right:12px; top:34px; font-size:10px; color:var(--trace);
+    font-family:'IBM Plex Mono',monospace; pointer-events:none;
+  }
+
+  .hint{font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);text-align:center;}
+  .hint b{color:var(--ink);}
+  .reset-btn{
+    display:block;margin:20px auto 0;padding:9px 20px;background:transparent;border:1px solid var(--line);
+    border-radius:8px;color:var(--ink-dim);font-family:'IBM Plex Mono',monospace;font-size:12px;cursor:pointer;
+  }
+  .reset-btn:hover{border-color:var(--accent);color:var(--accent);}
+
+  .more-tools{margin-top:40px;}
+  .more-tools h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .tool-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;}
+  .tool-card{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:18px;text-decoration:none;color:var(--ink);transition:.15s;display:block;}
+  .tool-card.soon{opacity:.45;cursor:default;}
+  .tool-card:not(.soon):hover{border-color:var(--accent);transform:translateY(-2px);}
+  .tool-card .tname{font-weight:600;font-size:14px;margin-bottom:4px;}
+  .tool-card .ttag{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--ink-dim);}
+
+  footer{margin-top:60px;padding-top:24px;border-top:1px solid var(--line);font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--ink-dim);display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important;}}
+
+  .comments-section{margin-top:40px;}
+  .comments-section h2{font-size:13px;font-family:'IBM Plex Mono',monospace;color:var(--ink-dim);text-transform:uppercase;letter-spacing:.05em;margin-bottom:16px;}
+  .giscus-frame{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px;}
+
+  .nav-menu-wrap{position:relative;}
+  .nav-menu-btn{
+    font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--ink-dim);
+    background:transparent;border:1px solid var(--line);border-radius:8px;
+    padding:8px 14px;cursor:pointer;display:flex;align-items:center;gap:6px;
+  }
+  .nav-menu-btn:hover{border-color:var(--accent);color:var(--accent);}
+  .nav-dropdown{
+    display:none;position:absolute;top:calc(100% + 8px);right:0;
+    background:var(--surface);border:1px solid var(--line);border-radius:10px;
+    padding:8px;min-width:220px;z-index:100;box-shadow:0 12px 30px rgba(0,0,0,.5);
+  }
+  .nav-dropdown.open{display:block;}
+  .nav-dropdown a{
+    display:block;padding:9px 12px;border-radius:6px;color:var(--ink);
+    text-decoration:none;font-size:13px;font-family:'Inter',sans-serif;
+  }
+  .nav-dropdown a:hover{background:var(--surface-hi);color:var(--accent);}
+  .nav-dropdown .nav-divider{height:1px;background:var(--line);margin:6px 4px;}
+  .nav-dropdown .nav-current{color:var(--accent);font-weight:600;}
+  footer{flex-wrap:wrap;gap:14px;}
+  .footer-links{display:flex;gap:16px;flex-wrap:wrap;}
+  .footer-links a{color:var(--ink-dim);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:12px;}
+  .footer-links a:hover{color:var(--accent);}
+
+  /* Article / mini-blog */
+  .article{margin-top:52px;}
+  .article h2{font-size:24px;font-weight:800;letter-spacing:-0.01em;margin:0 0 16px;color:var(--ink);}
+  .article h3{font-size:16.5px;font-weight:700;margin:30px 0 10px;color:var(--ink);}
+  .article p{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;max-width:70ch;}
+  .article ul,.article ol{color:var(--ink-dim);font-size:15px;line-height:1.7;margin:0 0 14px;padding-left:20px;max-width:70ch;}
+  .article li{margin-bottom:6px;}
+  .formula-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin:14px 0 22px;}
+  .formula-chip{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:'IBM Plex Mono',monospace;font-size:15px;color:var(--trace);text-align:center;}
+  .faq-item{border-top:1px solid var(--line);padding:16px 0;}
+  .faq-item:first-child{border-top:none;}
+  .faq-q{font-weight:600;color:var(--ink);margin-bottom:6px;font-size:14.5px;}
+  .faq-a{color:var(--ink-dim);font-size:14.5px;line-height:1.65;margin:0;max-width:70ch;}
+  .faq-a a{color:var(--accent);}
+
+  /* Guide page extras */
+  .triangle-wrap{display:flex;justify-content:center;margin:20px 0 28px;}
+  .triangle-wrap svg{width:200px;height:auto;}
+  .analogy{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin:16px 0 24px;}
+  .analogy div{background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px 16px;}
+  .analogy b{display:block;font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--accent);margin-bottom:6px;}
+  .analogy span{color:var(--ink-dim);font-size:14px;line-height:1.55;}
+  .example-box{background:var(--surface);border:1px solid var(--line);border-left:3px solid var(--trace);border-radius:10px;padding:14px 18px;margin:0 0 16px;max-width:70ch;}
+  .example-box p{margin:0 0 6px;}
+  .example-box .calc{font-family:'IBM Plex Mono',monospace;color:var(--trace);font-size:14px;}
+  .data-table{width:100%;max-width:70ch;border-collapse:collapse;margin:0 0 18px;font-size:14px;}
+  .data-table th,.data-table td{border:1px solid var(--line);padding:9px 12px;text-align:left;color:var(--ink-dim);}
+  .data-table th{color:var(--ink);font-family:'IBM Plex Mono',monospace;font-size:12px;text-transform:uppercase;letter-spacing:.05em;background:var(--surface);}
+  .practice{max-width:70ch;margin:0 0 12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px 16px;}
+  .practice summary{cursor:pointer;color:var(--ink);font-weight:600;font-size:14.5px;}
+  .practice p{margin:10px 0 0;}
+  .cta-panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 24px;margin:36px 0 0;display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;}
+  .cta-panel p{margin:0;color:var(--ink);font-size:15px;max-width:48ch;}
+  .cta-btn{display:inline-block;padding:11px 20px;border:1px solid var(--accent);border-radius:8px;color:var(--accent);text-decoration:none;font-family:'IBM Plex Mono',monospace;font-size:13px;}
+  .cta-btn:hover{background:var(--accent);color:var(--bg);}
+  .article a{color:var(--accent);}
+</style>
+<link rel="stylesheet" href="site.css">
+<script src="nav.js" defer></script>
+
+  
+<link rel="canonical" href="https://electrocalc.in/tesla-roadster-rocket-thrusters-explained.html">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Tesla Rocket Roadster Explained: Thrusters, 0-60 in Under 1 Second and the Physics",
+  "datePublished": "2026-10-13",
+  "dateModified": "2026-10-13",
+  "mainEntityOfPage": "https://electrocalc.in/tesla-roadster-rocket-thrusters-explained.html",
+  "publisher": {
+    "@type": "Organization",
+    "name": "ElectroCalc",
+    "url": "https://electrocalc.in/"
+  }
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "What is the Tesla Rocket Roadster?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "It is the top version of Tesla's redesigned Roadster. Reports describe it as an invite-only, single-seat model with 10 cold-gas thrusters and what Tesla calls a full flight system."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Is the Tesla Roadster really a rocket?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Not in the usual sense. It uses cold-gas thrusters that release compressed air through nozzles, with no fuel burned."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "When will the new Tesla Roadster be available?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tesla says production will start in 2028. It hasn't announced a price, and the dates and specifications may change."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "Can the Tesla Roadster fly?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "In the demo it spun and hovered briefly with thrusters and fans, but a few seconds of air supply is very different from sustained flight, and no regulatory approval for flying has been confirmed."
+      }
+    },
+    {
+      "@type": "Question",
+      "name": "How can a car accelerate faster than tyre grip allows?",
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": "Tyres are limited by friction with the road. Thrusters and downforce from fans add extra force, so the car is not limited to tyre grip alone."
+      }
+    }
+  ]
+}
+</script>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="brand"><span class="dot"></span><a href="index.html">ElectroCalc</a></div>
+        <div class="header-controls">
+      <button class="theme-toggle-btn" id="themeToggleBtn" title="Toggle light/dark theme">☀️</button>
+      <div class="nav-menu-wrap">
+        <button class="nav-menu-btn" onclick="document.getElementById('navDropdown').classList.toggle('open')">☰ All Calculators</button>
+        <div class="nav-dropdown" id="navDropdown"></div>
+<noscript><div class="noscript-nav"><strong>All pages:</strong> <a href="voltage-divider.html">Voltage Divider</a> &middot; <a href="resistor-color-code.html">Resistor Color Code</a> &middot; <a href="capacitor.html">Capacitor Code Reader</a> &middot; <a href="series-parallel.html">Series / Parallel R</a> &middot; <a href="circuit-solver.html">Resistor Network Solver</a> &middot; <a href="led-resistor.html">LED Resistor Calculator</a> &middot; <a href="power-converter.html">Power Converter</a> &middot; <a href="wire-gauge.html">Wire Gauge / Voltage Drop</a> &middot; <a href="rc-time-constant.html">RC Time Constant</a> &middot; <a href="frequency-wavelength.html">Frequency / Wavelength</a> &middot; <a href="transformer.html">Transformer Ratio</a> &middot; <a href="battery-life.html">Battery Life Calculator</a> &middot; <a href="about.html">About</a> &middot; <a href="contact.html">Contact</a> &middot; <a href="privacy-policy.html">Privacy Policy</a> &middot; <a href="terms.html">Terms of Service</a> &middot; <a href="disclaimer.html">Disclaimer</a></div></noscript>
+      </div>
+    </div>
+  </header>
+
+  <span class="eyebrow">Trending · Tesla &amp; Physics</span>
+  <h1>Tesla's rocket Roadster, <em>explained</em>: thrusters, 0–60 in under a second and the physics.</h1>
+  <p class="byline">Oct 16, 2026 · 9 min read · by ElectroCalc</p>
+  <p class="sub">Tesla just unveiled a Roadster with SpaceX-style thrusters. Here is what is real, how cold-gas thrusters work, and the force, power and hover maths behind the claims.</p>
+
+  <div class="article" style="margin-top:0">
+
+    <div class="tldr">
+      <b>Quick answer</b>
+      <p>Tesla's new Roadster uses compressed-air thrusters, not burning rocket fuel, to help it launch and hover for short bursts. The physics shows why that is needed.</p>
+      <ul>
+        <li><strong>0–100 km/h in 0.81 s</strong> needs about 3.5 g, but tyres give only about 1.2 g.</li>
+        <li>That run needs about <strong>857 kW</strong> of power but under 0.2 kWh of energy (assumed 1,800 kg).</li>
+        <li>A 600-litre air supply gives only <strong>seconds</strong> of hover, so expect hops, not flight.</li>
+      </ul>
+    </div>
+
+
+    <h2>What Tesla showed</h2>
+    <p>On Oct 15, 2026, Tesla revealed its redesigned second-generation <a href="https://en.wikipedia.org/wiki/Tesla_Roadster_(2020)" target="_blank" rel="noopener noreferrer">Roadster</a> at a SpaceX test site in McGregor, Texas. In the demo, a white two-seat prototype drove up an upside-down ramp using suction, spun in the air and landed with the help of thrusters. Later it jumped over other vehicles while twisting in mid-air. Tesla says production will start in 2028, and no price has been given.</p>
+    <p>The claim that grabbed headlines is a 0 to 60 mph time of under one second. Reports also quote 0 to 100 km/h in 0.81 seconds. These are manufacturer claims, not independent test results.</p>
+
+    <h2>Three versions: only one has the "rocket" system</h2>
+    <table class="data-table">
+      <tr><th>Version</th><th>What it has</th><th>Reservation</th></tr>
+      <tr><td>Performance</td><td>No thrusters</td><td>$50,000 deposit</td></tr>
+      <tr><td>Thrust</td><td>Rear-facing "acceleration" thrusters</td><td>$250,000 deposit</td></tr>
+      <tr><td>Rocket</td><td>Single seat, 10 cold-gas thrusters, "full flight system"</td><td>Invite only</td></tr>
+    </table>
+    <p>The deposits are as listed on Tesla's reservation page right after the event and may change.</p>
+
+    <h2>It is not a fire-breathing rocket</h2>
+    <p>The thrusters are <strong>cold-gas thrusters</strong>. They work like a very powerful air nozzle: high-pressure air from tanks is released through a nozzle, and the push comes from the air leaving. There is no fuel and no flame. Tesla says the car uses 10 thrusters fed by about 600 litres of compressed air, stored in carbon-fibre <a href="https://en.wikipedia.org/wiki/Composite_overwrapped_pressure_vessel" target="_blank" rel="noopener noreferrer">overwrapped pressure vessels</a> of the kind used on SpaceX rockets.</p>
+    <figure class="fig">
+      <svg viewBox="0 0 360 250" role="img" aria-label="Schematic top view of a two-seat sports car with ten cold-gas thrusters placed around the body and compressed air tanks inside">
+  <rect x="120" y="20" width="120" height="200" rx="40" fill="none" stroke="var(--accent)" stroke-width="2.5"/>
+  <rect x="140" y="80" width="80" height="70" rx="14" fill="none" stroke="var(--line)" stroke-width="2"/>
+  <text x="180" y="112" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">cabin</text>
+  <text x="180" y="130" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">+ air tanks</text>
+  <g fill="var(--trace)">
+    <circle cx="116" cy="48" r="6"/><circle cx="244" cy="48" r="6"/>
+    <circle cx="112" cy="100" r="6"/><circle cx="248" cy="100" r="6"/>
+    <circle cx="112" cy="150" r="6"/><circle cx="248" cy="150" r="6"/>
+    <circle cx="116" cy="198" r="6"/><circle cx="244" cy="198" r="6"/>
+    <circle cx="165" cy="226" r="6"/><circle cx="195" cy="226" r="6"/>
+  </g>
+  <text x="180" y="12" text-anchor="middle" font-size="12" fill="var(--ink-dim)" font-family="IBM Plex Mono, monospace">front</text>
+  <text x="180" y="246" text-anchor="middle" font-size="12" fill="var(--trace)" font-family="IBM Plex Mono, monospace">● = thruster (10, schematic)</text>
+</svg>
+      <figcaption>Schematic only: the real thruster positions have not been published. Learn how a <a href="https://en.wikipedia.org/wiki/Cold_gas_thruster" target="_blank" rel="noopener noreferrer">cold-gas thruster</a> works.</figcaption>
+    </figure>
+    <p>The idea follows <a href="https://en.wikipedia.org/wiki/Newton's_laws_of_motion" target="_blank" rel="noopener noreferrer">Newton's third law</a>: if air goes one way, the car is pushed the other way. Our <a href="electrical-power-explained.html">power guide</a> covers the power and energy basics used below.</p>
+
+    <h2>Physics 1: why tyres alone can't do it</h2>
+    <p>Acceleration is how fast speed changes. To go from 0 to 100 km/h (27.78 m/s) in 0.81 seconds:</p>
+    <div class="formula-grid">
+      <div class="formula-chip">a = Δv ÷ t</div>
+      <div class="formula-chip">Force = mass × acceleration</div>
+    </div>
+    <div class="example-box">
+      <p>Acceleration:</p>
+      <p class="calc">a = 27.78 ÷ 0.81 ≈ 34.3 m/s² (about 3.5 g)</p>
+      <p>Assume a car mass of 1,800 kg (an assumed figure; Tesla has not published one). Force needed:</p>
+      <p class="calc">F = 1,800 × 34.3 ≈ 61.7 kN</p>
+    </div>
+    <p>Tyres push against the road using friction. With a very grippy friction coefficient of about 1.2 (also an assumption), the most the tyres can deliver is:</p>
+    <div class="example-box">
+      <p class="calc">F(tyres) = 1.2 × 1,800 × 9.81 ≈ 21.2 kN, which is only about 1.2 g</p>
+      <p>So about 40 kN must come from somewhere else, such as thrusters and downforce from fans.</p>
+    </div>
+    <figure class="fig">
+      <svg viewBox="0 0 360 162" role="img" aria-label="Bar chart in kilonewtons: tire grip limit about 21, force needed for 0 to 100 km/h in 0.81 seconds about 62, gap about 41">
+  <text x="12" y="24" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">Tires</text>
+  <text x="62" y="24" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">max grip (μ 1.2)</text>
+  <rect x="12" y="30" width="65" height="16" rx="4" fill="var(--accent)"/>
+  <text x="85" y="43" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">21 kN</text>
+  <text x="12" y="70" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">Needed</text>
+  <text x="70" y="70" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">0–100 in 0.81 s</text>
+  <rect x="12" y="76" width="190" height="16" rx="4" fill="var(--accent)"/>
+  <text x="210" y="89" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">62 kN</text>
+  <text x="12" y="116" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">Gap</text>
+  <text x="46" y="116" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">thrusters + fans</text>
+  <rect x="12" y="122" width="125" height="16" rx="4" fill="var(--accent)"/>
+  <text x="145" y="135" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">40 kN</text>
+</svg>
+      <figcaption>Illustration with assumed mass and grip: tyres can supply about a third of the force a 0.81 s run needs. This is why a thrust package is part of the claim.</figcaption>
+    </figure>
+
+    <h2>Physics 2: the power is the real shock</h2>
+    <p>Moving the car to 100 km/h doesn't take much energy, but it takes it very fast. Energy is <a href="https://en.wikipedia.org/wiki/Kinetic_energy" target="_blank" rel="noopener noreferrer">kinetic energy</a> (½ × mass × speed²) and power is energy divided by time.</p>
+    <div class="example-box">
+      <p class="calc">E = ½ × 1,800 × 27.78² ≈ 694 kJ ≈ 0.19 kWh</p>
+      <p class="calc">P = 694 kJ ÷ 0.81 s ≈ 857 kW ≈ 1,150 hp</p>
+      <p>Power converts to horsepower with our <a href='power-converter.html'>Power Converter</a> (1 hp is about 0.7457 kW).</p>
+    </div>
+    <p>That is less than 0.2 kWh of energy, but 857 kW of power. If a 100 kWh battery had to supply that, it would be working at 8.6C, which means 8.6 times its capacity per hour. Our <a href="bess-explained.html">BESS guide</a> explains C-rate. It also ignores losses, so the real figure is higher.</p>
+
+    <h2>Physics 3: how long could it hover?</h2>
+    <p>To hover, the thrust must equal the car's weight. A cold-gas jet's push equals the air mass thrown out each second times its exit speed. Gases of this kind typically leave at roughly 500 to 700 m/s, so let's assume 589 m/s (a specific impulse of about 60 seconds, an illustrative figure). Learn more about <a href="https://en.wikipedia.org/wiki/Specific_impulse" target="_blank" rel="noopener noreferrer">specific impulse</a>.</p>
+    <div class="example-box">
+      <p>Weight = 1,800 × 9.81 ≈ 17.7 kN</p>
+      <p class="calc">Air needed per second = 17,700 ÷ 589 ≈ 30 kg/s</p>
+      <p>If the air is stored at about 300 bar (also assumed, since Tesla hasn't said), its density is roughly 357 kg/m³:</p>
+      <p class="calc">30 ÷ 357 ≈ 0.084 m³ = about 84 litres per second</p>
+      <p class="calc">600 litres ÷ 84 L/s ≈ 7 seconds of full hover</p>
+    </div>
+    <figure class="fig">
+      <svg viewBox="0 0 360 208" role="img" aria-label="Bar chart: litres of compressed air used to hover a 1,800 kilogram car for 1, 3, 5 and 7 seconds, about 84, 252, 420 and 588 litres">
+  <text x="12" y="24" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">1 s</text>
+  <text x="46" y="24" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">hover</text>
+  <rect x="12" y="30" width="27" height="16" rx="4" fill="var(--accent)"/>
+  <text x="47" y="43" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">84 L</text>
+  <text x="12" y="70" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">3 s</text>
+  <text x="46" y="70" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">hover</text>
+  <rect x="12" y="76" width="81" height="16" rx="4" fill="var(--accent)"/>
+  <text x="101" y="89" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">252 L</text>
+  <text x="12" y="116" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">5 s</text>
+  <text x="46" y="116" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">hover</text>
+  <rect x="12" y="122" width="136" height="16" rx="4" fill="var(--accent)"/>
+  <text x="156" y="135" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">420 L</text>
+  <text x="12" y="162" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">7 s</text>
+  <text x="46" y="162" font-size="11" fill="var(--ink-dim)" font-family="Inter, sans-serif">hover</text>
+  <rect x="12" y="168" width="190" height="16" rx="4" fill="var(--accent)"/>
+  <text x="210" y="181" font-size="13" font-weight="700" fill="var(--ink)" font-family="IBM Plex Mono, monospace">588 L</text>
+</svg>
+      <figcaption>Illustration only: litres of air used to hover for 1 to 7 seconds. A tank of about 600 litres lasts only a few seconds at full hover.</figcaption>
+    </figure>
+    <p>The exact numbers depend on values Tesla hasn't shared, but the lesson is solid. Compressed air can give very strong thrust for a very short time, which fits with short hops and stunts, not sustained flight.</p>
+
+    <h2>Reality check</h2>
+    <ul>
+      <li><strong>It is a prototype.</strong> Production is planned for 2028, and the thrust and rocket versions are limited.</li>
+      <li><strong>Performance numbers are claims.</strong> Independent tests haven't happened yet.</li>
+      <li><strong>Critics are sceptical.</strong> One investor called the event an engineering flex with little commercial value. Supporters call it a showcase of what is possible.</li>
+      <li><strong>A stunt car is not a street-legal flying car.</strong> Regulatory approval for any kind of flight hasn't been confirmed.</li>
+      <li><strong>Safety matters.</strong> High-pressure tanks and thrusters raise real engineering and legal questions.</li>
+    </ul>
+
+    <h2>Common mistakes when reading this news</h2>
+    <ul>
+      <li><strong>Calling it a rocket engine.</strong> It uses compressed air, not burning fuel.</li>
+      <li><strong>Mixing up power and energy.</strong> The run needs very high power for under a second, but little energy.</li>
+      <li><strong>Treating claims as specs.</strong> Wait for independent tests.</li>
+      <li><strong>Assuming it can fly freely.</strong> The air supply limits it to short bursts.</li>
+    </ul>
+
+    <h2>Practice problems</h2>
+    <p>Try each one before you open the answer.</p>
+    <details class="practice"><summary>1. A car goes from 0 to 100 km/h in 2.0 s. What is its acceleration in g?</summary><p>27.78 ÷ 2.0 = 13.9 m/s², and 13.9 ÷ 9.81 ≈ 1.4 g.</p></details>
+    <details class="practice"><summary>2. What is the kinetic energy of a 1,500 kg car at 27.78 m/s, in kWh?</summary><p>½ × 1,500 × 27.78² ≈ 578,700 J, and 578,700 ÷ 3,600,000 ≈ 0.16 kWh.</p></details>
+    <details class="practice"><summary>3. How much thrust is needed to lift a 1,200 kg car?</summary><p>Weight = 1,200 × 9.81 ≈ 11.8 kN.</p></details>
+
+    <h2>Trending terms explained</h2>
+    <ul>
+      <li><strong>Cold-gas thruster:</strong> a nozzle that releases compressed gas to push a vehicle.</li>
+      <li><strong>COPV:</strong> a composite overwrapped pressure vessel, a light, strong tank for high-pressure gas.</li>
+      <li><strong>Thrust:</strong> the push force, measured in newtons (N) or kilonewtons (kN).</li>
+      <li><strong>g-force:</strong> acceleration compared to gravity, where 1 g is 9.81 m/s².</li>
+      <li><strong>Steer-by-wire:</strong> steering controlled electronically, with no mechanical link.</li>
+    </ul>
+
+
+    <h2>Frequently asked questions</h2>
+    <div class="faq">
+      <div class="faq-item">
+        <div class="faq-q">What is the Tesla Rocket Roadster?</div>
+        <p class="faq-a">It is the top version of Tesla's redesigned Roadster. Reports describe it as an invite-only, single-seat model with 10 cold-gas thrusters and what Tesla calls a full flight system.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is the Tesla Roadster really a rocket?</div>
+        <p class="faq-a">Not in the usual sense. It uses cold-gas thrusters that release compressed air through nozzles, with no fuel burned.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">When will the new Tesla Roadster be available?</div>
+        <p class="faq-a">Tesla says production will start in 2028. It hasn't announced a price, and the dates and specifications may change.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Can the Tesla Roadster fly?</div>
+        <p class="faq-a">In the demo it spun and hovered briefly with thrusters and fans, but a few seconds of air supply is very different from sustained flight, and no regulatory approval for flying has been confirmed.</p>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">How can a car accelerate faster than tyre grip allows?</div>
+        <p class="faq-a">Tyres are limited by friction with the road. Thrusters and downforce from fans add extra force, so the car is not limited to tyre grip alone.</p>
+      </div>
+    </div>
+
+    <h2>Sources and further reading</h2>
+    <p class="sources">Details are based on news reports from Oct 15 to 16, 2026, including <a href="https://techcrunch.com/2026/10/15/tesla-reveals-spacex-powered-roadster-that-flies-and-falls-with-style/" target="_blank" rel="noopener noreferrer">TechCrunch</a>, <a href="https://www.cnbc.com/2026/10/15/tesla-roadster-reveal-what-to-know-about-the-delayed-ev.html" target="_blank" rel="noopener noreferrer">CNBC</a>, <a href="https://za.investing.com/news/stock-market-news/teslas-new-roadster-turns-in-air-with-spacex-thrusters-wont-land-until-2028-4508253" target="_blank" rel="noopener noreferrer">Reuters via Investing.com</a> and <a href="https://www.business-standard.com/amp/world-news/tesla-new-roadster-rocket-thrusters-flying-car-performance-elon-musk-spacex-126101600180_1.html" target="_blank" rel="noopener noreferrer">Business Standard</a>. Specifications and prices are manufacturer claims and may change. The physics sections use assumed values, which are labelled, so treat them as illustrations and not as Tesla data.</p>
+
+    <div class="cta-panel">
+      <p>Convert kW to horsepower, or compare power numbers for any car.</p>
+      <a class="cta-btn" href="power-converter.html">Open the Power Converter</a>
+    </div>
+  </div>
+
+  <div class="more-tools">
+    <h2>More calculators</h2>
+    <div class="tool-grid" id="toolGrid"></div>
+  </div>
+
+  <footer>
+    <span>ElectroCalc — built for engineers &amp; students</span>
+    <div class="footer-links"><a href="about.html">About</a><a href="contact.html">Contact</a><a href="privacy-policy.html">Privacy Policy</a><a href="terms.html">Terms</a><a href="disclaimer.html">Disclaimer</a></div>
+    <span id="year"></span>
+  </footer>
+</div>
+</body>
+</html>
